@@ -3,7 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const categoryRoutes = require('./routes/categoryRoutes');
-
+const authorRoutes = require('./routes/authorRoutes');
 const app = express();
 
 const PORT = 3000;
@@ -31,6 +31,8 @@ app.use((req, res, next) => {
 
 //Categories route
 app.use('/category', categoryRoutes);
+//Author
+app.use('/author', authorRoutes);
 
 
 app.listen(PORT, (err) => {
