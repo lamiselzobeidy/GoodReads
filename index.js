@@ -8,14 +8,20 @@ const app = express();
 
 const PORT = 3000;
 
+const BookRouter = require("./routes/book")
+
 
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://localhost:27017/", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+
+
+
+
+mongoose.connect("mongodb://localhost:27017/amiiboa", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
     .then(() => {
         console.log("db is Conncted")
 
@@ -33,6 +39,11 @@ app.use((req, res, next) => {
 app.use('/category', categoryRoutes);
 //Author
 app.use('/author', authorRoutes);
+
+app.use('/public', express.static('public'))
+
+
+app.use("/book",BookRouter)
 
 
 app.listen(PORT, (err) => {
