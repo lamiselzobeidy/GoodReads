@@ -5,11 +5,14 @@ const mongoose = require('mongoose')
 
 const app = express()
 
+const BookRouter = require("./routes/book")
+
 const PORT = 3000
 
 
 app.use(cors())
 app.use(bodyParser.json())
+
 
 mongoose.connect("mongodb://localhost:27017/amiiboa", {
         useNewUrlParser: true,
@@ -27,6 +30,11 @@ app.use((req, res,next) => {
     
     next()
 })
+
+app.use('/public', express.static('public'))
+
+
+app.use("/book",BookRouter)
 
 
 app.listen(PORT, (err) => {
