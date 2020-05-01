@@ -8,9 +8,9 @@ let authorSchema = new mongoose.Schema({
     DateofBirth: {type: Date},
 });
 
-let authorModel = mongoose.model('author', authorSchema, 'author');
+let AuthorModel = mongoose.model('author', authorSchema, 'author');
 
 
 // we need a function here to validate the JWT token
 
-module.exports = authorModel;
+module.exports = AuthorModel;

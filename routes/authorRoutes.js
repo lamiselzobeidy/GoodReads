@@ -6,7 +6,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, './authorPhotos/')
+        callback(null, './public/author_imgs/')
     },
     filename: function (req, file, callback) {
         callback(null, new Date().toISOString() + file.originalname);

@@ -6,8 +6,8 @@ const multer = require("multer");
 let router = express.Router()
 
 let BookModel = require("../models/book")
-let AuthorModel = require("../models/author")
-let CategoryModel = require("../models/category")
+let AuthorModel = require("../models/authorModel")
+let CategoryModel = require("../models/categoryModel")
 
 const storage = multer.diskStorage({
    destination: function (req, file, callback) {

@@ -6,9 +6,9 @@ let categorySchema = new mongoose.Schema({
     categoryName: {type: String, unique: true, required: true, dropDups: true},
 });
 
-let categoryModel = mongoose.model('category', categorySchema, 'category');
+let CategoryModel = mongoose.model('category', categorySchema, 'category');
 
 
 // we need a function here to validate the JWT token
 
-module.exports = categoryModel;
+module.exports = CategoryModel;
