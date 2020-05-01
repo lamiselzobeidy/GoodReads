@@ -1,6 +1,6 @@
-let express = require('express');
-let router = express.Router();
-let categoryModel = require("../models/categoryModel");
+const express = require('express');
+const router = express.Router();
+const categoryModel = require("../models/categoryModel");
 
 router.post("/", async (req, res) => {
     try {
