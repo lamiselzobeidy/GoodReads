@@ -8,6 +8,7 @@ const app = express();
 
 const PORT = 3000;
 
+const UserRouter = require("./routes/user");
 const BookRouter = require("./routes/book");
 
 app.use(cors());
@@ -30,14 +31,18 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/public", express.static("public"));
+
+
 //Categories route
 app.use("/category", categoryRoutes);
 //Author
 app.use("/author", authorRoutes);
 
-app.use("/public", express.static("public"));
 
 app.use("/book", BookRouter);
+
+app.use("/user", UserRouter)
 
 app.listen(PORT, (err) => {
   if (!err) {
