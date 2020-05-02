@@ -13,7 +13,9 @@ let userSchema = new mongooseSchema({
     isAdmin:{type:Boolean,required:true,default:false},
     all:{type:Object,required:true,default:{}},
     read:{type:Object,required:true,default:{}},
+    current:{type:Object,required:true,default:{}},
     want_to_read:{type:Object,required:true,default:{}},
+    token:{type:String,required:false},
     email: {
         type: String,
         trim: true,
@@ -23,8 +25,9 @@ let userSchema = new mongooseSchema({
         validate: [validateEmail, 'Please fill a valid email address'],
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     }
-})
+});
 
 
-let UserModel = model('user',userSchema)
-module.exports = UserModel
+
+let UserModel = model('user',userSchema);
+module.exports = UserModel;

@@ -98,6 +98,6 @@ router.patch('/:id',upload.single('coverImage') ,async(req, res) => {
          error
       })
    }
-})
+});
 
 module.exports = router
