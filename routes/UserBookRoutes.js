@@ -50,20 +50,66 @@ router.get("/want", async (req, res) => {
     }
 });
 
-router.post('/read/:bookid', async function (req, res) {
+router.post('/read/:bookid', async (req, res) => {
     try {
         // console.log(req.header('JWT'));
-        
+
         //JWT
         const currentUser = await userModel.find({token: req.header('JWT')}).exec();
-        
+
         const readBooks = currentUser[0].read;
-        
-        const newReadBooks = [...readBooks,req.params.bookid];
-        
+
+        const newReadBooks = [...readBooks, req.params.bookid];
+
         currentUser[0].read = newReadBooks;
 
-        let results = await userModel.findByIdAndUpdate(currentUser[0]._id,currentUser[0],{new:true}).exec()
+        let results = await userModel.findByIdAndUpdate(currentUser[0]._id, currentUser[0], {new: true}).exec()
+
+        res.status(201).json(results);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(409);
+    }
+
+});
+
+router.post('/current/:bookid', async (req, res) => {
+    try {
+        // console.log(req.header('JWT'));
+
+        //JWT
+        const currentUser = await userModel.find({token: req.header('JWT')}).exec();
+
+        const currentBooks = currentUser[0].current;
+
+        const newCurrentBooks = [...currentBooks, req.params.bookid];
+
+        currentUser[0].read = newCurrentBooks;
+
+        let results = await userModel.findByIdAndUpdate(currentUser[0]._id, currentUser[0], {new: true}).exec()
+
+        res.status(201).json(results);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(409);
+    }
+
+});
+
+router.post('/want/:bookid', async (req, res) => {
+    try {
+        // console.log(req.header('JWT'));
+
+        //JWT
+        const currentUser = await userModel.find({token: req.header('JWT')}).exec();
+
+        const wantedBooks = currentUser[0].want_to_read;
+
+        const newWantedBooks = [...wantedBooks, req.params.bookid];
+
+        currentUser[0].read = newWantedBooks;
+
+        let results = await userModel.findByIdAndUpdate(currentUser[0]._id, currentUser[0], {new: true}).exec()
 
         res.status(201).json(results);
     } catch (error) {
