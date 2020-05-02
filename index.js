@@ -45,7 +45,7 @@ app.use("/book", BookRouter);
 
 app.use("/user", UserRouter);
 
-app.use("user/book", UserBookRouter);
+app.use("/user/book", UserBookRouter);
 
 app.listen(PORT, (err) => {
   if (!err) {

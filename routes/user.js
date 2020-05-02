@@ -28,7 +28,8 @@ router.post('/', upload.single('userImage'), async function (req, res) {
             lastName:req.body.lastName,
             password:req.body.password,
             img_path:req.file.path,
-            email:req.body.email
+            email:req.body.email,
+            token:req.body.token
         });
         const user = await newUser.save();
         res.status(201).json(user);

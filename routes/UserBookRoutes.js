@@ -52,13 +52,20 @@ router.get("/want", async (req, res) => {
 
 router.post('/read/:bookid', async function (req, res) {
     try {
+        // console.log(req.header('JWT'));
+        
         //JWT
-        const currentUser = await userModel.find({token: req.header('JWT')});
-        const readBooks = currentUser.read;
-        const newReadBooks = [...readBooks,req.params.id];
-        currentUser.read = newReadBooks;
-        currentUser.update;
-        res.status(201).json(currentUser);
+        const currentUser = await userModel.find({token: req.header('JWT')}).exec();
+        
+        const readBooks = currentUser[0].read;
+        
+        const newReadBooks = [...readBooks,req.params.bookid];
+        
+        currentUser[0].read = newReadBooks;
+
+        let results = await userModel.findByIdAndUpdate(currentUser[0]._id,currentUser[0],{new:true}).exec()
+
+        res.status(201).json(results);
     } catch (error) {
         console.log(error);
         res.sendStatus(409);
