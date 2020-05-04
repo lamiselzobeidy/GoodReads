@@ -1,0 +1,23 @@
+/* div{
+    overflow: hidden;
+} */
+
+.carousel{
+    float:left;
+   
+}
+
+.container{
+    
+    height: 250px;
+}
+
+/* img{
+    max-height: 200px;
+    max-width: 200px;
+} */
+
+/* .test
+{
+    max-width: 150px    ;
+} */
