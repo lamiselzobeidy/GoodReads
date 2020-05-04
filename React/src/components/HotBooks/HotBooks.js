@@ -1,11 +1,11 @@
 import React from "react"
 import './hotBooks.css';
-import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBContainer, ,MDBView } from "mdbreact";
+import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBContainer, MDBView } from "mdbreact";
 
 
 const HotBooks = () => {
         return (
-        <MDBContainer>
+        <MDBContainer className="container">
 
             <MDBCarousel
               activeItem={1}
