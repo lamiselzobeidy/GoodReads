@@ -39,6 +39,17 @@ router.post('/', upload.single('userImage'), async function (req, res) {
 
 });
 
+router.get('/', async(req,res)=>{
+   try {
+      let results = await UserModel.find({}).exec()
+      res.json(results)
+   } catch (error) {
+      console.log(error);
+      res.send(404, {
+         error
+      })
+   }
+})
 
 router.get('/:id', async (req, res) => {
     try {

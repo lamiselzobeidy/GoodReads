@@ -5,7 +5,7 @@ let authorSchema = new mongoose.Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     authorImage: {type: String},
-    DateofBirth: {type: Date},
+    DateofBirth: {type: Date,default:Date.now},
 });
 
 let AuthorModel = mongoose.model('author', authorSchema, 'author');
