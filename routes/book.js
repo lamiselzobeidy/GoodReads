@@ -83,7 +83,7 @@ router.delete('/:id', async(req, res) => {
       })
    }
 
-})
+});
 
 router.patch('/:id',upload.single('coverImage') ,async(req, res) => {
    try {
@@ -98,6 +98,6 @@ router.patch('/:id',upload.single('coverImage') ,async(req, res) => {
          error
       })
    }
-})
+});
 
 module.exports = router

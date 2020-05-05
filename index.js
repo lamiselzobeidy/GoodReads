@@ -11,6 +11,7 @@ const PORT = 3000;
 const UserRouter = require("./routes/user");
 const BookRouter = require("./routes/book");
 const HomeRouter = require("./routes/home");
+const UserBookRouter = require("./routes/UserBookRoutes");
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -46,6 +47,7 @@ app.use("/book", BookRouter);
 app.use("/user", UserRouter);
 
 app.use("/home",HomeRouter)
+app.use("/user/book", UserBookRouter);
 
 app.listen(PORT, (err) => {
   if (!err) {

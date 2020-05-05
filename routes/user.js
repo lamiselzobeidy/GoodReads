@@ -8,7 +8,7 @@ let UserModel = require("../models/user")
 
 const storage = multer.diskStorage({
    destination: function (req, file, callback) {
-      callback(null, './public/user_imgs/')
+      callback(null, './public/user_imgs/');
    },
    filename: function (req, file, callback) {
       callback(null, new Date().toISOString() + file.originalname);
@@ -28,7 +28,8 @@ router.post('/', upload.single('userImage'), async function (req, res) {
             lastName:req.body.lastName,
             password:req.body.password,
             img_path:req.file.path,
-            email:req.body.email
+            email:req.body.email,
+            token:req.body.token
         });
         const user = await newUser.save();
         res.status(201).json(user);
@@ -54,8 +55,8 @@ router.get('/', async(req,res)=>{
 router.get('/:id', async (req, res) => {
     try {
         let id = req.params.id;
-        let results = await UserModel.findById(id).exec()
-        res.json(results)
+        let results = await UserModel.findById(id).exec();
+        res.json(results);
      } catch (error) {
         console.log(error);
         res.send(404, {
@@ -63,7 +64,7 @@ router.get('/:id', async (req, res) => {
         })
      }
   
-})
+});
 
 router.delete('/:id', async(req, res) => {
     try {
@@ -92,6 +93,6 @@ router.patch('/:id',upload.single('coverImage') ,async(req, res) => {
            error
         })
      }
-})
+});
 
-module.exports = router
+module.exports = router;

@@ -5,15 +5,15 @@ let bookSchema = new mongooseSchema({
    catId:{type:Schema.Types.ObjectId, ref:'category'},
    authorId:{type:Schema.Types.ObjectId, ref:'author'},
    coverImageName:{type:String,required:true}
-})
+});
 
 bookSchema.statics.getAllBooks = function () {
    return this.find({})
-}
+};
 
 bookSchema.statics.findByBookId = function (id) {
    return this.model.findById(id)
-}
+};
 
 
 let BookModel = model('book',bookSchema)
