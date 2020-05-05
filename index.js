@@ -2,19 +2,24 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const chalk = require('chalk');
+
 const categoryRoutes = require("./routes/categoryRoutes");
 const authorRoutes = require("./routes/authorRoutes");
-const app = express();
-
-const PORT = 3000;
-
 const UserRouter = require("./routes/user");
 const BookRouter = require("./routes/book");
 const HomeRouter = require("./routes/home");
 const UserBookRouter = require("./routes/UserBookRoutes");
+const LoginRouter = require("./routes/login");
+
+let UserModel = require("./models/user");
+
+const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+
+const PORT = 3000;
 
 mongoose
   .connect("mongodb://localhost:27017/amiiboa", {
@@ -22,35 +27,71 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("db is Conncted");
+    console.log(chalk.green("db is Conncted"));
   })
-  .catch((err) => console.log(err));
+  .catch((err) => console.log(chalk.bgRed.white(err)));
 
 app.use((req, res, next) => {
   //logger for all requests on server endpoints
-  console.log(`${new Date()} ---- ${req.method} ---- ${req.url} `);
+  console.log(`${chalk.yellow(new Date())} ---- ${chalk.green(req.method)} ---- ${chalk.blue(req.url)} `);
 
   next();
 });
 
 app.use("/public", express.static("public"));
 
+app.use("/home", HomeRouter);
+
+app.use("/login", LoginRouter);
+
+app.use(async (req, res, next) => {
+  try {
+    const token = req.header("JWT");
+    const decoded = await jwt.verify(token, "secretkey");
+    // console.log(decoded.usermail);
+    next();
+  } catch (error) {
+    console.log(chalk.bgRed.white(error))
+    res.send(401, "verfication error");
+  }
+});
+
+app.use("/user", UserRouter);
+
+app.use("/user/book", UserBookRouter);
+
+app.use(async (req, res, next) => {
+  try {
+    const token = req.header("JWT");
+    const users = await UserModel.find({ token });
+    
+    if (users.length > 0) {
+      if (users[0].isAdmin) {
+        next();        
+      }else{
+        res.send(401,"Unauthorized")
+      }
+    } else {
+      res.send(404, "Not Found");
+    }
+
+  } catch (error) {
+    console.log(chalk.bgRed.white(error))
+    res.send(401, "verfication error");
+  }
+});
 
 //Categories route
 app.use("/category", categoryRoutes);
 //Author
 app.use("/author", authorRoutes);
 
-
 app.use("/book", BookRouter);
-
-app.use("/user", UserRouter);
-
-app.use("/home",HomeRouter)
-app.use("/user/book", UserBookRouter);
 
 app.listen(PORT, (err) => {
   if (!err) {
     console.log(`Server Listen on ${PORT}`);
+  }else{
+    console.log(chalk.bgRed.white(err))
   }
 });
