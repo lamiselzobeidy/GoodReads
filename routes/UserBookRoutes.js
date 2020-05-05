@@ -128,6 +128,7 @@ router.post("/want/:bookid", async (req, res) => {
 });
 
 router.patch("/change/:bookid", async (req, res) => {
+
   try {
     //JWT
     const currentUser = await userModel
@@ -152,73 +153,75 @@ router.patch("/change/:bookid", async (req, res) => {
     console.log(req.body);
 
     const operation = req.body.operation;
-    let changebook = [];
     let newReadBooks = [];
     let newWantedBooks = [];
     let newCurrentBooks = [];
 
     switch (operation) {
       case BookOperation.currentToread:
-        changeBook = currentBooks.find(req.params.bookid);
-        //if delete doesnt work use remove
-        currentBooks.find(req.params.bookid).delete;
-        newReadBooks = [...readBooks, changeBook];
+        newCurrentBooks = currentBooks.filter((bookID)=>{
+          bookID === req.params.bookid ? false : true;
+        });
+        newReadBooks = [...readBooks, req.params.bookid];
         currentUser[0].read = newReadBooks;
+        currentUser[0].current = newCurrentBooks;
         break;
+
       case BookOperation.currentTowant:
-        const newCurrentBooks = currentBooks.filter((bookID) =>
-          bookID === req.params.bookid ? false : true
-        );
+        newCurrentBooks = currentBooks.filter((bookID) => {
+          bookID === req.params.bookid ? false : true;
+        });
         newWantedBooks = [...wantedBooks, req.params.bookid];
         currentUser[0].want_to_read = newWantedBooks;
         currentUser[0].current = newCurrentBooks;
-
         break;
+
       case BookOperation.wantTocurrent:
-        changeBook = wantedBooks.find(req.params.bookid);
-        //if delete doesnt work use remove
-        wantedBooks.find(req.params.bookid).delete;
-        newCurrentBooks = [...currentBooks, changebook];
-        currentUser[0].current = newCurrentBooks;
-        break;
-      case BookOperation.wantToread:
-        changeBook = wantedBooks.find(req.params.bookid);
-        //if delete doesnt work use remove
-        wantedBooks.find(req.params.bookid).delete;
-        newReadBooks = [...readBooks, changebook];
-        currentUser[0].read = newReadBooks;
-        break;
-      case BookOperation.readTocurrent:
-        //changebook = readBooks.find(req.body.bookid);
-        //if delete doesnt work use remove
-        const newReadBooks = readBooks.filter((bookID) => {
-          if (bookID !== req.params.bookid) {
-            return true;
-          }
-          return false;
+        newWantedBooks = wantedBooks.filter((bookID)=>{
+          bookID === req.params.bookid ? false : true;
         });
-        //readBooks.find(req.body.bookid).delete;
+        newCurrentBooks = [...currentBooks, req.params.bookid];
+        currentUser[0].current = newCurrentBooks;
+        currentUser[0].want_to_read = newWantedBooks;
+        break;
 
+      case BookOperation.wantToread:
+        newWantedBooks = wantedBooks.filter((bookID)=>{
+          bookID === req.params.bookid ? false : true;
+        });
+        newReadBooks = [...readBooks, req.params.bookid];
+        currentUser[0].read = newReadBooks;
+        currentUser[0].want_to_read = newWantedBooks;
+        break;
+
+      case BookOperation.readTocurrent:
+        newReadBooks = readBooks.filter((bookID) => {
+          bookID === req.params.bookid ? false : true;
+        });
         newCurrentBooks = [...currentBooks, req.params.bookid];
         currentUser[0].current = newCurrentBooks;
         currentUser[0].read = [...newReadBooks];
+        break;
 
-        break;
       case BookOperation.readTowant:
-        changebook = readBooks.find(req.body.bookid);
-        //if delete doesnt work use remove
-        readBooks.find(req.body.bookid).delete;
-        newWantedBooks = [...wantedBooks, changebook];
-        currentUser[0].want = newWantedBooks;
+        newReadBooks = readBooks.filter((bookID) => {
+          bookID === req.params.bookid ? false : true;
+        });
+        newWantedBooks = [...wantedBooks, req.params.bookid];
+        currentUser[0].want_to_read = newWantedBooks;
+        currentUser[0].read = newReadBooks;
         break;
+
       default:
         res.json("Not a Valid Operation");
+
     }
 
     let results = await userModel
       .findByIdAndUpdate(currentUser[0]._id, currentUser[0], { new: true })
       .exec();
     res.json(results);
+
   } catch (error) {
     console.log(error);
     res.send(404, {
