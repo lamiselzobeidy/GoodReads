@@ -49,6 +49,7 @@ router.get("/want", async (req, res) => {
   }
 });
 
+//TODO Handle add to all ,not add if exits
 router.post("/read/:bookid", async (req, res) => {
   try {
     // console.log(req.header('JWT'));
@@ -157,6 +158,7 @@ router.patch("/change/:bookid", async (req, res) => {
     let newWantedBooks = [];
     let newCurrentBooks = [];
 
+    //TODO handle book not in array
     switch (operation) {
       case BookOperation.currentToread:
         newCurrentBooks = currentBooks.filter((bookID)=>{
