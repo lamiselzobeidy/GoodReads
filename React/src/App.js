@@ -11,6 +11,7 @@ import ListingCatogries from "./components/ListingCatogries/ListingCatogries"
 import Author from './components/Author/Author'
 import {Navbar,Button , Nav , Form,FormControl} from 'react-bootstrap';
 import ListingAuthors from './components/ListingAuthors/ListingAuthors';
+import PaginationCompo from './components/Pagentaion/Pagentaion'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <ListingCatogries></ListingCatogries> */}
           <ListingAuthors></ListingAuthors>
         {/* <Author></Author> */}
+        <PaginationCompo></PaginationCompo>
     </div>
   );
 }
