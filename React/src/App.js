@@ -6,16 +6,18 @@ import './App.css';
 import MainNavBar from './components/MainNavBar/mainNavBar'
 import HotBooks from './components/HotBooks/HotBooks'
 import ListingCatogries from "./components/ListingCatogries/ListingCatogries"
+import Author from './components/Author/Author'
 import {Navbar,Button , Nav , Form,FormControl} from 'react-bootstrap';
 
 function App() {
   return (
     <div className="App">
         <MainNavBar></MainNavBar>
-
-        <Button variant="light" className="btn">Popular books</Button> 
+        {/* <Button variant="light" className="btn">Popular books</Button> 
         <HotBooks></HotBooks>
-        <ListingCatogries></ListingCatogries>
+        <ListingCatogries></ListingCatogries> */}
+
+        <Author></Author>
     </div>
   );
 }
