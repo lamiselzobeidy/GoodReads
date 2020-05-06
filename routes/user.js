@@ -40,6 +40,18 @@ router.post('/', upload.single('userImage'), async function (req, res) {
 
 });
 
+router.use(async (req, res, next) => {
+   try {
+     const token = req.header("JWT");
+     const decoded = await jwt.verify(token, "secretkey");
+     // console.log(decoded.usermail);
+     next();
+   } catch (error) {
+     console.log(chalk.bgRed.white(error))
+     res.status(401).send("verfication error");
+   }
+ }); 
+
 router.get('/', async(req,res)=>{
    try {
       let results = await UserModel.find({}).exec()

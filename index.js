@@ -46,6 +46,8 @@ app.use("/home", HomeRouter);
 
 app.use("/login", LoginRouter);
 
+app.use("/user", UserRouter);
+
 app.use(async (req, res, next) => {
   try {
     const token = req.header("JWT");
@@ -58,7 +60,6 @@ app.use(async (req, res, next) => {
   }
 });
 
-app.use("/user", UserRouter);
 
 app.use("/user/book", UserBookRouter);
 
