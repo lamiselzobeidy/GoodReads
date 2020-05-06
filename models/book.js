@@ -8,7 +8,7 @@ let bookSchema = new mongooseSchema({
 });
 
 bookSchema.statics.getAllBooks = function () {
-   return this.find({})
+   return this.find({}).populate("authorId").populate("catId")
 };
 
 bookSchema.statics.findByBookId = function (id) {

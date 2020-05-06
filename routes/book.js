@@ -43,7 +43,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
    try {
       let id = req.params.id;
-      let results = await BookModel.findById(id).exec()
+      let results = await BookModel.findById(id).populate("authorId").populate("catId").exec()
       res.json(results)
    } catch (error) {
       console.log(error);
