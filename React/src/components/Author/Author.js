@@ -7,11 +7,11 @@ const Author = () => {
 
     return (
 
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered hover variant="white" className="table">
             <tbody >
                 <tr >
 
-                    <td style={{ height: '50vh' }} colSpan="2">
+                    <td style={{ height: '60vh' }} colSpan="2">
 
                         <Card style={{ height: '8rem' }}>
                             <Card.Header>Fady Jan</Card.Header>
