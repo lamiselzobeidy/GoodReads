@@ -8,6 +8,9 @@ let BookModel = require("../models/book")
 let AuthorModel = require("../models/authorModel")
 let CategoryModel = require("../models/categoryModel")
 
+const checkIsAdmin = require("../middlewares/admin_check");
+
+
 const storage = multer.diskStorage({
    destination: function (req, file, callback) {
       callback(null, './public/cover_imgs/')
@@ -21,26 +24,7 @@ const upload = multer({
 });
 
 
-router.post('/', upload.single('coverImage'), async function (req, res) {
 
-   try {
-      // Here we need to check the JWT token before creating a new book
-      const newAuthor = new AuthorModel()
-      const newCat = new CategoryModel()
-      const newBook = new BookModel({
-         bookName: req.body.bookName,
-         catId: newCat,
-         authorId: newAuthor,
-         coverImageName: req.file.path,
-      });
-      const book = await newBook.save();
-      res.status(201).json(book);
-   } catch (error) {
-      console.log(error);
-      res.sendStatus(409);
-   }
-
-});
 
 router.get('/', async (req, res) => {
 
@@ -71,6 +55,28 @@ router.get('/:id', async (req, res) => {
 
 })
 
+router.use(checkIsAdmin)
+
+router.post('/', upload.single('coverImage'), async function (req, res) {
+
+   try {
+      // Here we need to check the JWT token before creating a new book
+      const newAuthor = new AuthorModel()
+      const newCat = new CategoryModel()
+      const newBook = new BookModel({
+         bookName: req.body.bookName,
+         catId: newCat,
+         authorId: newAuthor,
+         coverImageName: req.file.path,
+      });
+      const book = await newBook.save();
+      res.status(201).json(book);
+   } catch (error) {
+      console.log(error);
+      res.sendStatus(409);
+   }
+
+});
 router.delete('/:id', async(req, res) => {
    try {
       let id = req.params.id;

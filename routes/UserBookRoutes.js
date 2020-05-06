@@ -5,6 +5,8 @@ const bookModel = require("../models/book");
 const userModel = require("../models/user");
 const multer = require("multer");
 
+
+//TODO Get books data itself not ids 
 router.get("/all", async (req, res) => {
   try {
     const allBooks = await bookModel.find({});

@@ -3,6 +3,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const chalk = require('chalk');
+var jwt = require('jsonwebtoken');
+
 
 const categoryRoutes = require("./routes/categoryRoutes");
 const authorRoutes = require("./routes/authorRoutes");
@@ -52,7 +54,7 @@ app.use(async (req, res, next) => {
     next();
   } catch (error) {
     console.log(chalk.bgRed.white(error))
-    res.send(401, "verfication error");
+    res.status(401).send("verfication error");
   }
 });
 
@@ -60,26 +62,26 @@ app.use("/user", UserRouter);
 
 app.use("/user/book", UserBookRouter);
 
-app.use(async (req, res, next) => {
-  try {
-    const token = req.header("JWT");
-    const users = await UserModel.find({ token });
+// app.use(async (req, res, next) => {
+//   try {
+//     const token = req.header("JWT");
+//     const users = await UserModel.find({ token });
     
-    if (users.length > 0) {
-      if (users[0].isAdmin) {
-        next();        
-      }else{
-        res.send(401,"Unauthorized")
-      }
-    } else {
-      res.send(404, "Not Found");
-    }
+//     if (users.length > 0) {
+//       if (users[0].isAdmin) {
+//         next();        
+//       }else{
+//         res.send(401,"Unauthorized")
+//       }
+//     } else {
+//       res.send(404, "Not Found");
+//     }
 
-  } catch (error) {
-    console.log(chalk.bgRed.white(error))
-    res.send(401, "verfication error");
-  }
-});
+//   } catch (error) {
+//     console.log(chalk.bgRed.white(error))
+//     res.send(401, "verfication error");
+//   }
+// });
 
 //Categories route
 app.use("/category", categoryRoutes);
