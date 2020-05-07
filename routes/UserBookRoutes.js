@@ -13,18 +13,19 @@ router.get("/all", async (req, res) => {
         //TODO Get books data itself not ids
         const allUserBooksIds = await userModel.find({token: req.header("JWT")}, {_id: 0, all: 1});
         console.log(allUserBooksIds);
-        const allUserBooks = await bookModel.find({_id: {$in: allUserBooksIds}}, {_id: 1});
+        const allUserBooks = await bookModel.find({_id: {$in: allUserBooksIds}}, {_id: 0, bookName:1 });
         console.log(allUserBooks);
-        const allAuthorsIds = await bookModel.find({_id: {$in: allUserBooks}}, {_id: 0, authorId: 1});
+        const allAuthorsIds = await bookModel.find({_id: {$in: allUserBooksIds}}, {_id: 0, authorId: 1});
         console.log(allAuthorsIds);
         const allAuthors = await authorModel.find({_id: {$in: allAuthorsIds}}, {_id: 0, firstName: 1, lastName: 1});
         console.log(allAuthors);
-        const reviews = await reviewModel.find({_id: {$in: allUserBooks}}, {review: 1, _id: 0});
+        const reviews = await reviewModel.find({bookId: {$in: allUserBooksIds}}, {review: 1, _id: 0});
         console.log(reviews);
-        const ratings = await reviewModel.find({_id: {$in: allUserBooks}}, {rating: 1, _id: 0});
+        const ratings = await reviewModel.find({bookId: {$in: allUserBooksIds}}, {rating: 1, _id: 0});
         console.log(ratings);
 
-        // Find all users for each book first then find all rating
+        let avgForEachBook = [];
+
         // const allUsers = await 
         const avgRatingForEachBook = 0;
         //202 means accepted

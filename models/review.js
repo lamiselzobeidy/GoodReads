@@ -1,4 +1,4 @@
-const {Schema:mongooseSchema , model,Schema} = require("mongoose")
+const {Schema:mongooseSchema , model,Schema} = require("mongoose");
 
 let reviewSchema = new mongooseSchema({
     bookId:{type:Schema.Types.ObjectId, ref:'book'},
