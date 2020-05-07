@@ -13,7 +13,7 @@ router.get("/all", async (req, res) => {
         //TODO Get books data itself not ids
         const allUserBooksIds = await userModel.find({token: req.header("JWT")}, {_id: 0, all: 1});
         console.log(allUserBooksIds);
-        const allUserBooks = await bookModel.find({_id: {$in: allUserBooksIds}}, {_id: 0, bookName:1 });
+        const allUserBooks = await bookModel.find({_id: {$in: allUserBooksIds}}, {_id: 0, bookName: 1});
         console.log(allUserBooks);
         const allAuthorsIds = await bookModel.find({_id: {$in: allUserBooksIds}}, {_id: 0, authorId: 1});
         console.log(allAuthorsIds);
@@ -24,12 +24,21 @@ router.get("/all", async (req, res) => {
         const ratings = await reviewModel.find({bookId: {$in: allUserBooksIds}}, {rating: 1, _id: 0});
         console.log(ratings);
 
-        let avgForEachBook = [];
+        let avgRatingForEachBook = [];
 
-        // const allUsers = await 
-        const avgRatingForEachBook = 0;
+        for (let index = 0; index <= allUserBooksIds.length; index++) {
+            let ratings = 0;
+            let avgRating = 0;
+            const numberOfUsers = await userModel.find({all: allUserBooksIds[index]}).length;
+            const usersRatings = await userModel.find({all: allUserBooksIds[index]}, {_id: 1})
+                .forEach((id) => {
+                    ratings += reviewModel.find({userId: id}, {_id: 0, rating: 1});
+                });
+            avgRating = ratings / numberOfUsers;
+            avgRatingForEachBook.push(avgRating);
+        }
         //202 means accepted
-        res.status(202).json({allUserBooks, allAuthors, reviews, ratings});
+        res.status(202).json({allUserBooks, allAuthors,avgRatingForEachBook, reviews, ratings});
     } catch (error) {
         console.log(error);
         res.sendStatus(404);
