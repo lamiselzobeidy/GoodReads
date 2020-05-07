@@ -11,12 +11,17 @@ import {Navbar,Button , Nav , Form,FormControl} from 'react-bootstrap';
 import ListingAuthors from './components/ListingAuthors/ListingAuthors';
 import PaginationCompo from './components/Pagentaion/Pagentaion'
 import ListingBooks from './components/ListingBooks/ListingBooks'
+import HomePage from './components/HomePage/HomePage'
+import { NavLink, Link, Route, BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   return (
+    <Router>
     <div className="App">
         <MainNavBar></MainNavBar>
-        <ListingBooks></ListingBooks>
+        <Route path="/HomePage" component={HomePage}/>
+        <Route path="/ListingAuthors" component={ListingAuthors}/>
+        {/* <ListingBooks></ListingBooks> */}
         {/* <Button variant="light" className="btn">Popular books</Button> 
         <HotBooks></HotBooks>
         <ListingCatogries></ListingCatogries> */}
@@ -24,6 +29,7 @@ function App() {
          {/* <Author></Author> */}
         {/* <PaginationCompo></PaginationCompo> */}
     </div>
+    </Router>
   );
 }
 
