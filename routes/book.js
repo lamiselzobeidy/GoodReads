@@ -45,7 +45,7 @@ router.post('/', upload.single('coverImage'), async function (req, res) {
 router.get('/', async (req, res) => {
 
    try {
-      let results = await BookModel.getAllBooks()
+      let results = await BookModel.getAllBooks();
       res.json(results)
    } catch (error) {
       console.log(error);
@@ -54,7 +54,7 @@ router.get('/', async (req, res) => {
       })
    }
 
-})
+});
 
 router.get('/:id', async (req, res) => {
    try {
@@ -67,9 +67,7 @@ router.get('/:id', async (req, res) => {
          error
       })
    }
-
-
-})
+});
 
 router.delete('/:id', async(req, res) => {
    try {
@@ -100,4 +98,4 @@ router.patch('/:id',upload.single('coverImage') ,async(req, res) => {
    }
 });
 
-module.exports = router
+module.exports = router;

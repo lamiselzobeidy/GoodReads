@@ -2,9 +2,9 @@ const express = require("express")
 const mongoose = require('mongoose');
 const multer = require("multer");
 
-let router = express.Router()
+let router = express.Router();
 
-let UserModel = require("../models/user")
+let UserModel = require("../models/user");
 
 const storage = multer.diskStorage({
    destination: function (req, file, callback) {
@@ -67,7 +67,7 @@ router.delete('/:id', async(req, res) => {
         })
      }
 
-})
+});
 
 router.patch('/:id',upload.single('coverImage') ,async(req, res) => {
     try {

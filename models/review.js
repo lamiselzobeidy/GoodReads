@@ -5,8 +5,7 @@ let reviewSchema = new mongooseSchema({
     userId:{type:Schema.Types.ObjectId, ref:'user'},
     review:{type:String,default:''},
     rating:{type:Number,default:0}
-})
+});
 
-
-let ReviewModel = model('review',reviewSchema)
-module.exports = ReviewModel
+let ReviewModel = model('review',reviewSchema);
+module.exports = ReviewModel;
