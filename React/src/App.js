@@ -10,16 +10,18 @@ import Author from './components/Author/Author'
 import {Navbar,Button , Nav , Form,FormControl} from 'react-bootstrap';
 import ListingAuthors from './components/ListingAuthors/ListingAuthors';
 import PaginationCompo from './components/Pagentaion/Pagentaion'
+import ListingBooks from './components/ListingBooks/ListingBooks'
 
 function App() {
   return (
     <div className="App">
         <MainNavBar></MainNavBar>
+        <ListingBooks></ListingBooks>
         {/* <Button variant="light" className="btn">Popular books</Button> 
         <HotBooks></HotBooks>
         <ListingCatogries></ListingCatogries> */}
           {/* <ListingAuthors></ListingAuthors>  */}
-         <Author></Author>
+         {/* <Author></Author> */}
         {/* <PaginationCompo></PaginationCompo> */}
     </div>
   );
