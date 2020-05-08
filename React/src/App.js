@@ -13,14 +13,17 @@ import PaginationCompo from './components/Pagentaion/Pagentaion'
 import ListingBooks from './components/ListingBooks/ListingBooks'
 import HomePage from './components/HomePage/HomePage'
 import { NavLink, Link, Route, BrowserRouter as Router } from 'react-router-dom';
+import  AdminPanel  from './components/AdminPanel/AdminPanel'
 
 function App() {
   return (
     <Router>
     <div className="App">
-        <MainNavBar></MainNavBar>
+        {/* <MainNavBar></MainNavBar> */}
         <Route path="/HomePage" component={HomePage}/>
         <Route path="/ListingAuthors" component={ListingAuthors}/>
+
+        <AdminPanel></AdminPanel>
         {/* <ListingBooks></ListingBooks> */}
         {/* <Button variant="light" className="btn">Popular books</Button> 
         <HotBooks></HotBooks>

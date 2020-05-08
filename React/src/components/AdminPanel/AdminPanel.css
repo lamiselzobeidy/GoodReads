@@ -1,0 +1,25 @@
+.mainDiv{
+    width: 50%;
+    height: 50%;
+    background-color: white;
+    margin-left: 25%;
+    margin-top: 10%;
+    border-radius: 25px;
+    border: firebrick;
+    border-style: solid;
+}
+.nav{
+    justify-content: center;
+    height: 70px;
+}
+
+.iconadjustment{
+    margin-left: 93% ;
+
+}
+
+
+i.icon{
+    margin-top: 10px;
+    font-size: 30px;
+}
