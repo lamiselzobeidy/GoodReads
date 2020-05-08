@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/abdomashael/good_reads_mock_node#readme",
   "dependencies": {
+    "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "chalk": "^4.0.0",
     "cors": "^2.8.5",

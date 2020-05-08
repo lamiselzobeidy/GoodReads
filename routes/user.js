@@ -1,6 +1,8 @@
 const express = require("express")
 const mongoose = require('mongoose');
 const multer = require("multer");
+const chalk = require('chalk')
+const jwt = require('jsonwebtoken')
 
 let router = express.Router()
 
@@ -29,7 +31,7 @@ router.post('/', upload.single('userImage'), async function (req, res) {
             password:req.body.password,
             img_path:req.file.path,
             email:req.body.email,
-            token:req.body.token
+            // token:req.body.token
         });
         const user = await newUser.save();
         res.status(201).json(user);
