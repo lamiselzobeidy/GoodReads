@@ -11,7 +11,6 @@ const multer = require("multer");
 
 router.get("/all", async (req, res) => {
   try {
-    //TODO Get books data itself not ids
     const allUserBooksIds = await userModel.find(
       { token: req.header("JWT") },
       { _id: 1, all: 1 }
@@ -23,26 +22,19 @@ router.get("/all", async (req, res) => {
         { _id: 1, bookName: 1, firstName: 1, lastName: 1 }
       )
       .populate("authorId");
-    //console.log(allUserBooks);
-    // const allAuthorsIds = await bookModel.find({_id: {$in: allUserBooksIds[0].all}}, {_id: 0, authorId: 1}).populate('authorId');
-    // console.log(allAuthorsIds);
-    // const allAuthors = await authorModel.find({_id: {$in: allAuthorsIds[0]}}, {_id: 0, firstName: 1, lastName: 1});
-    // console.log(allAuthors);
-
-    //const reviews = await reviewModel.find({bookId: {$in: allUserBooksIds[0].all}}, {review: 1, _id: 0});
-    //console.log(reviews);
+  
     const ratings = await reviewModel
       .find(
         { bookId: { $in: allUserBooksIds[0].all } },
         { rating: 1, _id: 1, bookId: 1 }
       )
       .populate("bookId");
+
     let userRating = await reviewModel
       .find({ userId: allUserBooksIds[0]._id }, { rating: 1, bookId: 1 })
       .populate("bookId");
     //console.log(ratings);
 
-    let avgRatingForEachBook = [];
 
     const books = allUserBooks.map((book, idx) => {
       // console.log(userRating);
@@ -58,6 +50,7 @@ router.get("/all", async (req, res) => {
       const totalRating = allBookRates.reduce((totalRating, book) => {
         return totalRating + book.rating;
       }, 0);
+
       const avgRate = totalRating / allBookRates.length;
 
       const newBook = {
@@ -74,17 +67,6 @@ router.get("/all", async (req, res) => {
 
     // console.log(books);
 
-    // for (let index = 0; index <= allUserBooksIds[0].length; index++) {
-    //     let ratings = 0;
-    //     let avgRating = 0;
-    //     const numberOfUsers = await userModel.find({all: allUserBooksIds[index]}).length;
-    //     const usersRatings = await userModel.find({all: allUserBooksIds[index]}, {_id: 1})
-    //         .forEach((id) => {
-    //             ratings += reviewModel.find({userId: id}, {_id: 0, rating: 1});
-    //         });
-    //     avgRating = ratings / numberOfUsers;
-    //     avgRatingForEachBook.push(avgRating);
-    // }
     //202 means accepted
     res.status(202).json({ books });
   } catch (error) {
