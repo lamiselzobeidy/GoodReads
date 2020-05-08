@@ -35,34 +35,7 @@ router.get("/all", async (req, res) => {
             .find({userId: allUserBooksIds[0]._id}, {rating: 1, bookId: 1})
             .populate("bookId");
 
-
-        const books = allUserBooks.map((book, idx) => {
-
-            const bookRate = userRating.filter((rating) => {
-                return book.bookName == rating.bookId.bookName ? true : false;
-            });
-
-            const allBookRates = ratings.filter(
-                (rating) => book.bookName == rating.bookId.bookName
-            );
-
-            const totalRating = allBookRates.reduce((totalRating, book) => {
-                return totalRating + book.rating;
-            }, 0);
-
-            const avgRate = totalRating / allBookRates.length;
-
-            const newBook = {
-                bookId: book._id,
-                bookName: book.bookName,
-                authorId: book.authorId._id,
-                autherName: `${book.authorId.firstName} ${book.authorId.lastName}`,
-                userRate: bookRate[0].rating,
-                avgRate,
-            };
-
-            return newBook;
-        });
+        const books = getBooks(allUserBooks, ratings, userRating);
 
         //202 means accepted
         res.status(202).json({books});
@@ -99,32 +72,7 @@ router.get("/read", async (req, res) => {
             .find({userId: readUserBooksIds[0]._id}, {rating: 1, bookId: 1})
             .populate("bookId");
 
-        const books = readUserBooks.map((book, idx) => {
-
-            const bookRate = userRating.filter((rating) => {
-                return book.bookName == rating.bookId.bookName ? true : false;
-            });
-
-            const readBookRates = ratings.filter(
-                (rating) => book.bookName == rating.bookId.bookName
-            );
-
-            const totalRating = readBookRates.reduce((totalRating, book) => {
-                return totalRating + book.rating;
-            }, 0);
-
-            const avgRate = totalRating / readBookRates.length;
-
-            const newBook = {
-                bookId: book._id,
-                bookName: book.bookName,
-                authorId: book.authorId._id,
-                autherName: `${book.authorId.firstName} ${book.authorId.lastName}`,
-                userRate: bookRate[0].rating,
-                avgRate,
-            };
-            return newBook;
-        });
+        const books = getBooks(readUserBooks, ratings, userRating);
 
         //202 means accepted
         res.status(202).json(books);
@@ -160,33 +108,7 @@ router.get("/current", async (req, res) => {
             .find({userId: currentUserBooksIds[0]._id}, {rating: 1, bookId: 1})
             .populate("bookId");
 
-        const books = currentUserBooks.map((book, idx) => {
-
-            const bookRate = userRating.filter((rating) => {
-                return book.bookName == rating.bookId.bookName ? true : false;
-            });
-
-            const currentBookRates = ratings.filter(
-                (rating) => book.bookName == rating.bookId.bookName
-            );
-
-            const totalRating = currentBookRates.reduce((totalRating, book) => {
-                return totalRating + book.rating;
-            }, 0);
-
-            const avgRate = totalRating / currentBookRates.length;
-
-            const newBook = {
-                bookId: book._id,
-                bookName: book.bookName,
-                authorId: book.authorId._id,
-                autherName: `${book.authorId.firstName} ${book.authorId.lastName}`,
-                userRate: bookRate[0].rating,
-                avgRate,
-            };
-
-            return newBook;
-        });
+        const books = getBooks(currentUserBooks, ratings, userRating);
 
         //202 means accepted
         res.status(202).json(books);
@@ -221,35 +143,8 @@ router.get("/want", async (req, res) => {
             .find({userId: wantedUserBooksIds[0]._id}, {rating: 1, bookId: 1})
             .populate("bookId");
 
-
-        const books = wantedUserBooks.map((book, idx) => {
-
-            const bookRate = userRating.filter((rating) => {
-                return book.bookName == rating.bookId.bookName ? true : false;
-            });
-
-            const wantedBookRates = ratings.filter(
-                (rating) => book.bookName == rating.bookId.bookName
-            );
-
-            const totalRating = wantedBookRates.reduce((totalRating, book) => {
-                return totalRating + book.rating;
-            }, 0);
-
-            const avgRate = totalRating / wantedBookRates.length;
-
-            const newBook = {
-                bookId: book._id,
-                bookName: book.bookName,
-                authorId: book.authorId._id,
-                autherName: `${book.authorId.firstName} ${book.authorId.lastName}`,
-                userRate: bookRate[0].rating,
-                avgRate,
-            };
-
-            return newBook;
-        });
-
+        const books = getBooks(wantedUserBooks, ratings, userRating);
+        
         //202 means accepted
         res.status(202).json(books);
     } catch (error) {
@@ -462,18 +357,13 @@ router.post("/review", async (req, res) => {
     res.status(201).json(results);
 });
 
-function addToAll(currentUser, bookId) {
-    const allBooks = currentUser.all;
-    const newAllBooks = [...allBooks, bookId];
-    return newAllBooks;
-}
 
 router.patch("/review", async (req, res) => {
 
     //JWT
     const currentUser = await userModel.find({token: req.header("JWT")}).exec();
-    const reviewId = req.body.reviewId;
-    const editReview = await ReviewModel.find({_id: reviewId});
+    const reviewId = req.body.bookid;
+    const editReview = await ReviewModel.find({bookId: reviewId});
 
     if (req.body.rating) {
         editReview[0].rating = req.body.rating;
@@ -489,4 +379,42 @@ router.patch("/review", async (req, res) => {
     res.status(201).json(results);
 
 });
+
+function addToAll(currentUser, bookId) {
+    const allBooks = currentUser.all;
+    const newAllBooks = [...allBooks, bookId];
+    return newAllBooks;
+}
+
+function getBooks(userBooks, ratings, userRating) {
+
+    userBooks.map((book, idx) => {
+
+        const bookRate = userRating.filter((rating) => {
+            return book.bookName == rating.bookId.bookName ? true : false;
+        });
+
+        const allBookRates = ratings.filter(
+            (rating) => book.bookName == rating.bookId.bookName
+        );
+
+        const totalRating = allBookRates.reduce((totalRating, book) => {
+            return totalRating + book.rating;
+        }, 0);
+
+        const avgRate = totalRating / allBookRates.length;
+
+        const newBook = {
+            bookId: book._id,
+            bookName: book.bookName,
+            authorId: book.authorId._id,
+            autherName: `${book.authorId.firstName} ${book.authorId.lastName}`,
+            userRate: bookRate[0].rating,
+            avgRate,
+        };
+
+        return newBook;
+    });
+}
+
 module.exports = router;
