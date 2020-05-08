@@ -55,6 +55,21 @@ router.get('/:id', async (req, res) => {
   
 });
 
+router.get('/', async (req, res) => {
+   try {
+       let results = await UserModel.find({}).exec();
+       res.json(results);
+    } catch (error) {
+       console.log(error);
+       res.send(404, {
+          error
+       })
+    }
+ 
+});
+
+
+
 router.delete('/:id', async(req, res) => {
     try {
         let id = req.params.id;

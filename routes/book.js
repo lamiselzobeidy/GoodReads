@@ -25,12 +25,12 @@ router.post('/', upload.single('coverImage'), async function (req, res) {
 
    try {
       // Here we need to check the JWT token before creating a new book
-      const newAuthor = new AuthorModel()
-      const newCat = new CategoryModel()
+      // const newAuthor = new AuthorModel()
+      // const newCat = new CategoryModel()
       const newBook = new BookModel({
          bookName: req.body.bookName,
-         catId: newCat,
-         authorId: newAuthor,
+         catId: req.body.catId,
+         authorId: req.body.authorId,
          coverImageName: req.file.path,
       });
       const book = await newBook.save();
