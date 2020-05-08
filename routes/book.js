@@ -29,7 +29,7 @@ const upload = multer({
 router.get('/', async (req, res) => {
 
    try {
-      let results = await BookModel.getAllBooks()
+      let results = await BookModel.getAllBooks();
       res.json(results)
    } catch (error) {
       console.log(error);
@@ -38,7 +38,7 @@ router.get('/', async (req, res) => {
       })
    }
 
-})
+});
 
 router.get('/:id', async (req, res) => {
    try {
@@ -51,22 +51,22 @@ router.get('/:id', async (req, res) => {
          error
       })
    }
-
-
-})
+});
 
 router.use(checkIsAdmin)
 
 router.post('/', upload.single('coverImage'), async function (req, res) {
 
    try {
+
+      
       // Here we need to check the JWT token before creating a new book
-      const newAuthor = new AuthorModel()
-      const newCat = new CategoryModel()
+      // const newAuthor = new AuthorModel()
+      // const newCat = new CategoryModel()
       const newBook = new BookModel({
          bookName: req.body.bookName,
-         catId: newCat,
-         authorId: newAuthor,
+         catId: req.body.catId,
+         authorId: req.body.authorId,
          coverImageName: req.file.path,
       });
       const book = await newBook.save();
@@ -106,4 +106,4 @@ router.patch('/:id',upload.single('coverImage') ,async(req, res) => {
    }
 });
 
-module.exports = router
+module.exports = router;

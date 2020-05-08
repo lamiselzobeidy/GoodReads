@@ -4,9 +4,9 @@ const multer = require("multer");
 const chalk = require('chalk')
 const jwt = require('jsonwebtoken')
 
-let router = express.Router()
+let router = express.Router();
 
-let UserModel = require("../models/user")
+let UserModel = require("../models/user");
 
 const storage = multer.diskStorage({
    destination: function (req, file, callback) {
@@ -80,6 +80,21 @@ router.get('/:id', async (req, res) => {
   
 });
 
+router.get('/', async (req, res) => {
+   try {
+       let results = await UserModel.find({}).exec();
+       res.json(results);
+    } catch (error) {
+       console.log(error);
+       res.send(404, {
+          error
+       })
+    }
+ 
+});
+
+
+
 router.delete('/:id', async(req, res) => {
     try {
         let id = req.params.id;
@@ -92,7 +107,7 @@ router.delete('/:id', async(req, res) => {
         })
      }
 
-})
+});
 
 router.patch('/:id',upload.single('coverImage') ,async(req, res) => {
     try {

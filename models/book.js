@@ -16,6 +16,6 @@ bookSchema.statics.findByBookId = function (id) {
 };
 
 
-let BookModel = model('book',bookSchema)
+let BookModel = model('book',bookSchema);
 
-module.exports = BookModel
+module.exports = BookModel;
