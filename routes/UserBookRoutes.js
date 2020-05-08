@@ -200,7 +200,7 @@ router.get("/want", async (req, res) => {
     try {
         const wantedUserBooksIds = await userModel.find(
             {token: req.header("JWT")},
-            {_id: 1, all: 1}
+            {_id: 1, want_to_read: 1}
         );
 
         let wantedUserBooks = await bookModel
