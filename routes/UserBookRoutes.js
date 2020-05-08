@@ -205,14 +205,14 @@ router.get("/want", async (req, res) => {
 
         let wantedUserBooks = await bookModel
             .find(
-                {_id: {$in: wantedUserBooksIds[0].all}},
+                {_id: {$in: wantedUserBooksIds[0].want_to_read}},
                 {_id: 1, bookName: 1, firstName: 1, lastName: 1}
             )
             .populate("authorId");
 
         const ratings = await reviewModel
             .find(
-                {bookId: {$in: wantedUserBooksIds[0].all}},
+                {bookId: {$in: wantedUserBooksIds[0].want_to_read}},
                 {rating: 1, _id: 1, bookId: 1}
             )
             .populate("bookId");
@@ -251,7 +251,7 @@ router.get("/want", async (req, res) => {
         });
 
         //202 means accepted
-        res.status(202).json(wantedBooks.want_to_read);
+        res.status(202).json(books);
     } catch (error) {
         console.log(error);
         res.sendStatus(404);
@@ -470,23 +470,23 @@ function addToAll(currentUser, bookId) {
 
 router.patch("/review", async (req, res) => {
 
-  //JWT
-  const currentUser = await userModel.find({token: req.header("JWT")}).exec();
-  const reviewId = req.body.reviewId;
-  const editReview = await ReviewModel.find({_id:reviewId});
+    //JWT
+    const currentUser = await userModel.find({token: req.header("JWT")}).exec();
+    const reviewId = req.body.reviewId;
+    const editReview = await ReviewModel.find({_id: reviewId});
 
-  if (req.body.rating) {
-    editReview[0].rating = req.body.rating;
-  }
+    if (req.body.rating) {
+        editReview[0].rating = req.body.rating;
+    }
 
-  if (req.body.review) {
-    editReview[0].review = req.body.review;
-  }
-  let results = await reviewModel
-      .findByIdAndUpdate(editReview[0]._id, editReview[0], {new: true})
-      .exec();
+    if (req.body.review) {
+        editReview[0].review = req.body.review;
+    }
+    let results = await ReviewModel
+        .findByIdAndUpdate(editReview[0]._id, editReview[0], {new: true})
+        .exec();
 
-  res.status(201).json(results);
+    res.status(201).json(results);
 
 });
 module.exports = router;
