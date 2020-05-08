@@ -144,7 +144,7 @@ router.get("/want", async (req, res) => {
             .populate("bookId");
 
         const books = getBooks(wantedUserBooks, ratings, userRating);
-        
+
         //202 means accepted
         res.status(202).json(books);
     } catch (error) {
@@ -363,7 +363,7 @@ router.patch("/review", async (req, res) => {
     //JWT
     const currentUser = await userModel.find({token: req.header("JWT")}).exec();
     const reviewId = req.body.bookid;
-    const editReview = await ReviewModel.find({bookId: reviewId});
+    const editReview = await ReviewModel.find({bookId: reviewId, userId: currentUser[0].userId});
 
     if (req.body.rating) {
         editReview[0].rating = req.body.rating;
