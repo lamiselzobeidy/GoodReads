@@ -1,0 +1,37 @@
+import React from 'react'
+import { Nav, Tabs, Tab } from 'react-bootstrap'
+import './AdminPanel.css'
+import AdminCatogries from './AdminCatogries/AdminCatogries'
+import AdminBooks from './AdminBooks/AdminBooks'
+import AdminAuthors from './AdminAuthors/AdminAuthors'
+import { Icon } from 'semantic-ui-react';
+
+const AdminPanel = () => {
+
+
+
+
+    return (
+        <div className="mainDiv">
+
+            <Tabs defaultActiveKey="home" transition={false} id="noanim-tab-example">
+                <Tab eventKey="Catogries" title="Catogries">
+                    <a className="iconadjustment">
+                        <Icon name='add circle test' />
+                    </a>
+                    <AdminCatogries></AdminCatogries>
+                </Tab>
+                <Tab eventKey="Books" title="Books">
+                    <AdminBooks></AdminBooks>
+                </Tab>
+                <Tab eventKey="Authors" title="Authors" >
+                    <AdminAuthors></AdminAuthors>
+                </Tab>
+            </Tabs>
+        </div>
+
+
+    );
+}
+
+export default AdminPanel

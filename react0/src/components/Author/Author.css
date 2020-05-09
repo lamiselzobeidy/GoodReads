@@ -1,0 +1,20 @@
+.card-img, .card-img-bottom, .card-img-top{
+
+    width: 20%;
+    height: 160px;
+}
+
+.card-title{
+    color: black;
+}
+
+.card{
+
+    color: black;
+
+}
+
+.table{
+    width: 50%;
+    margin-left: 25%;
+}
