@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const authorModel = require("../models/authorModel");
+const checkIsAdmin = require("../middlewares/admin_check");
+
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -14,25 +16,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage: storage});
 
-
-router.post("/", upload.single('authorImage'), async (req, res) => {
-
-    try {
-        // Here we need to check the JWT token before creating a new author
-        const newAuthor = new authorModel({
-            _id: new mongoose.Types.ObjectId(),
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            authorImage: req.file.path,
-            DateofBirth: req.body.DateofBirth
-        });
-        const author = await newAuthor.save();
-        res.status(201).json(author);
-    } catch (error) {
-        console.log(error);
-        res.sendStatus(409);
-    }
-});
 
 router.get("/", async (req, res) => {
     try {
@@ -55,6 +38,28 @@ router.get("/:id", async (req, res) => {
     } catch (error) {
         console.log(error);
         res.sendStatus(404);
+    }
+});
+
+
+router.use(checkIsAdmin)
+
+router.post("/", upload.single('authorImage'), async (req, res) => {
+
+    try {
+        // Here we need to check the JWT token before creating a new author
+        const newAuthor = new authorModel({
+            _id: new mongoose.Types.ObjectId(),
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            authorImage: req.file.path,
+            DateofBirth: req.body.DateofBirth
+        });
+        const author = await newAuthor.save();
+        res.status(201).json(author);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(409);
     }
 });
 

@@ -1,5 +1,4 @@
 const express = require("express")
-const path = require("path");
 const mongoose = require('mongoose');
 const multer = require("multer");
 
@@ -8,6 +7,9 @@ let router = express.Router()
 let BookModel = require("../models/book")
 let AuthorModel = require("../models/authorModel")
 let CategoryModel = require("../models/categoryModel")
+
+const checkIsAdmin = require("../middlewares/admin_check");
+
 
 const storage = multer.diskStorage({
    destination: function (req, file, callback) {
@@ -22,16 +24,49 @@ const upload = multer({
 });
 
 
+
+
+router.get('/', async (req, res) => {
+
+   try {
+      let results = await BookModel.getAllBooks();
+      res.json(results)
+   } catch (error) {
+      console.log(error);
+      res.send(404, {
+         error
+      })
+   }
+
+});
+
+router.get('/:id', async (req, res) => {
+   try {
+      let id = req.params.id;
+      let results = await BookModel.findById(id).populate("authorId").populate("catId").exec()
+      res.json(results)
+   } catch (error) {
+      console.log(error);
+      res.send(404, {
+         error
+      })
+   }
+});
+
+router.use(checkIsAdmin)
+
 router.post('/', upload.single('coverImage'), async function (req, res) {
 
    try {
+
+      
       // Here we need to check the JWT token before creating a new book
-      const newAuthor = new AuthorModel()
-      const newCat = new CategoryModel()
+      // const newAuthor = new AuthorModel()
+      // const newCat = new CategoryModel()
       const newBook = new BookModel({
          bookName: req.body.bookName,
-         catId: newCat,
-         authorId: newAuthor,
+         catId: req.body.catId,
+         authorId: req.body.authorId,
          coverImageName: req.file.path,
       });
       const book = await newBook.save();
@@ -42,36 +77,6 @@ router.post('/', upload.single('coverImage'), async function (req, res) {
    }
 
 });
-
-router.get('/', async (req, res) => {
-
-   try {
-      let results = await BookModel.getAllBooks()
-      res.json(results)
-   } catch (error) {
-      console.log(error);
-      res.send(404, {
-         error
-      })
-   }
-
-})
-
-router.get('/:id', async (req, res) => {
-   try {
-      let id = req.params.id;
-      let results = await BookModel.findById(id).exec()
-      res.json(results)
-   } catch (error) {
-      console.log(error);
-      res.send(404, {
-         error
-      })
-   }
-
-
-})
-
 router.delete('/:id', async(req, res) => {
    try {
       let id = req.params.id;
@@ -84,7 +89,7 @@ router.delete('/:id', async(req, res) => {
       })
    }
 
-})
+});
 
 router.patch('/:id',upload.single('coverImage') ,async(req, res) => {
    try {
@@ -99,6 +104,6 @@ router.patch('/:id',upload.single('coverImage') ,async(req, res) => {
          error
       })
    }
-})
+});
 
-module.exports = router
+module.exports = router;

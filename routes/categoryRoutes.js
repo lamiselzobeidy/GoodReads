@@ -2,17 +2,9 @@ const express = require('express');
 const router = express.Router();
 const categoryModel = require("../models/categoryModel");
 
-router.post("/", async (req, res) => {
-    try {
-        // Here we need to check the JWT token before creating a new category
-        const newCategory = new categoryModel(req.body);
-        const category = await newCategory.save();
-        res.status(201).json(category);
-    } catch (error) {
-        console.log(error);
-        res.sendStatus(409);
-    }
-});
+const checkIsAdmin = require("../middlewares/admin_check");
+
+
 
 router.get("/", async (req, res) => {
     try {
@@ -35,6 +27,23 @@ router.get("/:id", async (req, res) => {
     } catch (error) {
         console.log(error);
         res.sendStatus(404);
+    }
+});
+
+router.use(checkIsAdmin)
+
+router.post("/", async (req, res) => {
+    try {
+        // Here we need to check the JWT token before creating a new category
+        const newCategory = new categoryModel({
+            categoryName:req.body.categoryName
+        }
+        );
+        const category = await newCategory.save();
+        res.json(category);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(409);
     }
 });
 
