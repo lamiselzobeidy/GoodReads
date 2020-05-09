@@ -2,4 +2,5 @@
 /public/author_imgs/
 /public/cover_imgs/
 /public/user_imgs/
-/React/node_modules/
+/react0/node_modules/
+/react0/package-lock.json
