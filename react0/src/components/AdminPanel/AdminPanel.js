@@ -8,17 +8,11 @@ import { Icon } from 'semantic-ui-react';
 
 const AdminPanel = () => {
 
-
-
-
     return (
         <div className="mainDiv">
 
             <Tabs defaultActiveKey="home" transition={false} id="noanim-tab-example">
                 <Tab eventKey="Catogries" title="Catogries">
-                    <a className="iconadjustment">
-                        <Icon name='add circle test' />
-                    </a>
                     <AdminCatogries></AdminCatogries>
                 </Tab>
                 <Tab eventKey="Books" title="Books">
