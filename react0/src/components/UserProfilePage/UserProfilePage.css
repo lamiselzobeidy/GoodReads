@@ -1,0 +1,12 @@
+.Container{
+    margin-top: 30px;
+    height: 70%;
+    border: 3px solid #000000;
+    border-radius: 30px;
+    font-size: 25px;
+
+}
+.Table{
+    margin-left: 0;
+    width: 100%;
+}
