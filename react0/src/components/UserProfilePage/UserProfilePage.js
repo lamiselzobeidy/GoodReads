@@ -1,12 +1,17 @@
 import React from 'react';
 import './UserProfilePage.css'
 import { Tab, Row, Col, Nav, Table } from 'react-bootstrap'
-import { Label } from 'semantic-ui-react';
+import { Label ,Rating } from 'semantic-ui-react';
+
+const RatingBar = () => (
+    <Rating icon='star' defaultRating={3} maxRating={4} />
+  )
+  
 
 
 function TableList() {
     return (
-        <Table striped bordered hover className="Table">
+        <Table striped bordered hover  className="Table">
             <thead>
                 <tr>
                     <th>Cover</th>
@@ -22,19 +27,21 @@ function TableList() {
                     <td>1</td>
                     <td>Mark</td>
                     <td>Otto</td>
-                    <td>@mdo</td>
+                    <td>
+                        <RatingBar></RatingBar>
+                    </td>
                 </tr>
                 <tr>
                     <td>2</td>
                     <td>Jacob</td>
                     <td>Thornton</td>
-                    <td>@fat</td>
+                    <td><RatingBar></RatingBar></td>
                 </tr>
                 <tr>
                     <td>2</td>
                     <td>Jacob</td>
                     <td>Thornton</td>
-                    <td>@fat</td>
+                    <td><RatingBar></RatingBar></td>
                 </tr>
                 <tr>
                     <td>2</td>
