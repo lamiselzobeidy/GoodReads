@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect,useState } from 'react'
 import './test.css'
 import { Card, Image, Button } from 'semantic-ui-react';
+import axios from "axios";
 
 var i = 0;
 const colorPicker = () => {
@@ -13,12 +14,26 @@ const colorPicker = () => {
          return colors[i]
 }
 
-const ListingAuthors = () => (
+function ListingAuthors() {
 
-    <div className='hi' >
+    const [Authors,setAuthors] =useState([])
+    useEffect(()=>{
+        axios.get("")
+        .then(res=>{
+
+        })
+        .catch(err=>{
+            console.log(err);
+            
+        })
+
+    },[])
+
+    return(
+        <div className='hi'>
         <p className="paragraphs">All Authors</p>
         <Card.Group itemsPerRow={5} >
-            <Card  >
+            <Card>
                 <Card.Content>
                     <Card.Header  >Steve Sanders</Card.Header>
                     <Card.Meta>Friends of Elliot</Card.Meta>
@@ -198,8 +213,11 @@ const ListingAuthors = () => (
 
         </Card.Group>
     </div>
+    );
+    
+   
 
-)
+}
 
 
 export default ListingAuthors
