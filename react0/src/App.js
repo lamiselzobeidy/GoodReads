@@ -22,22 +22,24 @@ import Footer from './components/footer/footer';
 import Categories from './components/categories/categories'
 import BookProfile from './components/bookProfile/bookProfile';
 import CategoryProfile from './components/categoryProfile/categoryProfile';
+import UserProfilePage from './components/UserProfilePage/UserProfilePage'
 
 function App() {
   return (
     <Router>
       <div className="App">
-        {/* <MainNavBar></MainNavBar> */}
+        <MainNavBar></MainNavBar>
         <Switch>
           <Route path="/HomePage" component={HomePage} />
           <Route path="/ListingAuthors" component={ListingAuthors} />
-          <Route path="/" exact component={WelcomePage} />
+          {/* <Route path="/" exact component={WelcomePage} /> */}
           <Route path="/categories" component={Categories} />
           <Route path="/bookprofile" component={BookProfile} />
           <Route path="/categorypage" component={CategoryProfile} />
         </Switch>
 
         {/* <AdminPanel></AdminPanel> */}
+        {/* <UserProfilePage></UserProfilePage> */}
         {/* <ListingBooks></ListingBooks> */}
         {/* <Button variant="light" className="btn">Popular books</Button> 
         <HotBooks></HotBooks>
