@@ -18,9 +18,10 @@ function ListingAuthors() {
 
     const [Authors,setAuthors] =useState([])
     useEffect(()=>{
-        axios.get("")
+        axios.get("http://localhost:3000/author/")
         .then(res=>{
-
+            console.log(res.data);
+            setAuthors(res.data)
         })
         .catch(err=>{
             console.log(err);

@@ -6,9 +6,11 @@ const userModel = require("../models/user");
 const reviewModel = require("../models/review");
 const authorModel = require("../models/authorModel");
 const ReviewModel = require("../models/review");
+const checkJWT = require("../middlewares/jwt_auth")
 
 const multer = require("multer");
 
+router.use(checkJWT)
 
 //TODO Get books data itself not ids 
 router.get("/all", async (req, res) => {

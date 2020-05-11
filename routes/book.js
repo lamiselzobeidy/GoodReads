@@ -10,6 +10,8 @@ let CategoryModel = require("../models/categoryModel")
 
 const checkIsAdmin = require("../middlewares/admin_check");
 
+const checkJWT = require("../middlewares/jwt_auth")
+
 
 const storage = multer.diskStorage({
    destination: function (req, file, callback) {
@@ -39,6 +41,8 @@ router.get('/', async (req, res) => {
    }
 
 });
+
+router.use(checkJWT)
 
 router.get('/:id', async (req, res) => {
    try {

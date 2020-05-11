@@ -4,7 +4,7 @@ let bookSchema = new mongooseSchema({
    bookName:{type:String,required:true},
    catId:{type:Schema.Types.ObjectId, ref:'category'},
    authorId:{type:Schema.Types.ObjectId, ref:'author'},
-   brief:{type:String}
+   brief:{type:String},
    coverImageName:{type:String,required:true}
 });
 

@@ -44,7 +44,7 @@ function App() {
         {/* <Button variant="light" className="btn">Popular books</Button> 
         <HotBooks></HotBooks>
         <ListingCatogries></ListingCatogries> */}
-        {/* <ListingAuthors></ListingAuthors>  */}
+        <ListingAuthors></ListingAuthors> 
         {/* <Author></Author> */}
         {/* <PaginationCompo></PaginationCompo> */}
 

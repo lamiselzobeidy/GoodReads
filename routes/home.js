@@ -5,6 +5,8 @@ let AuthorModel = require("../models/authorModel");
 let CategoryModel = require("../models/categoryModel");
 let ReviewModel = require("../models/review");
 
+
+
 let router = express.Router();
 router.get("/", async function (req, res) {
   try {
@@ -95,10 +97,11 @@ router.get("/", async function (req, res) {
   // };
 });
 
-router.post("/", async (req, res) => {
-  const newReview = new ReviewModel(req.body);
-  const results = await newReview.save();
-  res.status(201).json(results);
-});
+
+// router.post("/", async (req, res) => {
+//   const newReview = new ReviewModel(req.body);
+//   const results = await newReview.save();
+//   res.status(201).json(results);
+// });
 
 module.exports = router;

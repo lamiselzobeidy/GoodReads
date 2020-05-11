@@ -4,6 +4,9 @@ const multer = require("multer");
 const chalk = require('chalk')
 const jwt = require('jsonwebtoken')
 
+const checkJWT = require("../middlewares/jwt_auth")
+
+
 let router = express.Router();
 
 let UserModel = require("../models/user");
