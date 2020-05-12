@@ -45,6 +45,28 @@ router.post('/', upload.single('userImage'), async function (req, res) {
 
 });
 
+router.patch("/admin",async(req,res)=>{
+   try {
+      let results = await UserModel.find({email:req.body.email}).exec()
+      if (results.length>0) {
+         if (!results[0].isAdmin) {
+            results[0].isAdmin=true
+            const user = await results[0].save();
+            res.json(user);
+
+         } else {
+            res.json("Already admin")
+         }
+      }else{
+         res.json(404,"email not found")
+      }
+      
+   } catch (error) {
+      console.log(error);
+        res.json(409,error);
+   }
+})
+
 router.use(async (req, res, next) => {
    try {
      const token = req.header("JWT");
