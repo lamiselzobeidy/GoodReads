@@ -1,5 +1,5 @@
 var jwt = require('jsonwebtoken');
-
+const chalk = require('chalk');
 
 
 let checkJWT =  async (req, res, next) => {
