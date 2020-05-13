@@ -56,7 +56,6 @@ router.get('/', async (req, res) => {
 
 });
 
-router.use(checkJWT)
 
 router.get('/:id', async (req, res) => {
    try {
@@ -71,6 +70,7 @@ router.get('/:id', async (req, res) => {
    }
 });
 
+router.use(checkJWT)
 router.use(checkIsAdmin)
 
 router.post('/', upload.single('coverImage'), async function (req, res) {

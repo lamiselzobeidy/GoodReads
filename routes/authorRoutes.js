@@ -32,7 +32,6 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.use(checkJWT)
 router.get("/:id", async (req, res) => {
     try {
         // Here we need to check the JWT token before getting a author
@@ -45,6 +44,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+router.use(checkJWT)
 
 router.use(checkIsAdmin)
 

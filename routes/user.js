@@ -67,17 +67,8 @@ router.patch("/admin",async(req,res)=>{
    }
 })
 
-router.use(async (req, res, next) => {
-   try {
-     const token = req.header("JWT");
-     const decoded = await jwt.verify(token, "secretkey");
-     // console.log(decoded.usermail);
-     next();
-   } catch (error) {
-     console.log(chalk.bgRed.white(error))
-     res.status(401).send("verfication error");
-   }
- }); 
+router.use(checkJWT)
+
 
 router.get('/', async(req,res)=>{
    try {
@@ -104,21 +95,6 @@ router.get('/:id', async (req, res) => {
      }
   
 });
-
-router.get('/', async (req, res) => {
-   try {
-       let results = await UserModel.find({}).exec();
-       res.json(results);
-    } catch (error) {
-       console.log(error);
-       res.send(404, {
-          error
-       })
-    }
- 
-});
-
-
 
 router.delete('/:id', async(req, res) => {
     try {
