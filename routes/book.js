@@ -31,13 +31,27 @@ const upload = multer({
 router.get('/', async (req, res) => {
 
    try {
-      let results = await BookModel.getAllBooks();
+      let results;
+
+      console.log(req.query.authorID);
+      
+      if (req.query.authorID && req.query.catID) {
+         results = BookModel.findBooksByCatAndAuthorId(req.query.catID,req.query.autherID)
+
+      }else if(req.query.authorID){
+         results = BookModel.getBooksByAuthorID(req.query.autherID)
+      }else if(req.query.catID){
+         results = BookModel.findBooksByCatId(req.query.catID)
+      }
+
+      if (!results) {
+         results = await BookModel.getAllBooks();         
+      }
+      
       res.json(results)
    } catch (error) {
       console.log(error);
-      res.send(404, {
-         error
-      })
+      res.status(404).send(error)
    }
 
 });
