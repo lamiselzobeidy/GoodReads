@@ -1,4 +1,5 @@
 const express = require("express");
+const chalk = require("chalk");
 
 let BookModel = require("../models/book");
 let AuthorModel = require("../models/authorModel");
@@ -35,11 +36,14 @@ router.get("/", async function (req, res) {
       const author = await AuthorModel.findById({ _id: book.authorId }).exec();
       const cat = await CategoryModel.findById({ _id: book.catId }).exec();
 
+      console.log(chalk.blue(book));
+      console.log(chalk.green(author));
+      console.log(chalk.magenta(cat));
+      
+
       if (authors.filter((e) => e._id === author._id).length === 0) {
         authors.push(author);
       }
-
-    
 
       
       if (cats.filter((e) => e._id === cat._id).length === 0) {
