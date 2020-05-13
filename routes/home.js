@@ -30,7 +30,10 @@ router.get("/", async function (req, res) {
     let books = [];
     let authors = [];
     let cats = [];
+    
 
+    if (top10BooksRating.length>0) {
+      
     for (let index = 0; index < top10BooksRating.length; index++) {
       const book = await BookModel.findById(top10BooksRating[index]._id).exec();
       const author = await AuthorModel.findById({ _id: book.authorId }).exec();
@@ -56,6 +59,11 @@ router.get("/", async function (req, res) {
         res.json({ books, authors, cats });
       }
     }
+    }else{
+      res.json("No book rates");
+
+    }
+
   } catch (error) {
     console.log(error);
     res.json(error);
