@@ -5,7 +5,7 @@ import {MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBInput} from 'mdbreact'
 import "./registrationPage.css";
 
 const sendRegistrationRequest = (firstName, lastName, email,password) =>
-    axios.post(`http://abdoking95.tplinkdns.com:3000/user`,
+    axios.post(`http://34.107.102.252:3000/user/`,
         {firstName, lastName, email,password})
         .then(res => {
             console.log(res);
