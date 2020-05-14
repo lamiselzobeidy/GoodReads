@@ -6,13 +6,14 @@ const userModel = require("../models/user");
 const reviewModel = require("../models/review");
 const authorModel = require("../models/authorModel");
 const ReviewModel = require("../models/review");
-const checkJWT = require("../middlewares/jwt_auth")
+const checkJWT = require("../middlewares/jwt_auth");
+const chalk = require("chalk");
 
 const multer = require("multer");
 
-router.use(checkJWT)
+router.use(checkJWT);
 
-//TODO Get books data itself not ids 
+//TODO Get books data itself not ids
 router.get("/all", async (req, res) => {
   try {
     const allUserBooksIds = await userModel.find(
@@ -33,7 +34,7 @@ router.get("/all", async (req, res) => {
       allUserBooksIds[0].all
     );
     console.log(books);
-    
+
     //202 means accepted
     res.status(202).json({ books });
   } catch (error) {
@@ -332,7 +333,10 @@ router.patch("/review", async (req, res) => {
   //JWT
   const currentUser = await userModel.find({ token: req.header("JWT") }).exec();
   const bookid = req.body.bookid;
-  const editReview = await ReviewModel.find({ bookId: bookid,    userId: currentUser[0]._id  });
+  const editReview = await ReviewModel.find({
+    bookId: bookid,
+    userId: currentUser[0]._id,
+  });
 
   if (req.body.rating) {
     editReview[0].rating = req.body.rating;
@@ -361,15 +365,23 @@ async function getBooks(userBooks, userID, booksID) {
     .find({ bookId: { $in: booksID } }, { rating: 1, _id: 1, bookId: 1 })
     .populate("bookId");
 
+    console.log(chalk.blue(ratings));
+    
+
+
   let userRating = await reviewModel
     .find({ userId: userID }, { rating: 1, bookId: 1 })
     .populate("bookId");
 
-    
   const books = userBooks.map((book, idx) => {
-    const bookRate = userRating.filter((rating) => {
+    let bookRate = userRating.filter((rating) => {
       return book.bookName == rating.bookId.bookName ? true : false;
     });
+
+    //when user not rate this book
+    if (bookRate.length===0) {
+      bookRate=[{rating:0}]
+    }
 
     const allBookRates = ratings.filter(
       (rating) => book.bookName == rating.bookId.bookName
