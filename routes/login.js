@@ -8,15 +8,20 @@ const userModel = require('../models/user')
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-    const usermail = req.body.mail
-    const password = req.body.pass
+    const usermail = req.query.mail
+    const password = req.query.pass
+    console.log("======",usermail,"============",password);
+
+    console.log("------------",JSON.stringify(req.body));
+    
 
     try {
         const user = await userModel.find({ email: usermail })
 
         if (user.length===0) {
             res.send(401,"Invalid Information")
-        }
+        }else{
+
         // test a matching password
         user[0].comparePassword(password, async (err,isMatch) => {
             if (err) throw err;
@@ -45,10 +50,11 @@ router.get('/', async (req, res) => {
         // } else {
         //     res.send(401,"Invalid Information")
         // }
-
+    }
     } catch (error) {
         res.send(error)
     }
+    
     
 })
 
