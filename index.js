@@ -13,6 +13,7 @@ const BookRouter = require("./routes/book");
 const HomeRouter = require("./routes/home");
 const UserBookRouter = require("./routes/UserBookRoutes");
 const LoginRouter = require("./routes/login");
+const LogoutRouter = require("./routes/logout")
 
 let UserModel = require("./models/user");
 
@@ -45,6 +46,7 @@ app.use("/public", express.static("public"));
 app.use("/home", HomeRouter);
 
 app.use("/login", LoginRouter);
+app.use("/logout",LogoutRouter)
 
 app.use("/user", UserRouter);
 

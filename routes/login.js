@@ -2,14 +2,15 @@ const express = require('express')
 var jwt = require('jsonwebtoken');
 
 
+
 const userModel = require('../models/user')
 
 
 const router = express.Router()
 
-router.get('/', async (req, res) => {
-    const usermail = req.query.mail
-    const password = req.query.pass
+router.post('/', async (req, res) => {
+    const usermail = req.body.mail
+    const password = req.body.pass
     console.log("======",usermail,"============",password);
 
     console.log("------------",JSON.stringify(req.body));
