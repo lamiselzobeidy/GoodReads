@@ -12,7 +12,7 @@ let UserSchema = new mongooseSchema({
     firstName:{type:String,required:true},
     lastName:{type:String,required:true},
     password:{type:String,required:true,min:8},
-    img_path:{type:String,required:true},
+    img_path:{type:String,required:false},
     isAdmin:{type:Boolean,required:true,default:false},
     all:{type:Object,default:[]},
     read:{type:Object,default:[]},

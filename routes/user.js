@@ -25,17 +25,17 @@ const upload = multer({
 });
 
 
-router.post('/', upload.single('userImage'), async function (req, res) {
+router.post('/', async function (req, res) {
+   console.log(req.body);
     
+
     try {
         const newUser = new UserModel({
             firstName:req.body.firstName,
             lastName:req.body.lastName,
             password:req.body.password,
-            img_path:req.file.path,
             email:req.body.email,
-            // token:req.body.token
-        });
+            });
         const user = await newUser.save();
         res.status(201).json(user);
      } catch (error) {
