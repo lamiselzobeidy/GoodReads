@@ -1,11 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import axios from 'axios'
 import {MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBInput} from 'mdbreact';
 
 import "./registrationPage.css";
 
-const sendRegistrationRequest = (userFirstName, userLastName, userEmail, userPassword) =>
-    axios.post(`http://34.107.102.252:3000/user/`, {userFirstName, userLastName, userPassword, userEmail})
+const sendRegistrationRequest = (firstName, lastName, email,password) =>
+    axios.post(`http://abdoking95.tplinkdns.com:3000/user`,
+        {firstName, lastName, email,password})
         .then(res => {
             console.log(res);
             console.log(res.data);
@@ -13,9 +14,10 @@ const sendRegistrationRequest = (userFirstName, userLastName, userEmail, userPas
 
 const validateRegistration = (userFirstName, userLastName, userEmail, confirmMail, userPassword, confirmPass) => {
 
+    console.log(userFirstName, userLastName, userEmail, confirmMail, userPassword, confirmPass);
     if (userPassword.length < 8) {
         alert("Please user a password with a length more than 8");
-    } else if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test((userEmail).val())) {
+    } else if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(userEmail)) {
         alert("Please Enter a valid Email");
     } else if (userEmail !== confirmMail) {
         alert("Emails do not match");
@@ -36,6 +38,10 @@ export default function RegistrationPage() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
+    // useEffect(() => {
+    //     console.log("Ya lahweee" + JSON.stringify(email));
+    // });
+
     return (
         <MDBContainer>
             <MDBRow>
@@ -44,7 +50,7 @@ export default function RegistrationPage() {
                         className='card-image'
                         style={{
                             backgroundImage:
-                                'url(https://mdbootstrap.com/img/Photos/Others/pricing-table7.jpg)',
+                                'url(https://previews.123rf.com/images/microone/microone1812/microone181200305/112856531-sketch-vintage-books-seamless-pattern-or-background-sketch-education-seamless-book-for-school-litera.jpg)',
                             width: '28rem'
                         }}
                     >
@@ -59,8 +65,7 @@ export default function RegistrationPage() {
                             </div>
                             <MDBInput
                                 label='Your email'
-                                value={email}
-                                onChangeText={setEmail}
+                                onChange={e => setEmail(e.target.value)}
                                 group
                                 type='email'
                                 validate
@@ -68,8 +73,7 @@ export default function RegistrationPage() {
                             />
                             <MDBInput
                                 label='Confirm email'
-                                value={confirmEmail}
-                                onChangeText={setConfirmEmail}
+                                onChange={e => {setConfirmEmail(e.target.value)}}
                                 group
                                 type='email'
                                 validate
@@ -78,8 +82,7 @@ export default function RegistrationPage() {
                             />
                             <MDBInput
                                 label='Your password'
-                                value={password}
-                                onChangeText={setPassword}
+                                onChange={e => {setPassword(e.target.value)}}
                                 group
                                 type='password'
                                 validate
@@ -87,8 +90,7 @@ export default function RegistrationPage() {
                             />
                             <MDBInput
                                 label='Confirm password'
-                                value={confirmPassword}
-                                onChangeText={setConfirmPassword}
+                                onChange={e => {setConfirmPassword(e.target.value)}}
                                 group
                                 type='password'
                                 validate
@@ -96,8 +98,7 @@ export default function RegistrationPage() {
                             />
                             <MDBInput
                                 label='Your First Name'
-                                value={firstName}
-                                onChangeText={setFirstName}
+                                onChange={e => {setFirstName(e.target.value)}}
                                 group
                                 type='text'
                                 validate
@@ -106,8 +107,7 @@ export default function RegistrationPage() {
 
                             <MDBInput
                                 label='Your Last Name'
-                                value={lastName}
-                                onChangeText={setLastName}
+                                onChange={e => {setLastName(e.target.value)}}
                                 group
                                 type='text'
                                 validate
@@ -123,7 +123,8 @@ export default function RegistrationPage() {
                                         className='btn-block z-depth-1'
                                         onClick={() => {
                                             validateRegistration(firstName, lastName,
-                                                email, confirmEmail, password, confirmPassword)}
+                                                email, confirmEmail, password, confirmPassword)
+                                        }
                                         }
                                     >
                                         Signup
