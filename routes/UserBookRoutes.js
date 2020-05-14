@@ -20,6 +20,7 @@ router.get("/all", async (req, res) => {
       { token: req.header("JWT") },
       { _id: 1, all: 1 }
     );
+console.log(JSON.stringify(allUserBooksIds));
 
     let allUserBooks = await bookModel
       .find(
@@ -166,7 +167,7 @@ router.post("/current/:bookid", async (req, res) => {
 
     const newCurrentBooks = [...currentBooks, req.params.bookid];
 
-    currentUser[0].read = newCurrentBooks;
+    currentUser[0].current = newCurrentBooks;
     currentUser[0].all = addToAll(currentUser[0], req.params.bookid);
 
     let results = await userModel
@@ -193,7 +194,7 @@ router.post("/want/:bookid", async (req, res) => {
 
     const newWantedBooks = [...wantedBooks, req.params.bookid];
 
-    currentUser[0].read = newWantedBooks;
+    currentUser[0].want_to_read = newWantedBooks;
     currentUser[0].all = addToAll(currentUser[0], req.params.bookid);
 
     let results = await userModel
