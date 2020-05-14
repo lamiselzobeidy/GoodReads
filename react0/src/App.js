@@ -8,21 +8,22 @@ import { Navbar, Button, Nav, Form, FormControl } from 'react-bootstrap';
 
 import { NavLink, Link, Route, BrowserRouter as Router ,Switch} from 'react-router-dom';
 
-import AdminPanel from './components/AdminPanel/AdminPanel'
-import MainNavBar from './components/MainNavBar/mainNavBar'
-import HotBooks from './components/HotBooks/HotBooks'
-import ListingCatogries from "./components/ListingCatogries/ListingCatogries"
-import Author from './components/Author/Author'
+import AdminPanel from './components/AdminPanel/AdminPanel';
+import MainNavBar from './components/MainNavBar/mainNavBar';
+import HotBooks from './components/HotBooks/HotBooks';
+import ListingCatogries from "./components/ListingCatogries/ListingCatogries";
+import Author from './components/Author/Author';
 import ListingAuthors from './components/ListingAuthors/ListingAuthors';
-import PaginationCompo from './components/Pagentaion/Pagentaion'
-import ListingBooks from './components/ListingBooks/ListingBooks'
-import HomePage from './components/HomePage/HomePage'
+import PaginationCompo from './components/Pagentaion/Pagentaion';
+import ListingBooks from './components/ListingBooks/ListingBooks';
+import HomePage from './components/HomePage/HomePage';
 import WelcomePage from './components/welcomePage/welcomePage';
 import Footer from './components/footer/footer';
-import Categories from './components/categories/categories'
+import Categories from './components/categories/categories';
 import BookProfile from './components/bookProfile/bookProfile';
 import CategoryProfile from './components/categoryProfile/categoryProfile';
-import UserProfilePage from './components/UserProfilePage/UserProfilePage'
+import UserProfilePage from './components/UserProfilePage/UserProfilePage';
+import RegistrationPage from './components/RegistrationPage/registrationPage';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/bookprofile" component={BookProfile} />
           <Route path="/categorypage" component={CategoryProfile} />
         </Switch>
+        <RegistrationPage/>
 
         {/* <AdminPanel></AdminPanel> */}
         {/* <UserProfilePage></UserProfilePage> */}
@@ -44,7 +46,7 @@ function App() {
         {/* <Button variant="light" className="btn">Popular books</Button> 
         <HotBooks></HotBooks>
         <ListingCatogries></ListingCatogries> */}
-        <ListingAuthors></ListingAuthors> 
+        {/*<ListingAuthors></ListingAuthors> */}
         {/* <Author></Author> */}
         {/* <PaginationCompo></PaginationCompo> */}
 
