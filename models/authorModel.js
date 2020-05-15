@@ -5,7 +5,7 @@ let authorSchema = new mongoose.Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     authorImage: {type: String},
-    bio: {type: String},
+    bio: {type: String,default:""},
     DateofBirth: {type: Date,default:Date.now},
 });
 
