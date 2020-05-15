@@ -1,9 +1,15 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useState,useEffect } from 'react';
 import { Table, Modal, Button, Form, Col, Row } from 'react-bootstrap'
 import './AdminCatogries.css'
 import { Icon } from 'semantic-ui-react';
+import axios from 'axios'
 
 function MyVerticallyCenteredModal(props) {
+    function addComponent() {
+        console.log("asd");
+        
+    }
     return (
         <Modal
             {...props}
@@ -18,19 +24,19 @@ function MyVerticallyCenteredModal(props) {
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                 <Form.Group as={Row} controlId="formPlaintextPassword">
+                    <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="2">
-                        Category Name
+                            Category Name
                      </Form.Label>
                         <Col sm="10">
-                          <Form.Control size="lg" type="text" placeholder="" />
+                            <Form.Control size="lg" type="text" placeholder="" />
                         </Col>
                     </Form.Group>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>
-                <Button variant="primary" onClick={props.onHide}>
+                <Button variant="primary" onClick={()=>{props.onHide();addComponent()}}>
                     Save Changes
           </Button>
             </Modal.Footer>
@@ -42,9 +48,35 @@ function MyVerticallyCenteredModal(props) {
 
 function AdminCatogries() {
     const [modalShow, setModalShow] = React.useState(false);
+    const [categories, setCategories] = useState([])
+    useEffect(() => {
+        axios.get("http://34.107.102.252:3000/category/")
+            .then(res => {
+                console.log(res.data);
+                setCategories(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+
+            })
+
+    }, [])
+
+
+
+    function deleteComponent(x) {
+        console.log(x.category._id);
+        axios.delete(`http://34.107.102.252:3000/category/${x.category._id}`)
+        
+
+
+    }
+    function editComponent (x){
+
+    }
     return (
         <div>
-            <a className="iconadjustment" onClick={() => setModalShow(true)}>
+            <a className="iconadjustment" onClick={() => {setModalShow(true) ; }}>
                 <Icon name='add circle test' />
             </a>
             <Table striped bordered hover>
@@ -57,18 +89,28 @@ function AdminCatogries() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td><a >
-                            <Icon name='edit' />
-                        </a>
-                            <a>
+
+                    {
+                        categories.map(category=>(
+                            <tr>
+                            <td>{category._id}</td>
+                              <td> {category.categoryName}</td>
+                            <td>
+                            <a  onClick={
+                                ()=> { editComponent({category}) }    
+                            }>
+                                <Icon name='edit' />
+                            </a>
+                            <a  onClick={
+                                ()=> { deleteComponent({category}) }    
+                            }>
                                 <Icon name='delete' />
                             </a>
-                        </td>
-
-                    </tr>
+                            </td>
+    
+                        </tr>
+                        ))
+                 }
 
                 </tbody>
             </Table>
