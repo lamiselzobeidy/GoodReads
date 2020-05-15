@@ -1,10 +1,17 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React ,{useEffect,useState} from 'react'
 import { Table, Modal, Button, Form, Col, Row } from 'react-bootstrap'
 import '../AdminCatogries/AdminCatogries.css'
 import { Icon } from 'semantic-ui-react';
+import axios from 'axios'
 
 
 function MyVerticallyCenteredModal(props) {
+    function addComponent() {
+        console.log("asd");
+        
+    }
+
     return (
         <Modal
             {...props}
@@ -31,7 +38,7 @@ function MyVerticallyCenteredModal(props) {
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>
-                <Button variant="primary" onClick={props.onHide}>
+                <Button variant="primary"onClick={()=>{props.onHide();addComponent()}}>
                     Save Changes
           </Button>
             </Modal.Footer>
@@ -42,6 +49,31 @@ function MyVerticallyCenteredModal(props) {
 
 function AdminAuthors() {
     const [modalShow, setModalShow] = React.useState(false);
+
+    const [authors,setAuthors] =useState([])
+    useEffect(()=>{
+        axios.get("http://34.107.102.252:3000/author")
+        .then(res=>{
+            console.log(res.data);
+            setAuthors(res.data);              
+        })
+        .catch(err=>{
+            console.log(err);
+            
+        })
+
+    },[])
+
+    function deleteComponent(x) {
+        console.log(x);
+        axios.delete(`http://34.107.102.252:3000/category/${x.}`)
+        
+
+
+    }
+    function editComponent (x){
+
+    }
     return (
         <div>
                         <a className="iconadjustment" onClick={() => setModalShow(true)}>
@@ -60,22 +92,33 @@ function AdminAuthors() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td><a>
-                            <Icon name='edit' />
+                {
+                    authors.map(author=>(
+                        <tr>
+                        <td className="text-danger" style={{fontSize:15}} >{author._id}</td>
+                         <td>{author.authorImage}</td>
+                        <td>{author.firstName }</td>
+                        <td>{author.lastName}</td>
+                        <td>{author.DateofBirth}</td>
+                        <td>                          <a  onClick={
+                                ()=> { editComponent({category}) }    
+                            }>
+                                <Icon name='edit' />
                             </a>
-                            <a>
-                            <Icon name='delete' />
+                            <a  onClick={
+                                ()=> { deleteComponent({category}) }    
+                            }>
+                                <Icon name='delete' />
                             </a>
                         </td>
                       
                        
                     </tr>
+
+                    ))
+                }
+               
+                   
 
                 </tbody>
             </Table>
