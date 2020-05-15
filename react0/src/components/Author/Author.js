@@ -1,22 +1,39 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import { Table, Card, Button } from 'react-bootstrap'
 import "./Author.css"
+import axios from 'axios'
 
 
-const Author = () => {
+const Author = (props) => {
+    const [author,setAuthor] = useState([])
+    useEffect(()=>{
+        axios.get("http://34.107.102.252:3000/author/5ebb3e65e174821f8e201e63")
+        .then(res=>{
+            console.log(props);
+            
+            setAuthor(res.data); 
+                         
+        })
+        .catch(err=>{
+            console.log(err);
+            
+        })
+
+    },[props])
+
+
 
     return (
 
         <Table striped bordered hover variant="white" className="table">
             <tbody >
-                <tr >
-
+                <tr>
                     <td style={{ height: '60vh' }} colSpan="2">
 
                         <Card style={{ height: '8rem' }}>
-                            <Card.Header>Fady Jan</Card.Header>
+                             <Card.Header>{author.firstName + " " + author.lastName}</Card.Header>
                             <Card.Body>
-                                <Card.Img className="img" variant="top" src="https://image.shutterstock.com/image-vector/male-silhouette-avatar-profile-picture-260nw-199246382.jpg" />
+                                <Card.Img className="img" variant="top" src={author.authorImage}/>
                                 <Card.Title>Info</Card.Title>
                                 <Card.Text>
                                     With supporting text below as a natural lead-in to additional content.

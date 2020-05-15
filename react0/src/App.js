@@ -38,7 +38,7 @@ function App() {
           <Route path="/categorypage" component={CategoryProfile} />
         </Switch>
 
-        {/* <AdminPanel></AdminPanel> */}
+        <AdminPanel></AdminPanel>
         {/* <UserProfilePage></UserProfilePage> */}
         {/* <ListingBooks></ListingBooks> */}
         {/* <Button variant="light" className="btn">Popular books</Button> 
