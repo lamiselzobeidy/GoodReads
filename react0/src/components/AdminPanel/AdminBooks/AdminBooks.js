@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Modal, Button, Form, Col, Row } from 'react-bootstrap'
 import '../AdminCatogries/AdminCatogries.css'
 import { Icon } from 'semantic-ui-react';
@@ -7,10 +7,46 @@ import axios from 'axios'
 
 
 function MyVerticallyCenteredModal(props) {
-    function addComponent() {
-        console.log("asd");
-        
+    const [bookName, setBookName] = useState('');
+    const [athName, setAthName] = useState('');
+    const [catName, setCatName] = useState('');
+
+    const [listingCategories, setListingCategories] = useState([]);
+    const [authors, setAuthors] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://34.107.102.252:3000/category/")
+        .then(res => {
+            setListingCategories(res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+       
+    }, [])
+
+    useEffect(() => {
+        axios.get("http://34.107.102.252:3000/author/")
+        .then(res => {
+            setAuthors(res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+       
+    }, [])
+
+    const submitValue = (evt) => {
+        evt.preventDefault();
+        const frmdetails = {
+            'Book Name': bookName,
+            'Author Name' : athName,
+            'Category Name' : catName ,
+            // 'Email' : email
+        }
+        console.log(frmdetails);
     }
+
     return (
         <Modal
             {...props}
@@ -24,13 +60,13 @@ function MyVerticallyCenteredModal(props) {
           </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
+                <Form onSubmit={submitValue}>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="2">
                             Book Name
                      </Form.Label>
                         <Col sm="10">
-                            <Form.Control size="lg" type="text" placeholder="Enter Book Name ..." />
+                            <Form.Control size="lg" type="text" placeholder="Enter Book Name ..."  onChange={e => setBookName(e.target.value)}/>
                         </Col>
                     </Form.Group>
 
@@ -39,9 +75,14 @@ function MyVerticallyCenteredModal(props) {
                             Category
                      </Form.Label>
                         <Col sm="10">
-                            <Form.Control as="select" value="Choose...">
-                                <option>Choose...</option>
-                                <option>...</option>
+                            <Form.Control as="select" value="Choose..." onChange={e => setCatName(e.target.value)} >
+                                {
+
+                                 listingCategories.map(category => (
+
+                                <option>{category.categoryName}</option>
+                                ))
+                                }
                             </Form.Control>
                         </Col>
                     </Form.Group>
@@ -51,9 +92,12 @@ function MyVerticallyCenteredModal(props) {
                             Author
                      </Form.Label>
                         <Col sm="10">
-                            <Form.Control as="select" value="Choose...">
-                                <option>Choose...</option>
-                                <option>...</option>
+                            <Form.Control as="select" value="Choose..." onChange={e => setAthName(e.target.value)}>
+                                {
+                                  authors.map(author=>(
+                                  <option>{author.firstName + " " + author.lastName}</option>
+                                     ))
+                                }
                             </Form.Control>
                         </Col>
                     </Form.Group>
@@ -66,15 +110,16 @@ function MyVerticallyCenteredModal(props) {
                              </Form.File.Label>
                         </Form.File>
                     </div>
+                    <Button onClick={props.onHide}>Close</Button>
+                    <Button variant="primary" type="submit" onClick={() => { props.onHide() }}>
+                        Save Changes
+                      </Button>
 
                 </Form>
 
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
-                <Button variant="primary" onClick={()=>{props.onHide();addComponent()}}>
-                    Save Changes
-          </Button>
+
             </Modal.Footer>
         </Modal>
     );
@@ -85,31 +130,45 @@ function MyVerticallyCenteredModal(props) {
 
 function AdminBooks() {
     const [modalShow, setModalShow] = React.useState(false);
-    const [books, setBooks] = useState([])
-    useEffect(()=>{
+
+    function getBooks() {
         axios.get("http://34.107.102.252:3000/book")
-        .then(res=>{
-            console.log(res.data);
-            setBooks(res.data);              
-        })
-        .catch(err=>{
-            console.log(err);
-            
-        })
+            .then(res => {
+                setBooks(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 
-    },[])
+
+    const [books, setBooks] = useState([])
+    useEffect(() => {
+        getBooks()
+    }, [])
+
     function deleteComponent(x) {
-        console.log(x);
-        axios.delete(`http://34.107.102.252:3000/category/${x.}`)
-        
+        console.log(x._id);
+        axios.delete(`http://34.107.102.252:3000/book/${x._id}`, {
+            headers: {
+                JWT: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybWFpbCI6InJvb3RAbWFpbC5jb20iLCJpYXQiOjE1ODk0ODk5NjV9.b2vOq5SY79KgxDbHUusM5czvuUD9JsAZe-VKIW6_Z5g"
+            }
+        }).then(res => {
+            getBooks()
+        })
+            .catch(err => {
+                console.log(err);
+
+            })
+
 
 
     }
-    function editComponent (x){
+    function editComponent(x) {
 
     }
 
-     return (
+    return (
         <div>
             <a className="iconadjustment" onClick={() => setModalShow(true)}>
                 <Icon name='add circle test' />
@@ -128,31 +187,32 @@ function AdminBooks() {
                 </thead>
                 <tbody>
                     {
-                        books.map(book=>(
+                        books.map(book => (
 
                             <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>{book.bookName}</td>
-                            <td>{book.catId._id}</td>
-                            <td>ttt</td>
-                            <td>                            <a  onClick={
-                                ()=> { editComponent({category}) }    
-                            }>
-                                <Icon name='edit' />
-                            </a>
-                            <a  onClick={
-                                ()=> { deleteComponent({category}) }    
-                            }>
-                                <Icon name='delete' />
-                            </a>
-                            </td>
-    
-    
-                        </tr>
+                                <td>1</td>
+                                <td>Mark</td>
+                                <td>{book.bookName}</td>
+                                <td>{book.catId._id}</td>
+                                <td>ttt</td>
+                                <td>
+                                    <a onClick={
+                                        () => { editComponent(book) }
+                                    }>
+                                        <Icon name='edit' />
+                                    </a>
+                                    <a onClick={
+                                        () => { deleteComponent(book) }
+                                    }>
+                                        <Icon name='delete' />
+                                    </a>
+                                </td>
+
+
+                            </tr>
                         ))
-                 
-                        }
+
+                    }
                 </tbody>
             </Table>
             <MyVerticallyCenteredModal

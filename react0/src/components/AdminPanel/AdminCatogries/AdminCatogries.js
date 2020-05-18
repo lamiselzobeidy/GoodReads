@@ -6,10 +6,38 @@ import { Icon } from 'semantic-ui-react';
 import axios from 'axios'
 
 function MyVerticallyCenteredModal(props) {
-    function addComponent() {
-        console.log("asd");
-        
+
+    const [catName, setCatName] = useState('');
+    useEffect(() => {
+        axios.get("http://34.107.102.252:3000/category/")
+            .then(res => {
+                setCatName(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+
+            })
+
+    }, [])
+
+
+
+    const submitValue = (evt) => {
+        evt.preventDefault();
+         const frmdetails = {
+            'Category Name' : catName ,
+        }
+        console.log(frmdetails);
+
+        // useEffect(() => {
+        //     axios.post(``, { frmdetails })
+        //     .then(res => {
+        //       console.log(res);
+        //       console.log(res.data);
+        //     })
+        // }, [])
     }
+
     return (
         <Modal
             {...props}
@@ -23,50 +51,60 @@ function MyVerticallyCenteredModal(props) {
           </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
+                <Form onSubmit={submitValue}>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="2">
                             Category Name
                      </Form.Label>
                         <Col sm="10">
-                            <Form.Control size="lg" type="text" placeholder="" />
+                            <Form.Control size="lg" type="text" placeholder="" onChange={e => setCatName(e.target.value)}/>
                         </Col>
                     </Form.Group>
+                    <Button onClick={props.onHide}>Close</Button>
+                <Button variant="primary" type="submit" onClick={()=>{props.onHide()}}>
+                    Save Changes
+          </Button>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
-                <Button variant="primary" onClick={()=>{props.onHide();addComponent()}}>
-                    Save Changes
-          </Button>
+
             </Modal.Footer>
         </Modal>
     );
 }
 
 
-
 function AdminCatogries() {
     const [modalShow, setModalShow] = React.useState(false);
-    const [categories, setCategories] = useState([])
-    useEffect(() => {
+    function getCategories(){
         axios.get("http://34.107.102.252:3000/category/")
             .then(res => {
-                console.log(res.data);
                 setCategories(res.data);
             })
             .catch(err => {
                 console.log(err);
-
             })
+        }
 
+    const [categories, setCategories] = useState([])
+    useEffect(() => {
+        getCategories()
     }, [])
 
 
 
     function deleteComponent(x) {
-        console.log(x.category._id);
-        axios.delete(`http://34.107.102.252:3000/category/${x.category._id}`)
+        console.log(x._id);
+        axios.delete(`http://34.107.102.252:3000/category/${x._id}`,{
+            headers: {
+              JWT: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybWFpbCI6InJvb3RAbWFpbC5jb20iLCJpYXQiOjE1ODk0ODk5NjV9.b2vOq5SY79KgxDbHUusM5czvuUD9JsAZe-VKIW6_Z5g"
+            }}).then(res=>{
+               getCategories()          
+            })
+            .catch(err=>{
+                console.log(err);
+                
+            })
         
 
 
@@ -97,12 +135,12 @@ function AdminCatogries() {
                               <td> {category.categoryName}</td>
                             <td>
                             <a  onClick={
-                                ()=> { editComponent({category}) }    
+                                ()=> { editComponent(category)}    
                             }>
                                 <Icon name='edit' />
                             </a>
                             <a  onClick={
-                                ()=> { deleteComponent({category}) }    
+                                ()=> { deleteComponent(category) }    
                             }>
                                 <Icon name='delete' />
                             </a>
