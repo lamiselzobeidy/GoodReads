@@ -1,6 +1,8 @@
 import React from 'react'
 import HotBooks from '../HotBooks/HotBooks'
-import ListingCatogries from '../ListingCatogries/ListingCatogries'
+import ListingCatogries from '../ListingCategories/ListingCategories'
+import { Button} from 'react-bootstrap';
+import NewCategories from '../NewCategories/NewCategories'
 
 
 const HomePage =()=>{
@@ -8,8 +10,10 @@ const HomePage =()=>{
     return(
 
         <div>
+        <Button variant="light" className="btn" style={{fontSize:30}}>Popular books</Button> 
         <HotBooks></HotBooks>
-        <ListingCatogries></ListingCatogries>
+        <NewCategories></NewCategories>
+        {/* <ListingCatogries></ListingCatogries> */}
         </div>
 
 
