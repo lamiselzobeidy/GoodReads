@@ -4,12 +4,13 @@ import "./Author.css"
 import axios from 'axios'
 
 
-const Author = (props) => {
-    const [author,setAuthor] = useState([])
+function Author (props) {
+
+    const [author,setAuthor] = useState([{lastName:"",firstName:"",authorImage:"" }])
     useEffect(()=>{
-        axios.get("http://34.107.102.252:3000/author/5ebb3e65e174821f8e201e63")
+        axios.get(`http://34.107.102.252:3000/author/${props.location.xy.authorId}`)
         .then(res=>{
-            console.log(props);
+            console.log(res.data);
             
             setAuthor(res.data); 
                          
@@ -19,7 +20,7 @@ const Author = (props) => {
             
         })
 
-    },[props])
+    },[])
 
 
 
@@ -33,7 +34,7 @@ const Author = (props) => {
                         <Card style={{ height: '8rem' }}>
                              <Card.Header>{author.firstName + " " + author.lastName}</Card.Header>
                             <Card.Body>
-                                <Card.Img className="img" variant="top" src={author.authorImage}/>
+                                <Card.Img className="img" variant="top" src={`http://34.107.102.252:3000/`+author.authorImage }/>
                                 <Card.Title>Info</Card.Title>
                                 <Card.Text>
                                     With supporting text below as a natural lead-in to additional content.
