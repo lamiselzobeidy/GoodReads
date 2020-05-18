@@ -39,7 +39,8 @@ router.post("/", async (req, res) => {
     try {
         // Here we need to check the JWT token before creating a new category
         const newCategory = new categoryModel({
-            categoryName:req.body.categoryName
+            categoryName:req.body.categoryName,
+            summary:req.body.summary
         }
         );
         const category = await newCategory.save();
