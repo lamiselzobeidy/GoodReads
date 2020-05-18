@@ -87,7 +87,7 @@ function TableList() {
 function UserProfilePage(props) {
     return (
 
-        <div className="Container">
+        <div className="Container mx-2">
             <Tab.Container id="left-tabs-example" defaultActiveKey="first">
                 <Row>
                     <Col sm={2} className="NavContainer">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'semantic-ui-css/semantic.min.css';
 import 'mdbreact/dist/css/mdb.css';
@@ -24,18 +24,29 @@ import BookProfile from './components/bookProfile/bookProfile';
 import CategoryProfile from './components/categoryProfile/categoryProfile';
 import UserProfilePage from './components/UserProfilePage/UserProfilePage'
 
-function App() {
+class App extends Component{
+  constructor(props) {
+    super(props);
+    this.state = ({
+        loggedIn: false
+    });
+    
+  }
+     
+  render(){
   return (
     <Router>
       <div className="App">
-        <MainNavBar></MainNavBar>
+        {/* <MainNavBar></MainNavBar> */}
         <Switch>
           <Route path="/HomePage" component={HomePage} />
           <Route path="/ListingAuthors" component={ListingAuthors} />
-          {/* <Route path="/" exact component={WelcomePage} /> */}
+          <Route path="/" exact component={WelcomePage} />
           <Route path="/categories" component={Categories} />
           <Route path="/bookprofile" component={BookProfile} />
-          <Route path="/categorypage" component={CategoryProfile} />
+          {/* <Route path="/bookprofile/:bookId" component={BookProfile} /> */}
+          <Route path="/categorypage/:categoryId" component={CategoryProfile} />
+          <Route path="/userprofile" component={UserProfilePage} />
         </Switch>
 
         {/* <AdminPanel></AdminPanel> */}
@@ -52,6 +63,7 @@ function App() {
       </div>
     </Router>
   )
+}
 }
 
 
