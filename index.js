@@ -13,7 +13,8 @@ const BookRouter = require("./routes/book");
 const HomeRouter = require("./routes/home");
 const UserBookRouter = require("./routes/UserBookRoutes");
 const LoginRouter = require("./routes/login");
-const LogoutRouter = require("./routes/logout")
+const LogoutRouter = require("./routes/logout");
+const SearchRouter = require("./routes/search");
 
 let UserModel = require("./models/user");
 
@@ -51,6 +52,8 @@ app.use("/logout",LogoutRouter)
 app.use("/user", UserRouter);
 
 app.use("/user/book", UserBookRouter);
+
+app.use("/search", UserBookRouter);
 
 // app.use(async (req, res, next) => {
 //   try {
