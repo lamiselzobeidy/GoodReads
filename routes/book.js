@@ -7,6 +7,7 @@ let router = express.Router()
 let BookModel = require("../models/book")
 let AuthorModel = require("../models/authorModel")
 let CategoryModel = require("../models/categoryModel")
+const ReviewModel = require("../models/review");
 
 const checkIsAdmin = require("../middlewares/admin_check");
 
@@ -61,7 +62,27 @@ router.get('/:id', async (req, res) => {
    try {
       let id = req.params.id;
       let results = await BookModel.findById(id).populate("authorId").populate("catId").exec()
-      res.json(results)
+      let bookReviews = await ReviewModel.findReviewsByBookId(id)
+      console.log(bookReviews);
+
+      let bookAvgRate=0;
+      let reviews =[]
+
+      if (bookReviews !== null) {
+         reviews = bookReviews.length >0 ? bookReviews[0]:[]         
+
+         let avgRate=0;
+         if(bookReviews.length >0){
+            const bookTotalRate = bookReviews.reduce((total,review)=> total + review.rating,0)
+   
+            avgRate = bookTotalRate/bookReviews.length
+         }
+   
+         bookAvgRate =avgRate
+   
+      }      
+
+      res.json({book:results,bookAvgRate,reviews})
    } catch (error) {
       console.log(error);
       res.send(404, {
@@ -124,5 +145,6 @@ router.patch('/:id',upload.single('coverImage') ,async(req, res) => {
       })
    }
 });
+
 
 module.exports = router;

@@ -7,5 +7,9 @@ let reviewSchema = new mongooseSchema({
     rating:{type:Number,default:0}
 });
 
+reviewSchema.statics.findReviewsByBookId = function (id) {
+    return this.find({bookId:id})
+ };
+
 let ReviewModel = model('review',reviewSchema);
 module.exports = ReviewModel;
