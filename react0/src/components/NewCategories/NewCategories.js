@@ -3,32 +3,36 @@ import './NewCategories.css'
 import axios from 'axios'
 
 
-const NewCategories = () => {
+const NewCategories = (props) => {
+    
+    
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
-        axios.get("http://34.107.102.252:3000/category/")
-            .then(res => {
-                setCategories(res.data);
-            })
-            .catch(err => {
-                console.log(err);
+        console.log("cats page",props.HomePage);
 
-            })
+        setCategories(props.HomePage)
+
     }, [])
 
 
 
-    return (
+    return ( 
+
+
         <div class="mainc">
-            <a href="gg">
+
+        {
+            categories.map(category=>(
+
+                <a href="#">
 
                 <div class="card">
                     <div class="card-image"></div>
                     <div class="card-text">
                         <span class="date">4 days ago</span>
-                        <h2>Post One</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod deserunt eligendi dolor</p>
+                         <h2>{ category.categoryName  }</h2>
+                            <p>{category.summary}</p>
                     </div>
                     <div class="card-stats">
                         <div class="stat">
@@ -46,6 +50,10 @@ const NewCategories = () => {
                     </div>
                 </div>
             </a>
+
+            ))
+        }
+          
 
             <a>
                 <div class="card">

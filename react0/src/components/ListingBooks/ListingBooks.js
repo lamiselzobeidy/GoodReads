@@ -8,7 +8,7 @@ const ListingBooks = () => {
     useEffect(() => {
         axios.get("http://34.107.102.252:3000/book/")
             .then(res => {
-                console.log(res.data[1].authorId.firstName +" " + res.data[1].authorId.lastName);
+                console.log(res.data);
                 
                 setBooks(res.data);
             })
@@ -31,8 +31,9 @@ const ListingBooks = () => {
                     <Card.Content>
                 <Card.Header>{book.bookName}</Card.Header>
                         <Card.Meta>{book.authorId.firstName +" " + book.authorId.lastName}</Card.Meta>
+                        <Card.Meta>{book.catId.categoryName}</Card.Meta>
                         <Card.Description>
-                            Daniel is a comedian living in Nashville.
+                            {book.brief}
                     </Card.Description>
                     </Card.Content>
                     <Card.Content extra>

@@ -6,37 +6,47 @@ import { Icon } from 'semantic-ui-react';
 import axios from 'axios'
 
 function MyVerticallyCenteredModal(props) {
+    const [edit,setEdit]=useState(false)
 
     const [catName, setCatName] = useState('');
     useEffect(() => {
-        axios.get("http://34.107.102.252:3000/category/")
-            .then(res => {
-                setCatName(res.data);
-            })
-            .catch(err => {
-                console.log(err);
 
-            })
+        
+        if(props.cat !== {})
+        {
 
-    }, [])
+            console.log("gowa el if",props.cat);
+            
+            setCatName(props.cat.categoryName)
+            setEdit(true)
+        }
 
+    },)
 
 
     const submitValue = (evt) => {
         evt.preventDefault();
-         const frmdetails = {
-            'Category Name' : catName ,
+
+        const frmdetails = {
+            'categoryName' : catName ,
         }
         console.log(frmdetails);
+        const config = {
+            headers: {
+                'JWT': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybWFpbCI6InJvb3RAbWFpbC5jb20iLCJpYXQiOjE1ODk0ODk5NjV9.b2vOq5SY79KgxDbHUusM5czvuUD9JsAZe-VKIW6_Z5g'
+            }
+        };
 
-        // useEffect(() => {
-        //     axios.post(``, { frmdetails })
-        //     .then(res => {
-        //       console.log(res);
-        //       console.log(res.data);
-        //     })
-        // }, [])
+
+            axios.post('http://34.107.102.252:3000/category/', frmdetails ,config )
+            .then(res => {
+              console.log(res);
+              console.log(res.data);
+            })
+
     }
+
+    
 
     return (
         <Modal
@@ -44,7 +54,9 @@ function MyVerticallyCenteredModal(props) {
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+          
         >
+            
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
                     ADD Category
@@ -57,7 +69,7 @@ function MyVerticallyCenteredModal(props) {
                             Category Name
                      </Form.Label>
                         <Col sm="10">
-                            <Form.Control size="lg" type="text" placeholder="" onChange={e => setCatName(e.target.value)}/>
+                            <Form.Control size="lg" type="text" placeholder={catName } onChange={e => setCatName(e.target.value)}/>
                         </Col>
                     </Form.Group>
                     <Button onClick={props.onHide}>Close</Button>
@@ -76,6 +88,8 @@ function MyVerticallyCenteredModal(props) {
 
 function AdminCatogries() {
     const [modalShow, setModalShow] = React.useState(false);
+    const [cat,setCat]= useState({})
+
     function getCategories(){
         axios.get("http://34.107.102.252:3000/category/")
             .then(res => {
@@ -91,8 +105,6 @@ function AdminCatogries() {
         getCategories()
     }, [])
 
-
-
     function deleteComponent(x) {
         console.log(x._id);
         axios.delete(`http://34.107.102.252:3000/category/${x._id}`,{
@@ -102,19 +114,16 @@ function AdminCatogries() {
                getCategories()          
             })
             .catch(err=>{
-                console.log(err);
-                
+                console.log(err);             
             })
         
-
-
     }
     function editComponent (x){
 
     }
     return (
         <div>
-            <a className="iconadjustment" onClick={() => {setModalShow(true) ; }}>
+            <a className="iconadjustment" onClick={() => {setCat({}); setModalShow(true) ; }}>
                 <Icon name='add circle test' />
             </a>
             <Table striped bordered hover>
@@ -132,11 +141,21 @@ function AdminCatogries() {
                         categories.map(category=>(
                             <tr>
                             <td>{category._id}</td>
-                              <td> {category.categoryName}</td>
+                            <td>{category.categoryName}</td>
                             <td>
-                            <a  onClick={
+                            {/* <a  onClick={
                                 ()=> { editComponent(category)}    
-                            }>
+                            }> */}
+
+                            <a onClick={() => {
+                                
+                                setCat(category)
+                                setModalShow(true);
+                            
+                            
+                            
+                            }}>
+
                                 <Icon name='edit' />
                             </a>
                             <a  onClick={
@@ -154,6 +173,7 @@ function AdminCatogries() {
             </Table>
             <MyVerticallyCenteredModal
                 show={modalShow}
+                cat = {cat}
                 onHide={() => setModalShow(false)}
             />
 

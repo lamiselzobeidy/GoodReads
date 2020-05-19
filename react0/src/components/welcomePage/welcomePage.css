@@ -19,14 +19,14 @@
     padding: 0 !important;
 }
 .container{    
-    width:100vw !important;
+    /* width:100vw !important;
     max-width: 1489px !important;
     height: 55%;
     background-image: url('../../images/openbookbg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     /* background-color: rgba(23, 23, 24, 0.24); */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */ 
 }
 #quote{
     background-color:rgba(23, 23, 24, 0.24);

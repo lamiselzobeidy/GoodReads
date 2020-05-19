@@ -7,16 +7,32 @@ import axios from 'axios'
 
 function MyVerticallyCenteredModal(props) {
     const [fName, setfName] = useState('');
+    const [lName, setLName] = useState('');
+    const [dateofBirth, setDateofBirth] = useState('');
+    const [bio,setBio] =useState('')
+    const [file, setFile] = useState(null)
 
     const submitValue = (evt) => {
         evt.preventDefault();
-        const frmdetails = {
-            'First Name' : fName,
-            // 'Last Name' : lName,
-            // 'Phone' : phone,
-            // 'Email' : email
-        }
-        console.log(frmdetails);
+        const frmdetails = new FormData();
+        frmdetails.append('firstName', fName)
+        frmdetails.append('lastName', lName)
+        frmdetails.append('DateofBirth', dateofBirth)
+        frmdetails.append('authorImage', file)
+        frmdetails.append('bio' ,bio )
+
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
+                'JWT': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybWFpbCI6InJvb3RAbWFpbC5jb20iLCJpYXQiOjE1ODk0ODk5NjV9.b2vOq5SY79KgxDbHUusM5czvuUD9JsAZe-VKIW6_Z5g'
+            }
+        };
+        axios.post('http://34.107.102.252:3000/author/', frmdetails, config)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+                
+            })
     }
 
     return (
@@ -36,12 +52,52 @@ function MyVerticallyCenteredModal(props) {
                 <Form onSubmit={submitValue}>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="2">
-                            Author Name
+                             First Name
                      </Form.Label>
                         <Col sm="10">
                             <Form.Control size="lg" type="text" placeholder="" onChange={e => setfName(e.target.value)} />
                         </Col>
                     </Form.Group>
+                    <Form.Group as={Row} controlId="formPlaintextPassword">
+                        <Form.Label column sm="2">
+                             Last Name
+                     </Form.Label>
+                        <Col sm="10">
+                           
+                        <Form.Control size="lg" type="text" placeholder="" onChange={e => setLName(e.target.value)} />
+                        </Col>
+                    </Form.Group>
+
+                    <Form.Group as={Row} controlId="formPlaintextPassword">
+                        <Form.Label column sm="2">
+                            Date Of Birth
+                     </Form.Label>
+                        <Col sm="10">
+                        <Form.Control size="lg" type="text" placeholder="" onChange={e => setDateofBirth(e.target.value)} />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="formPlaintextPassword">
+                        <Form.Label column sm="2">
+                            Bio
+                     </Form.Label>
+                        <Col sm="10">
+                        <Form.Control size="lg" type="text" placeholder="" onChange={e => setBio(e.target.value)} />
+                        </Col>
+                    </Form.Group>
+
+                    <div className="mb-3">
+                        <Form.File id="formcheck-api-custom" custom>
+                            <Form.File.Input type="file" file="myImage" isValid onChange={(e) => {
+                                console.log({ file: e.target.files[0] });
+                                setFile(e.target.files[0])
+                             }
+    
+                            } />
+                            <Form.File.Label data-browse="Button text">
+                                Upload Your Image
+                             </Form.File.Label>
+                        </Form.File>
+                    </div>
 
                     <Button onClick={props.onHide}>Close</Button>
                     <Button variant="primary" type="submit" onClick={() => { props.onHide() }}>

@@ -13,6 +13,8 @@ function ListingAuthors() {
     useEffect(() => {
         axios.get("http://34.107.102.252:3000/author")
             .then(res => {
+                console.log(res.data);
+                
                 setAuthors(res.data);
             })
             .catch(err => {
@@ -49,7 +51,7 @@ function ListingAuthors() {
                                 <Card.Header  >{author.firstName + " " + author.lastName} </Card.Header>
                                 <Card.Meta>Friends of Elliot</Card.Meta>
                                 <Card.Description>
-                                    Steve wants to add you to the group <strong>best friends</strong>
+                                    {author.bio}
                                 </Card.Description>
                             </Card.Content>
                             <Card.Content extra>

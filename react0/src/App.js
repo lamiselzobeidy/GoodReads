@@ -34,9 +34,9 @@ function App() {
         {/* <MainNavBar></MainNavBar> */}
         <NewNavBar></NewNavBar>
         <Switch>
-          <Route path="/" exact component={HomePage} />
+          {/* <Route path="/" exact component={HomePage} /> */}
           <Route path="/HomePage" component={HomePage} />
-          
+
           <Route path="/ListingAuthors" component={ListingAuthors} />
           <Route path="/ListingBooks" component={ListingBooks} />
           <Route path="/ListingCategories" component={ListingCategories} />

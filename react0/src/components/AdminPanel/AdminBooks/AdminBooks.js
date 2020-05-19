@@ -4,49 +4,84 @@ import { Table, Modal, Button, Form, Col, Row } from 'react-bootstrap'
 import '../AdminCatogries/AdminCatogries.css'
 import { Icon } from 'semantic-ui-react';
 import axios from 'axios'
+import {Redirect} from 'react-router'
 
 
 function MyVerticallyCenteredModal(props) {
     const [bookName, setBookName] = useState('');
     const [athName, setAthName] = useState('');
     const [catName, setCatName] = useState('');
+    const [file, setFile] = useState(null)
+    const [redirect,setRedirect] = useState(false)
+
 
     const [listingCategories, setListingCategories] = useState([]);
     const [authors, setAuthors] = useState([]);
 
     useEffect(() => {
         axios.get("http://34.107.102.252:3000/category/")
-        .then(res => {
-            setListingCategories(res.data);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-       
+            .then(res => {
+                setListingCategories(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
     }, [])
 
     useEffect(() => {
         axios.get("http://34.107.102.252:3000/author/")
-        .then(res => {
-            setAuthors(res.data);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-       
+            .then(res => {
+                setAuthors(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
     }, [])
 
     const submitValue = (evt) => {
         evt.preventDefault();
-        const frmdetails = {
-            'Book Name': bookName,
-            'Author Name' : athName,
-            'Category Name' : catName ,
-            // 'Email' : email
-        }
-        console.log(frmdetails);
+        const frmdetails = new FormData();
+        //  frmdetails = {
+        //     'bookName': bookName,
+        //     'authorId': athName,
+        //     'catId': catName,
+        //     'coverImage': file,
+        //     'brief' : "asdasdsa"
+        // }
+        frmdetails.append('bookName', bookName)
+        frmdetails.append('authorId', athName)
+        frmdetails.append('catId', catName)
+        frmdetails.append('coverImage', file)
+        frmdetails.append('brief' , "asdasdsa")
+
+
+        console.log(frmdetails.get('bookName'));
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
+                'JWT': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybWFpbCI6InJvb3RAbWFpbC5jb20iLCJpYXQiOjE1ODk0ODk5NjV9.b2vOq5SY79KgxDbHUusM5czvuUD9JsAZe-VKIW6_Z5g'
+            }
+        };
+        axios.post('http://34.107.102.252:3000/book/', frmdetails, config)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+                setRedirect(true)
+                
+            })
     }
 
+
+
+
+if (redirect) {
+    return(
+        <Redirect push to="/"></Redirect>
+    )
+}
+else{
     return (
         <Modal
             {...props}
@@ -66,7 +101,7 @@ function MyVerticallyCenteredModal(props) {
                             Book Name
                      </Form.Label>
                         <Col sm="10">
-                            <Form.Control size="lg" type="text" placeholder="Enter Book Name ..."  onChange={e => setBookName(e.target.value)}/>
+                            <Form.Control size="lg" type="text" placeholder="Enter Book Name ..." onChange={e => setBookName(e.target.value)} />
                         </Col>
                     </Form.Group>
 
@@ -75,13 +110,18 @@ function MyVerticallyCenteredModal(props) {
                             Category
                      </Form.Label>
                         <Col sm="10">
-                            <Form.Control as="select" value="Choose..." onChange={e => setCatName(e.target.value)} >
+                            <Form.Control as="select" value="Choose..." onChange={e => {
+                                const newArray = listingCategories.filter(cat => cat.categoryName === e.target.value ? true : false)
+                                if (newArray.length > 0) {
+                                    setCatName(newArray[0]._id)
+                                }
+                            }} >
                                 {
 
-                                 listingCategories.map(category => (
+                                    listingCategories.map(category => (
 
-                                <option>{category.categoryName}</option>
-                                ))
+                                        <option>{category.categoryName}</option>
+                                    ))
                                 }
                             </Form.Control>
                         </Col>
@@ -92,11 +132,16 @@ function MyVerticallyCenteredModal(props) {
                             Author
                      </Form.Label>
                         <Col sm="10">
-                            <Form.Control as="select" value="Choose..." onChange={e => setAthName(e.target.value)}>
+                            <Form.Control as="select" value="Choose..." onChange={e => {
+                                var index = e.target.selectedIndex;
+                                var optionElement = e.target.childNodes[index]
+                                var option = optionElement.getAttribute('data-id');
+                                console.log(option); setAthName(option)
+                            }}>
                                 {
-                                  authors.map(author=>(
-                                  <option>{author.firstName + " " + author.lastName}</option>
-                                     ))
+                                    authors.map(author => (
+                                        <option data-id={author._id}>{author.firstName + " " + author.lastName}</option>
+                                    ))
                                 }
                             </Form.Control>
                         </Col>
@@ -104,7 +149,12 @@ function MyVerticallyCenteredModal(props) {
 
                     <div className="mb-3">
                         <Form.File id="formcheck-api-custom" custom>
-                            <Form.File.Input isValid />
+                            <Form.File.Input type="file" file="myImage" isValid onChange={(e) => {
+                                console.log({ file: e.target.files[0] });
+                                setFile(e.target.files[0])
+                             }
+    
+                            } />
                             <Form.File.Label data-browse="Button text">
                                 Upload Your Image
                              </Form.File.Label>
@@ -123,6 +173,7 @@ function MyVerticallyCenteredModal(props) {
             </Modal.Footer>
         </Modal>
     );
+}
 }
 
 
@@ -158,10 +209,7 @@ function AdminBooks() {
         })
             .catch(err => {
                 console.log(err);
-
             })
-
-
 
     }
     function editComponent(x) {
