@@ -70,9 +70,7 @@ export default function RegistrationPage() {
   // });
 
   return (
-    <MDBContainer >
-     
-        
+      
           <MDBCard
             className="card-image"
             style={{
@@ -198,7 +196,6 @@ export default function RegistrationPage() {
             </div>
           </MDBCard>
         
-  
-    </MDBContainer>
+
   );
 }

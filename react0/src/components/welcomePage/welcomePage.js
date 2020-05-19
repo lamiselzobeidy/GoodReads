@@ -150,10 +150,11 @@ class welcomePage extends Component {
            
 
                 <Form
-                  className="form py-3 px-4 w-75"
+                  className="form w-75 rgba-stylish-strong z-depth-4"
                   noValidate
                   onSubmit={this.onSubmit}
                 >
+                    <div className="rgba-stylish-strong z-depth-4 py-3 px-4  " >
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control
@@ -187,6 +188,7 @@ class welcomePage extends Component {
                     >
                       Login
                     </Button>
+                  </div>
                   </div>
                 </Form>
                 <div className="signinIcons px-4 pt-2 mt-2 w-75">

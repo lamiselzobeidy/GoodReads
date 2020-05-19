@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './UserProfilePage.css'
 import { Tab, Row, Col, Nav, Table } from 'react-bootstrap'
 import { Label ,Rating } from 'semantic-ui-react';
@@ -7,9 +7,13 @@ const RatingBar = () => (
     <Rating icon='star' defaultRating={3} maxRating={4} />
   )
   
+function TableList(props) {
+    const [type,setType]=useState(0)
+    useEffect(()=>{
+        console.log(props.type);
+        setType(props.type)
 
-
-function TableList() {
+    },[])
     return (
         <Table striped bordered hover  className="Table">
             <thead>
@@ -116,16 +120,16 @@ function UserProfilePage(props) {
                             <Tab.Pane eventKey="second">
                                 <Label className="my-4 w-25 label">Read</Label>
 
-                                <TableList></TableList>
+                                <TableList type="1"></TableList>
                             </Tab.Pane>
                             <Tab.Pane eventKey="third">
                                 <Label className="my-4 w-25 label">Currently Reading</Label>
 
-                                <TableList></TableList>
+                                <TableList type="2"></TableList>
                             </Tab.Pane>
                             <Tab.Pane eventKey="fourth">
                                 <Label className="my-4 w-25 label">Want To Read</Label>
-                                <TableList></TableList>
+                                <TableList type="3"></TableList>
 
 
                             </Tab.Pane>

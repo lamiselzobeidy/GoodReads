@@ -33,7 +33,7 @@ import LoadingPage from './components/LoadingPage/LoadingPage'
     <Router>
       <div className="App">
         {/* <MainNavBar></MainNavBar> */}
-        {/* <NewNavBar></NewNavBar> */}
+        <NewNavBar></NewNavBar>
         <Switch>
           {/* <Route path="/" exact component={HomePage} /> */}
           <Route path="/HomePage" component={HomePage} />
@@ -48,7 +48,7 @@ import LoadingPage from './components/LoadingPage/LoadingPage'
           <Route path="/author" component={Author} />
           <Route path="/categorypage" component={CategoryProfile} />
           
-          <Route path="/" exact component={WelcomePage} />
+          {/* <Route path="/" exact component={WelcomePage} /> */}
           <Route path="/Registration" exact component={RegistrationPage} />
           <Route path="/categories" component={Categories} />
           <Route path="/bookprofile" component={BookProfile} />
@@ -62,7 +62,7 @@ import LoadingPage from './components/LoadingPage/LoadingPage'
         {/* <Categories></Categories> */}
         {/* <LoadingPage></LoadingPage> */}
         {/* <AdminPanel></AdminPanel> */}
-        {/* <UserProfilePage></UserProfilePage> */}
+        <UserProfilePage></UserProfilePage>
         {/* <ListingBooks></ListingBooks> */}
         {/* <NewCategories></NewCategories> */}
         {/* <HomePage></HomePage> */}
