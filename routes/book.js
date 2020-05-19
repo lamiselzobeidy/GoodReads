@@ -107,7 +107,7 @@ router.post('/', upload.single('coverImage'), async function (req, res) {
          catId: req.body.catId,
          authorId: req.body.authorId,
          coverImageName: req.file.path,
-         brief:req.file.brief
+         brief:req.body.brief
       });
       const book = await newBook.save();
       res.status(201).json(book);
