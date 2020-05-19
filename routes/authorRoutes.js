@@ -56,9 +56,10 @@ router.post("/", upload.single('authorImage'), async (req, res) => {
             _id: new mongoose.Types.ObjectId(),
             firstName: req.body.firstName,
             lastName: req.body.lastName,
+            fullName: req.body.firstName + " " + req.body.lastName,
             authorImage: req.file.path,
             DateofBirth: req.body.DateofBirth,
-            bio:req.body.bio
+            bio: req.body.bio
         });
         const author = await newAuthor.save();
         res.status(201).json(author);
