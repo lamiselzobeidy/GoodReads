@@ -15,6 +15,7 @@ const BookProfile = (props) => {
         axios.get('http://34.107.102.252:3000/book/5ec2d02f919f0b7d7211addf')
             .then(result => {
                 setBook(result.data);
+                console.log(result.data)
             })
     }
     if (book) {
@@ -23,7 +24,7 @@ const BookProfile = (props) => {
                 <Row className="mx-auto">
                     <Col xs="4">
                         <Card className="bookCard mx-auto" >
-                            <Card.Img variant="top" src={book.coverImageName} height="120px" className="w-75 mx-auto mt-3" />
+                            <Card.Img variant="top" src={book.book.coverImageName} height="120px" className="w-75 mx-auto mt-3" />
                             <Card.Body className="mx-auto">
                                 <Dropdown>
                                     <Dropdown.Toggle variant="info" id="dropdown-basic" style={{ fontSize: '12px' }}>Want to Read</Dropdown.Toggle>
@@ -39,11 +40,11 @@ const BookProfile = (props) => {
 
                     </Col>
                     <Col xs="5" className="pt-4 bookInfo" >
-                        <h2 className="bookname">{book.bookName}</h2>
-                        <Link>by {book.authorId.firstName} {book.authorId.lastName}</Link><br/>
-                        <Link>{book.catId.categoryName}</Link>
-                        <BeautyStars size="15px" value={stars} onChange={value => setSars(value)} />
-                        <p className="mt-3">This is a brief abou the book, In Harry Potter and the Philosopher's Stone, Harry, an orphan, lives with the Dursleys, his horrible aunt and uncle, and their abominable son, Dudley. One day just before his eleventh birthday, an owl tries to deliver a mysterious letter—the first of a sequence of events that end in Harry meeting a giant man named Hagrid…</p>
+                        <h2 className="bookname">{book.book.bookName}</h2>
+                        <Link>by {book.book.authorId.firstName} {book.book.authorId.lastName}</Link><br/>
+                        <Link>{book.book.catId.categoryName}</Link>
+                        <BeautyStars size="15px" value={book.bookAvgRate} />
+                        <p className="mt-3">{book.book.brief}</p>
                     </Col>
 
                 </Row>
