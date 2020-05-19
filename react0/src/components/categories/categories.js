@@ -20,7 +20,7 @@ const Categories = () => {
                 <h1>All Categories</h1>
                 <CardDeck className="mx-auto pt-2">
                     {categories.map(category => (
-                        <Card key={category._id} border="info" className="my-2">
+                        <Card key={category._id} border="info" className="my-2 lamis">
                             <Card.Header><Link to={`/categorypage/${category._id}`}>{category.categoryName}</Link></Card.Header>
                             <Card.Body>
                                 <Card.Text>Hello this a brief about category</Card.Text>

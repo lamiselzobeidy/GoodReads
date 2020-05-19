@@ -24,8 +24,8 @@ if(category){
                     <Card style={{ width: '16rem' }} border="info">
                         <Card.Img variant="top" src={Book} width="30" height="120" className="w-75 mx-auto" />
                         <Card.Body className="mx-auto">
-                            <Card.Title><Link>Book Name</Link></Card.Title>
-                            <Card.Text style={{ textAlign: 'center' }}><Link>Author Name</Link></Card.Text>
+                            <Card.Title><Link className="links">Book Name</Link></Card.Title>
+                            <Card.Text style={{ textAlign: 'center' }}><Link className="links">Author Name</Link></Card.Text>
                         </Card.Body>
                     </Card>
                 </div>
@@ -34,8 +34,8 @@ if(category){
                     <Card style={{ width: '16rem' }} border="info">
                         <Card.Img variant="top" src={Book} width="30" height="120" className="w-75 mx-auto" />
                         <Card.Body className="mx-auto">
-                            <Card.Title><Link >Book Name</Link></Card.Title>
-                            <Card.Text style={{ textAlign: 'center' }}><Link>Author Name</Link></Card.Text>
+                            <Card.Title><Link className="links" >Book Name</Link></Card.Title>
+                            <Card.Text style={{ textAlign: 'center' }}><Link className="links">Author Name</Link></Card.Text>
                         </Card.Body>
                     </Card>
                 </div>
@@ -44,8 +44,8 @@ if(category){
                     <Card style={{ width: '16rem' }} border="info">
                         <Card.Img variant="top" src={Book} width="30" height="120" className="w-75 mx-auto" />
                         <Card.Body className="mx-auto">
-                            <Card.Title><Link>Book Name</Link></Card.Title>
-                            <Card.Text style={{ textAlign: 'center' }}><Link>Author Name</Link></Card.Text>
+                            <Card.Title><Link className="links">Book Name</Link></Card.Title>
+                            <Card.Text style={{ textAlign: 'center' }}><Link className="links">Author Name</Link></Card.Text>
                         </Card.Body>
                     </Card>
                 </div>
@@ -54,8 +54,8 @@ if(category){
                     <Card style={{ width: '16rem' }} border="info">
                         <Card.Img variant="top" src={Book} width="30" height="120" className="w-75 mx-auto" />
                         <Card.Body className="mx-auto">
-                            <Card.Title><Link>Book Name</Link></Card.Title>
-                            <Card.Text style={{ textAlign: 'center' }}><Link>Author Name</Link></Card.Text>
+                            <Card.Title><Link className="links">Book Name</Link></Card.Title>
+                            <Card.Text style={{ textAlign: 'center' }}><Link className="links">Author Name</Link></Card.Text>
                         </Card.Body>
                     </Card>
                 </div>
@@ -64,42 +64,11 @@ if(category){
                     <Card style={{ width: '16rem' }} border="info">
                         <Card.Img variant="top" src={Book} width="30" height="120" className="w-75 mx-auto" />
                         <Card.Body className="mx-auto">
-                            <Card.Title><Link>Book Name</Link></Card.Title>
-                            <Card.Text style={{ textAlign: 'center' }}><Link>Author Name</Link></Card.Text>
+                            <Card.Title><Link className="links">Book Name</Link></Card.Title>
+                            <Card.Text style={{ textAlign: 'center' }}><Link className="links">Author Name</Link></Card.Text>
                         </Card.Body>
                     </Card>
                 </div>
-                <br />
-                <div className="col mb-4 px-0">
-                    <Card style={{ width: '16rem' }} border="info">
-                        <Card.Img variant="top" src={Book} width="30" height="120" className="w-75 mx-auto" />
-                        <Card.Body className="mx-auto">
-                            <Card.Title><Link>Book Name</Link></Card.Title>
-                            <Card.Text style={{ textAlign: 'center' }}><Link>Author Name</Link></Card.Text>
-                        </Card.Body>
-                    </Card>
-                </div>
-                <br />
-                <div className="col mb-4 px-0">
-                    <Card style={{ width: '16rem' }} border="info">
-                        <Card.Img variant="top" src={Book} width="30" height="120" className="w-75 mx-auto" />
-                        <Card.Body className="mx-auto">
-                            <Card.Title><Link>Book Name</Link></Card.Title>
-                            <Card.Text style={{ textAlign: 'center' }}><Link>Author Name</Link></Card.Text>
-                        </Card.Body>
-                    </Card>
-                </div>
-                <br />
-                <div className="col mb-4 px-0">
-                    <Card style={{ width: '16rem' }} border="info">
-                        <Card.Img variant="top" src={Book} width="30" height="120" className="w-75 mx-auto" />
-                        <Card.Body className="mx-auto">
-                            <Card.Title><Link>Book Name</Link></Card.Title>
-                            <Card.Text style={{ textAlign: 'center' }}><Link>Author Name</Link></Card.Text>
-                        </Card.Body>
-                    </Card>
-                </div>
-                <br />
             </div>
         </div>
     )

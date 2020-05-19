@@ -5,7 +5,7 @@ import './LoadingPage.scss'
 const LoadingPage = () => {
 
     return (
-        <div class="bookshelf_wrapper">
+        <div class="bookshelf_wrapper boddy">
             <ul class="books_list">
                 <li class="book_item first"></li>
                 <li class="book_item second"></li>

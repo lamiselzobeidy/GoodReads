@@ -9,8 +9,8 @@
     color: #F3FFBD !important;
 }
 .WelcomePage{
-    height: 100% !important;
-    background-color: rgba(198, 210, 214, 0.534);
+    height: 100vh !important;
+    background-color: rgba(198, 210, 214, 1);
 }
 .navbarSpan{
     color: #F3FFBD !important;
@@ -18,15 +18,15 @@
     font-size: 40px;
     padding: 0 !important;
 }
-.container{    
-    /* width:100vw !important;
-    max-width: 1489px !important;
+.containerr{    
+     width:100vw !important;
+    max-width: 100% !important;
     height: 55%;
     background-image: url('../../images/openbookbg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    /* background-color: rgba(23, 23, 24, 0.24); */
-    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */ 
+    background-color: rgba(23, 23, 24, 0.24);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
 }
 #quote{
     background-color:rgba(23, 23, 24, 0.24);
@@ -61,3 +61,15 @@
 .signinIcons{
     text-align: center;
 }
+
+.form-elegant .font-small {
+    font-size: 0.8rem; }
+  
+  .form-elegant .z-depth-1a {
+    -webkit-box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
+    box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25); }
+  
+  .form-elegant .z-depth-1-half,
+  .form-elegant .btn:hover {
+    -webkit-box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+    box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15); }

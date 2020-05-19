@@ -7,14 +7,14 @@
     font-family: 'Acme', sans-serif;
     font-size: 70px !important;
 }
-ul{
+/* ul{
     text-align: left;
     font-weight: normal;
     padding-left: 0%;
     font-size: 15px;
-}
+} */
 
-.card{
+.lamis{
     max-width: 16rem !important;
     min-width: 16rem !important;
 }
