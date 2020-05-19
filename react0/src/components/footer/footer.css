@@ -1,12 +1,6 @@
 .footer{
-    height: 20%;
+    height: 30%;
     background-color: white;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    
 }
 ul {
     text-align: left;

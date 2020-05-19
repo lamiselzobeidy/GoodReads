@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'semantic-ui-css/semantic.min.css';
 import 'mdbreact/dist/css/mdb.css';
@@ -27,7 +26,8 @@ import NewNavBar from './components/NewNavBar/NewNavBar'
 import NewCategories from './components/NewCategories/NewCategories'
 import LoadingPage from './components/LoadingPage/LoadingPage'
 
-function App() {
+
+  function App() {
   return (
 
     <Router>
@@ -48,6 +48,12 @@ function App() {
           <Route path="/author" component={Author} />
           <Route path="/categorypage" component={CategoryProfile} />
           
+          <Route path="/" exact component={WelcomePage} />
+          <Route path="/categories" component={Categories} />
+          <Route path="/bookprofile" component={BookProfile} />
+          {/* <Route path="/bookprofile/:bookId" component={BookProfile} /> */}
+          <Route path="/categorypage/:categoryId" component={CategoryProfile} />
+          <Route path="/userprofile" component={UserProfilePage} />
         </Switch>
         {/* <RegistrationPage/> */}
         {/* <ListingCategories></ListingCategories> */}
@@ -67,6 +73,6 @@ function App() {
       </div>
     </Router>
   )
+}
 
-  }
 export default App;
