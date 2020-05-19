@@ -1,0 +1,136 @@
+.mainc {
+  width: 100vw;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.cardd {
+  display: grid;
+  grid-template-columns: 300px;
+  grid-template-rows: 210px 210px 80px;
+  grid-template-areas: "image" "text" "stats";
+  border-radius: 18px;
+  background: white;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+  font-family: roboto;
+  text-align: center;
+  
+
+  transition: 0.5s ease;
+  cursor: pointer;
+  margin:30px;
+}
+.cardd-image {
+  grid-area: image;
+  background: url("img1.jpg");
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-size: cover;
+}
+
+.cardd-text {
+  grid-area: text;
+  margin: 25px;
+}
+.cardd-text .date {
+  color: rgb(255, 7, 110);
+  font-size:13px;
+}
+.cardd-text p {
+  color: grey;
+  font-size:15px;
+  font-weight: 300;
+}
+.cardd-text h2 {
+  margin-top:0px;
+  font-size:28px;
+}
+.cardd-stats {
+  grid-area: stats; 
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background: rgb(255, 7, 110);
+}
+.cardd-stats .stat {
+  padding:10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+}
+.cardd-stats .border {
+  border-left: 1px solid rgb(172, 26, 87);
+  border-right: 1px solid rgb(172, 26, 87);
+}
+.cardd-stats .value{
+  font-size:22px;
+  font-weight: 500;
+}
+.cardd-stats .value sup{
+  font-size:12px;
+}
+.cardd-stats .type{
+  font-size:11px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+.cardd:hover {
+  transform: scale(1.15);
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+}
+
+
+.cardd-image.cardd2 {
+  background: url("img2.jpg");
+  background-size: cover;
+}
+.cardd-text.cardd2 .date {
+  color: rgb(255, 77, 7);
+}
+.cardd-stats.cardd2 .border {
+  border-left: 1px solid rgb(185, 67, 20);
+  border-right: 1px solid rgb(185, 67, 20);
+}
+.cardd-stats.cardd2 {
+  background: rgb(255, 77, 7);
+}
+
+.cardd-image.cardd3 {
+  background: url("img3.jpg");
+  background-size: cover;
+}
+.cardd-text.cardd3 .date {
+  color: rgb(0, 189, 63);
+}
+.cardd-stats.cardd3 .border {
+  border-left: 1px solid rgb(14, 122, 50);
+  border-right: 1px solid rgb(14, 122, 50);
+}
+.cardd-stats.cardd3 {
+  background: rgb(0, 189, 63);
+}
+
+
+
+
+.cardd-image.cardd4 {
+  background: url("img3.jpg");
+  background-size: cover;
+}
+.cardd-text.cardd4 .date {
+  color: rgb(76, 126, 243);
+}
+
+.cardd-stats.cardd4 .border {
+  border-left: 1px solid rgb(14, 122, 50);
+  border-right: 1px solid rgb(14, 122, 50);
+}
+.cardd-stats.cardd4{
+  background: rgb(76, 126, 243);
+}

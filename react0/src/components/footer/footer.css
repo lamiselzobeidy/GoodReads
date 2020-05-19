@@ -1,14 +1,8 @@
 .footer{
-    height: 20%;
+    height: 30%;
     background-color: white;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    
 }
-ul {
+.ulist {
     text-align: left;
     list-style-type: none;
     font-size: 13px;
