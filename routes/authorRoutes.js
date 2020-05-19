@@ -6,6 +6,9 @@ const checkIsAdmin = require("../middlewares/admin_check");
 
 const multer = require('multer');
 
+const checkJWT = require("../middlewares/jwt_auth")
+
+
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, './public/author_imgs/')
@@ -41,6 +44,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+router.use(checkJWT)
 
 router.use(checkIsAdmin)
 

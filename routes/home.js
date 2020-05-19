@@ -1,9 +1,12 @@
 const express = require("express");
+const chalk = require("chalk");
 
 let BookModel = require("../models/book");
 let AuthorModel = require("../models/authorModel");
 let CategoryModel = require("../models/categoryModel");
 let ReviewModel = require("../models/review");
+
+
 
 let router = express.Router();
 router.get("/", async function (req, res) {
@@ -27,17 +30,23 @@ router.get("/", async function (req, res) {
     let books = [];
     let authors = [];
     let cats = [];
+    
 
+    if (top10BooksRating.length>0) {
+      
     for (let index = 0; index < top10BooksRating.length; index++) {
       const book = await BookModel.findById(top10BooksRating[index]._id).exec();
       const author = await AuthorModel.findById({ _id: book.authorId }).exec();
       const cat = await CategoryModel.findById({ _id: book.catId }).exec();
 
+      console.log(chalk.blue(book));
+      console.log(chalk.green(author));
+      console.log(chalk.magenta(cat));
+      
+
       if (authors.filter((e) => e._id === author._id).length === 0) {
         authors.push(author);
       }
-
-    
 
       
       if (cats.filter((e) => e._id === cat._id).length === 0) {
@@ -50,6 +59,11 @@ router.get("/", async function (req, res) {
         res.json({ books, authors, cats });
       }
     }
+    }else{
+      res.json("No book rates");
+
+    }
+
   } catch (error) {
     console.log(error);
     res.json(error);
@@ -95,10 +109,11 @@ router.get("/", async function (req, res) {
   // };
 });
 
-router.post("/", async (req, res) => {
-  const newReview = new ReviewModel(req.body);
-  const results = await newReview.save();
-  res.status(201).json(results);
-});
+
+// router.post("/", async (req, res) => {
+//   const newReview = new ReviewModel(req.body);
+//   const results = await newReview.save();
+//   res.status(201).json(results);
+// });
 
 module.exports = router;

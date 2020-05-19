@@ -4,6 +4,9 @@ const multer = require("multer");
 const chalk = require('chalk')
 const jwt = require('jsonwebtoken')
 
+const checkJWT = require("../middlewares/jwt_auth")
+
+
 let router = express.Router();
 
 let UserModel = require("../models/user");
@@ -42,17 +45,30 @@ router.post('/', upload.single('userImage'), async function (req, res) {
 
 });
 
-router.use(async (req, res, next) => {
+router.patch("/admin",async(req,res)=>{
    try {
-     const token = req.header("JWT");
-     const decoded = await jwt.verify(token, "secretkey");
-     // console.log(decoded.usermail);
-     next();
+      let results = await UserModel.find({email:req.body.email}).exec()
+      if (results.length>0) {
+         if (!results[0].isAdmin) {
+            results[0].isAdmin=true
+            const user = await results[0].save();
+            res.json(user);
+
+         } else {
+            res.json("Already admin")
+         }
+      }else{
+         res.json(404,"email not found")
+      }
+      
    } catch (error) {
-     console.log(chalk.bgRed.white(error))
-     res.status(401).send("verfication error");
+      console.log(error);
+        res.json(409,error);
    }
- }); 
+})
+
+router.use(checkJWT)
+
 
 router.get('/', async(req,res)=>{
    try {
@@ -79,21 +95,6 @@ router.get('/:id', async (req, res) => {
      }
   
 });
-
-router.get('/', async (req, res) => {
-   try {
-       let results = await UserModel.find({}).exec();
-       res.json(results);
-    } catch (error) {
-       console.log(error);
-       res.send(404, {
-          error
-       })
-    }
- 
-});
-
-
 
 router.delete('/:id', async(req, res) => {
     try {

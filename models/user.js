@@ -1,5 +1,5 @@
 const {Schema:mongooseSchema , model} = require("mongoose")
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 SALT_WORK_FACTOR = 10;
 
 var validateEmail = function(email) {

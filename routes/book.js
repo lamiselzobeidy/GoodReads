@@ -10,6 +10,8 @@ let CategoryModel = require("../models/categoryModel")
 
 const checkIsAdmin = require("../middlewares/admin_check");
 
+const checkJWT = require("../middlewares/jwt_auth")
+
 
 const storage = multer.diskStorage({
    destination: function (req, file, callback) {
@@ -29,16 +31,31 @@ const upload = multer({
 router.get('/', async (req, res) => {
 
    try {
-      let results = await BookModel.getAllBooks();
+      let results;
+
+      console.log(req.query.authorID);
+      
+      if (req.query.authorID && req.query.catID) {
+         results = BookModel.findBooksByCatAndAuthorId(req.query.catID,req.query.autherID)
+
+      }else if(req.query.authorID){
+         results = BookModel.getBooksByAuthorID(req.query.autherID)
+      }else if(req.query.catID){
+         results = BookModel.findBooksByCatId(req.query.catID)
+      }
+
+      if (!results) {
+         results = await BookModel.getAllBooks();         
+      }
+      
       res.json(results)
    } catch (error) {
       console.log(error);
-      res.send(404, {
-         error
-      })
+      res.status(404).send(error)
    }
 
 });
+
 
 router.get('/:id', async (req, res) => {
    try {
@@ -53,6 +70,7 @@ router.get('/:id', async (req, res) => {
    }
 });
 
+router.use(checkJWT)
 router.use(checkIsAdmin)
 
 router.post('/', upload.single('coverImage'), async function (req, res) {

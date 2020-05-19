@@ -5,6 +5,7 @@ const categoryModel = require("../models/categoryModel");
 const checkIsAdmin = require("../middlewares/admin_check");
 
 
+const checkJWT = require("../middlewares/jwt_auth")
 
 router.get("/", async (req, res) => {
     try {
@@ -29,6 +30,8 @@ router.get("/:id", async (req, res) => {
         res.sendStatus(404);
     }
 });
+
+router.use(checkJWT)
 
 router.use(checkIsAdmin)
 

@@ -1,24 +1,25 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'semantic-ui-css/semantic.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import './App.css';
 import { Navbar, Button, Nav, Form, FormControl } from 'react-bootstrap';
-
 import { NavLink, Link, Route, BrowserRouter as Router ,Switch} from 'react-router-dom';
-
-import AdminPanel from './components/AdminPanel/AdminPanel'
-import MainNavBar from './components/MainNavBar/mainNavBar'
-import HotBooks from './components/HotBooks/HotBooks'
+import RegistrationPage from './components/RegistrationPage/registrationPage';
 import ListingCategories from "./components/ListingCategories/ListingCategories"
-import Author from './components/Author/Author'
+import AdminPanel from './components/AdminPanel/AdminPanel';
+import MainNavBar from './components/MainNavBar/mainNavBar';
+import HotBooks from './components/HotBooks/HotBooks';
+import ListingCatogries from "./components/ListingCatogries/ListingCatogries";
+import Author from './components/Author/Author';
 import ListingAuthors from './components/ListingAuthors/ListingAuthors';
-import PaginationCompo from './components/Pagentaion/Pagentaion'
-import ListingBooks from './components/ListingBooks/ListingBooks'
-import HomePage from './components/HomePage/HomePage'
+import PaginationCompo from './components/Pagentaion/Pagentaion';
+import ListingBooks from './components/ListingBooks/ListingBooks';
+import HomePage from './components/HomePage/HomePage';
 import WelcomePage from './components/welcomePage/welcomePage';
 import Footer from './components/footer/footer';
-import Categories from './components/categories/categories'
+import Categories from './components/categories/categories';
 import BookProfile from './components/bookProfile/bookProfile';
 import CategoryProfile from './components/categoryProfile/categoryProfile';
 import UserProfilePage from './components/UserProfilePage/UserProfilePage'
@@ -48,6 +49,7 @@ function App() {
           <Route path="/categorypage" component={CategoryProfile} />
           
         </Switch>
+        {/* <RegistrationPage/> */}
         {/* <ListingCategories></ListingCategories> */}
         {/* <ListingBooks></ListingBooks> */}
         {/* <Categories></Categories> */}
@@ -65,8 +67,6 @@ function App() {
       </div>
     </Router>
   )
-}
 
-
-
+  }
 export default App;
