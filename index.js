@@ -53,7 +53,7 @@ app.use("/user", UserRouter);
 
 app.use("/user/book", UserBookRouter);
 
-app.use("/search", UserBookRouter);
+app.use("/search", SearchRouter);
 
 // app.use(async (req, res, next) => {
 //   try {
