@@ -42,11 +42,12 @@ const validateRegistration = (
   );
   if (userPassword.length < 8) {
     alert("Please user a password with a length more than 8");
-  } else if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(userEmail)) {
+  } if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(userEmail)) {
     alert("Please Enter a valid Email");
-  } else if (userEmail !== confirmMail) {
+  } if (userEmail !== confirmMail) {
     alert("Emails do not match");
-  } else if (userPassword !== confirmPass) {
+  }
+  if (userPassword !== confirmPass) {
     alert("Password does not match");
   } else {
     sendRegistrationRequest(

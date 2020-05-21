@@ -19,6 +19,7 @@ const NewNavBar = () => {
                         <li><a className="aa" href="/ListingAuthors">Authors</a></li>
                         <li><a className="aa" href="/ListingCategories">Categories</a></li>
                         <li><a className="aa" href="/ListingBooks">Books</a></li>
+                        <li><a className="aa" href="/search">Search</a></li>
                         <li>
                             <NavDropdown title="Profile" id="nav-dropdown" class="DropD">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

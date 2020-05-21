@@ -25,7 +25,7 @@ import UserProfilePage from './components/UserProfilePage/UserProfilePage'
 import NewNavBar from './components/NewNavBar/NewNavBar'
 import NewCategories from './components/NewCategories/NewCategories'
 import LoadingPage from './components/LoadingPage/LoadingPage'
-
+import SearchPage from "./components/SearchPage/SearchPage";
 
   function App() {
   return (
@@ -33,7 +33,7 @@ import LoadingPage from './components/LoadingPage/LoadingPage'
     <Router>
       <div className="App">
         {/* <MainNavBar></MainNavBar> */}
-        {/* <NewNavBar></NewNavBar> */}
+         <NewNavBar></NewNavBar> 
         <Switch>
           {/* <Route path="/" exact component={HomePage} /> */}
           <Route path="/HomePage" component={HomePage} />
@@ -47,7 +47,7 @@ import LoadingPage from './components/LoadingPage/LoadingPage'
           {/* <Route path="/bookprofile" component={BookProfile} /> */}
           <Route path="/author" component={Author} />
           <Route path="/categorypage" component={CategoryProfile} />
-          
+
           {/* <Route path="/" exact component={WelcomePage} /> */}
           <Route path="/Registration" exact component={RegistrationPage} />
           <Route path="/categories" component={Categories} />
@@ -55,14 +55,17 @@ import LoadingPage from './components/LoadingPage/LoadingPage'
           <Route path="/bookprofile/:bookId" component={BookProfile} />
           <Route path="/categorypage/:categoryId" component={CategoryProfile} />
           <Route path="/userprofile" component={UserProfilePage} />
+          <Route path="/search" component={SearchPage}/>
         </Switch>
+
         {/* <RegistrationPage/> */}
         {/* <ListingCategories></ListingCategories> */}
         {/* <ListingBooks></ListingBooks> */}
         {/* <Categories></Categories> */}
         {/* <LoadingPage></LoadingPage> */}
         {/* <AdminPanel></AdminPanel> */}
-        {/* <UserProfilePage></UserProfilePage> */}
+        {/*<UserProfilePage></UserProfilePage>*/}
+
         {/* <ListingBooks></ListingBooks> */}
         {/* <NewCategories></NewCategories> */}
         {/* <HomePage></HomePage> */}
