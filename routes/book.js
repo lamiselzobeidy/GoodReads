@@ -1,6 +1,7 @@
 const express = require("express")
 const mongoose = require('mongoose');
 const multer = require("multer");
+const chalk = require("chalk");
 
 let router = express.Router()
 
@@ -32,7 +33,6 @@ router.get('/', async (req, res) => {
     try {
         let results;
 
-
         if (req.query.authorID && req.query.catID) {
             results = BookModel.findBooksByCatAndAuthorId(req.query.catID, req.query.autherID)
 
@@ -50,31 +50,37 @@ router.get('/', async (req, res) => {
             results = await BookModel.getAllBooks();
             res.json(results);
         } else {
-            const allBooks = results.map(async book => {
+            const allBooks =await Promise.all( results.map(async book => {
                 let newBook = {
                     bookName: book.bookName,
                     bookImage: book.coverImageName,
                 };
 
-                const ratings = await reviewModel
-                    .find({bookId: {$in: booksID}}, {rating: 1, _id: 0});
+                const ratings = await ReviewModel
+                    .find({bookId: {$in: book._id}}, {rating: 1, _id: 0});
 
                 if (ratings.length === 0) {
-                    newBook.append("avgRatings", 0);
-                    newBook.append("numberOfRatings", 0);
-                } else {
+                  newBook["avgRatings"]= 0;
+                  newBook["numberOfRatings"]= 0;
+                   
+               } else {
                     const totalRatings = ratings.reduce((total, currentRating) => {
                         total += currentRating;
                         return total
                     }, 0);
                     const avgRatings = totalRatings / ratings.length;
-                    newBook.append("avgRatings", avgRatings);
-                    newBook.append("numberOfRatings", ratings.length);
+                    newBook["avgRatings"]= avgRatings;
+                    newBook["numberOfRatings"]= ratings.length;
                 }
 
-                return newBook;
-            });
+                console.log(chalk.green(JSON.stringify(newBook)) );
+                
 
+                return newBook;
+            }));
+
+            console.log(chalk.red( allBooks));
+            
             res.json(allBooks);
         }
     } catch (error) {
