@@ -34,7 +34,6 @@ router.get('/', async (req, res) => {
    try {
       let results;
 
-      console.log(req.query.authorID);
       
       if (req.query.authorID && req.query.catID) {
          results = BookModel.findBooksByCatAndAuthorId(req.query.catID,req.query.autherID)
@@ -44,6 +43,9 @@ router.get('/', async (req, res) => {
          // results = BookModel.getBooksByAuthorID(req.query.autherID)
       }else if(req.query.catID){
          results = BookModel.findBooksByCatId(req.query.catID)
+         console.log(req.query.authorID);
+         console.log(results);
+         
       }
 
       if (!results) {
