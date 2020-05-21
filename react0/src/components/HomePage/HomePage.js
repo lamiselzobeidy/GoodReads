@@ -8,6 +8,7 @@ import LoadingPage from '../LoadingPage/LoadingPage'
 
 
 const HomePage =()=>{
+    console.log(sessionStorage.getItem('user'))
 
     const [HomePage,setHomePage] = useState([])
     const [dataLoad,setDataLoad] = useState(false)
