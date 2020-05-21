@@ -51,7 +51,33 @@ router.get('/', async (req, res) => {
             results = await BookModel.getAllBooks();
         }
 
-        res.json(results)
+        const allBooks = results.map(async book => {
+            let newBook = {
+                bookName: book.bookName,
+                bookImage: book.coverImageName,
+            };
+
+            const ratings = await reviewModel
+                .find({bookId: {$in: booksID}}, {rating: 1, _id: 0});
+
+            if (ratings.length === 0) {
+                newBook.append("avgRatings", 0);
+                newBook.append("numberOfRatings", 0);
+            } else {
+                const totalRatings = ratings.reduce((total, currentRating) => {
+                    total += currentRating;
+                    return total
+                }, 0);
+                const avgRatings = totalRatings / ratings.length;
+                newBook.append("avgRatings", avgRatings);
+                newBook.append("numberOfRatings", ratings.length);
+            }
+
+            return newBook;
+        });
+
+        res.json(allBooks);
+
     } catch (error) {
         console.log(error);
         res.status(404).send(error)
