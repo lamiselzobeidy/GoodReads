@@ -32,31 +32,32 @@ import SearchPage from "./components/SearchPage/SearchPage";
 
     <Router>
       <div className="App">
-        <SearchPage/>
         {/* <MainNavBar></MainNavBar> */}
-        {/*<NewNavBar></NewNavBar>*/}
-        {/*<Switch>*/}
-        {/*  /!* <Route path="/" exact component={HomePage} /> *!/*/}
-        {/*  <Route path="/HomePage" component={HomePage} />*/}
+        <NewNavBar></NewNavBar>
+        <Switch>
+          {/* <Route path="/" exact component={HomePage} /> */}
+          <Route path="/HomePage" component={HomePage} />
 
-        {/*  <Route path="/ListingAuthors" component={ListingAuthors} />*/}
-        {/*  <Route path="/ListingBooks" component={ListingBooks} />*/}
-        {/*  <Route path="/ListingCategories" component={ListingCategories} />*/}
+          <Route path="/ListingAuthors" component={ListingAuthors} />
+          <Route path="/ListingBooks" component={ListingBooks} />
+          <Route path="/ListingCategories" component={ListingCategories} />
 
-        {/*  /!* <Route path="/" exact component={WelcomePage} /> *!/*/}
-        {/*  */}
-        {/*  <Route path="/bookprofile" component={BookProfile} />*/}
-        {/*  <Route path="/author" component={Author} />*/}
-        {/*  <Route path="/categorypage" component={CategoryProfile} />*/}
-        {/*  */}
-        {/*  /!* <Route path="/" exact component={WelcomePage} /> *!/*/}
-        {/*  <Route path="/Registration" exact component={RegistrationPage} />*/}
-        {/*  <Route path="/categories" component={Categories} />*/}
-        {/*  <Route path="/bookprofile" component={BookProfile} />*/}
-        {/*  /!* <Route path="/bookprofile/:bookId" component={BookProfile} /> *!/*/}
-        {/*  <Route path="/categorypage/:categoryId" component={CategoryProfile} />*/}
-        {/*  <Route path="/userprofile" component={UserProfilePage} />*/}
-        {/*</Switch>*/}
+          {/* <Route path="/" exact component={WelcomePage} /> */}
+
+          <Route path="/bookprofile" component={BookProfile} />
+          <Route path="/author" component={Author} />
+          <Route path="/categorypage" component={CategoryProfile} />
+
+          {/* <Route path="/" exact component={WelcomePage} /> */}
+          <Route path="/Registration" exact component={RegistrationPage} />
+          <Route path="/categories" component={Categories} />
+          <Route path="/bookprofile" component={BookProfile} />
+          {/* <Route path="/bookprofile/:bookId" component={BookProfile} /> */}
+          <Route path="/categorypage/:categoryId" component={CategoryProfile} />
+          <Route path="/userprofile" component={UserProfilePage} />
+          <Route path="/search" component={SearchPage}/>
+        </Switch>
+
         {/* <RegistrationPage/> */}
         {/* <ListingCategories></ListingCategories> */}
         {/* <ListingBooks></ListingBooks> */}
