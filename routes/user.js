@@ -70,9 +70,17 @@ router.patch("/admin",async(req,res)=>{
 router.use(checkJWT)
 
 
+
 router.get('/', async(req,res)=>{
+   
+
    try {
-      let results = await UserModel.find({}).exec()
+      let results = ""
+      if(req.header("JWT")!==null){
+         results = await UserModel.find({token:req.header("JWT")}).exec()
+      }else{
+         results = await UserModel.find({}).exec()
+      }
       res.json(results)
    } catch (error) {
       console.log(error);
@@ -82,19 +90,21 @@ router.get('/', async(req,res)=>{
    }
 })
 
-router.get('/:id', async (req, res) => {
-    try {
-        let id = req.params.id;
-        let results = await UserModel.findById(id).exec();
-        res.json(results);
-     } catch (error) {
-        console.log(error);
-        res.send(404, {
-           error
-        })
-     }
+// router.get('/:id', async (req, res) => {
+
+//     try {
+//         let id = req.params.id;
+//         let results = await UserModel.findById(id).exec();
+//         res.json(results);
+//      } catch (error) {
+//         console.log(error);
+//         res.send(404, {
+//            error
+//         })
+//      }
   
-});
+// });
+
 
 router.delete('/:id', async(req, res) => {
     try {
