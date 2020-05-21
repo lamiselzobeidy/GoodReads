@@ -40,11 +40,12 @@ router.get('/', async (req, res) => {
 
       }else if(req.query.authorID){
          results = await BookModel.find({authorId:req.query.authorID})
+         console.log(req.query.authorID);
+         console.log(results);
+         
          // results = BookModel.getBooksByAuthorID(req.query.autherID)
       }else if(req.query.catID){
          results = BookModel.findBooksByCatId(req.query.catID)
-         console.log(req.query.authorID);
-         console.log(results);
          
       }
 
