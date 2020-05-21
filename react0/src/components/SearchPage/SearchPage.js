@@ -77,33 +77,35 @@ export default function SearchPage() {
                         <MDBInput
                             onClick={() => setRadioButton(1)}
                             checked={Radiobutton === 1 ? true : false}
-                            label='Books'
                             type='radio'
                             id='radio1'
                             containerClass='mr-5'
                         />
+                        <label className="labelAd">Books</label>
                     </MDBRow>
 
                     <MDBRow className="mb-4">
                         <MDBInput
                             onClick={() => setRadioButton(2)}
                             checked={Radiobutton === 2 ? true : false}
-                            label='Authors'
+                    
                             type='radio'
                             id='radio2'
                             containerClass='mr-5'
                         />
+                        <label className="labelAd">Authors</label>
                     </MDBRow>
 
                     <MDBRow className="mb-4">
                         <MDBInput
                             onClick={() => setRadioButton(3)}
                             checked={Radiobutton === 3 ? true : false}
-                            label='Category'
+                            
                             type='radio'
                             id='radio3'
                             containerClass='mr-5'
                         />
+                        <label className="labelAd">Category</label>
                     </MDBRow>
 
                 </MDBCol>
