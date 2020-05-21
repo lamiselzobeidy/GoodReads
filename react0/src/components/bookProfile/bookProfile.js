@@ -8,11 +8,12 @@ import BeautyStars from 'beauty-stars';
 
 const BookProfile = (props) => {
     const { match: { params } } = props;
+    console.log(params);
     const [book, setBook] = useState(0);
     const [stars, setSars] = useState(0);
     const getBook = () => {
-        // axios.get(`http://34.107.102.252:3000/book/${params.bookId}`)
-        axios.get('http://34.107.102.252:3000/book/5ec2d02f919f0b7d7211addf')
+        axios.get(`http://34.107.102.252:3000/book/${params.bookId}`)
+        // axios.get('http://34.107.102.252:3000/book/5ec2d02f919f0b7d7211addf')
             .then(result => {
                 setBook(result.data);
                 console.log(result.data)
@@ -24,7 +25,7 @@ const BookProfile = (props) => {
                 <Row className="mx-auto">
                     <Col xs="4">
                         <Card className="bookCard mx-auto" >
-                            <Card.Img variant="top" src={book.book.coverImageName} height="120px" className="w-75 mx-auto mt-3" />
+                            <Card.Img variant="top" src={`http://34.107.102.252:3000/`+book.book.coverImageName} height="120px" className="w-75 mx-auto mt-3" />
                             <Card.Body className="mx-auto">
                                 <Dropdown>
                                     <Dropdown.Toggle variant="info" id="dropdown-basic" style={{ fontSize: '12px' }}>Want to Read</Dropdown.Toggle>
