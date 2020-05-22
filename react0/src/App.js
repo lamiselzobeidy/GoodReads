@@ -3,8 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'semantic-ui-css/semantic.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import './App.css';
-import { Navbar, Button, Nav, Form, FormControl } from 'react-bootstrap';
-import { NavLink, Link, Route, BrowserRouter as Router ,Switch} from 'react-router-dom';
+import {Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import RegistrationPage from './components/RegistrationPage/registrationPage';
 import ListingCategories from "./components/ListingCategories/ListingCategories"
 import AdminPanel from './components/AdminPanel/AdminPanel';
@@ -27,53 +26,64 @@ import NewCategories from './components/NewCategories/NewCategories'
 import LoadingPage from './components/LoadingPage/LoadingPage'
 
 
-  function App() {
-  return (
-
-    <Router>
-      <div className="App">
-        {/* <MainNavBar></MainNavBar> */}
-        {/* <NewNavBar></NewNavBar> */}
+const App = (props) => {
+  console.log(window.location.pathname);
+  if (window.location.pathname == "/") {
+    return (
+      <Router>
+        <div className="App">
         <Switch>
-          {/* <Route path="/" exact component={HomePage} /> */}
-          <Route path="/HomePage" component={HomePage} />
+            <Route path="/" exact component={WelcomePage} />
+          </Switch>
+          <Footer></Footer>
+        </div>
+      </Router>
+    )
+  }
+  else {
+    return (
+      <Router>
+        <div className="App">
+          {/* <MainNavBar></MainNavBar> */}
+          <NewNavBar></NewNavBar>
+          <Switch>
+            {/* <Route path="/" exact component={HomePage} /> */}
+            <Route path="/HomePage" component={HomePage} />
 
-          <Route path="/ListingAuthors" component={ListingAuthors} />
-          <Route path="/ListingBooks" component={ListingBooks} />
-          <Route path="/ListingCategories" component={ListingCategories} />
+            <Route path="/ListingAuthors" component={ListingAuthors} />
+            <Route path="/ListingBooks" component={ListingBooks} />
+            <Route path="/ListingCategories" component={ListingCategories} />
 
-          <Route path="/" exact component={WelcomePage} />
-          
-          {/* <Route path="/bookprofile" component={BookProfile} /> */}
-          <Route path="/author" component={Author} />
-          <Route path="/categorypage" component={CategoryProfile} />
-          
-          {/* <Route path="/" exact component={WelcomePage} /> */}
-          <Route path="/Registration" exact component={RegistrationPage} />
-          <Route path="/categories" component={Categories} />
-          {/* <Route path="/bookprofile" component={BookProfile} /> */}
-          <Route path="/bookprofile/:bookId" component={BookProfile} />
-          <Route path="/categorypage/:categoryId" component={CategoryProfile} />
-          <Route path="/userprofile" component={UserProfilePage} />
-        </Switch>
-        {/* <RegistrationPage/> */}
-        {/* <ListingCategories></ListingCategories> */}
-        {/* <ListingBooks></ListingBooks> */}
-        {/* <Categories></Categories> */}
-        {/* <LoadingPage></LoadingPage> */}
-        {/* <AdminPanel></AdminPanel> */}
-        {/* <UserProfilePage></UserProfilePage> */}
-        {/* <ListingBooks></ListingBooks> */}
-        {/* <NewCategories></NewCategories> */}
-        {/* <HomePage></HomePage> */}
-        {/* <ListingAuthors></ListingAuthors>  */}
-        {/* <Author></Author> */}
-        {/* <PaginationCompo></PaginationCompo> */}
 
-        <Footer></Footer>
-      </div>
-    </Router>
-  )
+            <Route path="/author" component={Author} />
+            <Route path="/categorypage" component={CategoryProfile} />
+
+            <Route path="/Registration" exact component={RegistrationPage} />
+            <Route path="/categories" component={Categories} />
+            {/* <Route path="/bookprofile" component={BookProfile} /> */}
+            <Route path="/bookprofile/:bookId" component={BookProfile} />
+            <Route path="/categorypage/:categoryId" component={CategoryProfile} />
+            <Route path="/userprofile" component={UserProfilePage} />
+          </Switch>
+          {/* <RegistrationPage/> */}
+          {/* <ListingCategories></ListingCategories> */}
+          {/* <ListingBooks></ListingBooks> */}
+          {/* <Categories></Categories> */}
+          {/* <LoadingPage></LoadingPage> */}
+          {/* <AdminPanel></AdminPanel> */}
+          {/* <UserProfilePage></UserProfilePage> */}
+          {/* <ListingBooks></ListingBooks> */}
+          {/* <NewCategories></NewCategories> */}
+          {/* <HomePage></HomePage> */}
+          {/* <ListingAuthors></ListingAuthors>  */}
+          {/* <Author></Author> */}
+          {/* <PaginationCompo></PaginationCompo> */}
+
+          <Footer></Footer>
+        </div>
+      </Router>
+    )
+  }
 }
 
 export default App;
