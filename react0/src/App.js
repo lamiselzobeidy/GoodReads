@@ -24,7 +24,7 @@ import UserProfilePage from './components/UserProfilePage/UserProfilePage'
 import NewNavBar from './components/NewNavBar/NewNavBar'
 import NewCategories from './components/NewCategories/NewCategories'
 import LoadingPage from './components/LoadingPage/LoadingPage'
-
+import SearchPage from "./components/SearchPage/SearchPage";
 
 const App = (props) => {
   console.log(window.location.pathname);

@@ -1,248 +1,102 @@
-import React, { useEffect, useState } from 'react'
-import './test.css'
-import { Card, Image, Button } from 'semantic-ui-react';
-import axios from 'axios'
-import Author from '../Author/Author';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from "react";
+import "./test.css";
+import { Card, Image, Button } from "semantic-ui-react";
+import axios from "axios";
+import Author from "../Author/Author";
+import { Link } from "react-router-dom";
+import PaginationCompo from "../Pagentaion/Pagentaion";
 
+function ListingAuthors(props) {
+  const [pageNumber, setPageNumber] = useState(0);
+  const pageNumberHandler = (number) => {
+    setPageNumber(number);
+  };
 
+  const [authors, setAuthors] = useState([]);
+  const [filtered, setfiltred] = useState([]);
 
-function ListingAuthors() {
+  useEffect(() => {
+    console.log(authors);
 
-    const [authors, setAuthors] = useState([])
-    useEffect(() => {
-        axios.get("http://34.107.102.252:3000/author")
-            .then(res => {
-                console.log(res.data);
-                
-                setAuthors(res.data);
-            })
-            .catch(err => {
-                console.log(err);
+    axios
+      .get("http://34.107.102.252:3000/author")
+      .then((res) => {
+        setAuthors(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-            })
+  useEffect(() => {
+    const start = 5 * (pageNumber - 1);
+    const end = start + 5;
+    const filtred = authors.slice(start, end);
+    setfiltred(filtred);
+  }, [pageNumber]);
 
-    }, [])
+  useEffect(() => {
+    const filtred = authors.slice(0, 5);
+    setfiltred(filtred);
+  }, [authors]);
 
-    function clickHandler(x) {
-        console.log(x);
+  var i = 0;
+  const colorPicker = () => {
+    const colors = [
+      "yellow",
+      "green",
+      "red",
+      "blue",
+      "red",
+      "orange",
+      "olive",
+      "teal",
+      "pink",
+      "black",
+      "violet",
+    ];
+    i = i + 1;
+    return colors[i];
+  };
 
-    }
-    var i = 0;
-    const colorPicker = () => {
-
-        const colors = ["yellow", "green", "red",
-            "blue", "red", "orange", "olive", "teal", "pink",
-            "black", "violet"]
-        i = i + 1;
-        return colors[i]
-    }
-
-
-    return (
-        <div className='hi'>
-            <p className="paragraphs">All Authors</p>
-            <Card.Group itemsPerRow={5} >
-                {
-                    authors.map(author => (
-
-                        <Card>
-                            <Card.Content>
-                                <Card.Header  >{author.firstName + " " + author.lastName} </Card.Header>
-                                <Card.Meta>Friends of Elliot</Card.Meta>
-                                <Card.Description>
-                                    {author.bio}
-                                </Card.Description>
-                            </Card.Content>
-                            <Card.Content extra>
-                                <div className='ui two buttons'>
-                                    <Button
-                                        key={author._id}
-                                        basic color={colorPicker()}>
-
-                                        <Link to={{
-                                            pathname:'/author',
-                                            xy:{
-                                                authorId :author._id
-                                            }
-                                        }}>
-                                            Show Profile</Link>
-
-                                    </Button>
-                                </div>
-                            </Card.Content>
-                        </Card>
-
-                    ))
-                }
-
-                <Card >
-                    <Card.Content>
-                        <Card.Header>Steve Sanders</Card.Header>
-                        <Card.Meta>Friends of Elliot</Card.Meta>
-                        <Card.Description>
-                            Steve wants to add you to the group <strong>best friends</strong>
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Button basic color={colorPicker()}>
-                                Show Profile
-          </Button>
-                        </div>
-                    </Card.Content>
-                </Card>
-                <Card >
-                    <Card.Content>
-                        <Card.Header>Steve Sanders</Card.Header>
-                        <Card.Meta>Friends of Elliot</Card.Meta>
-                        <Card.Description>
-                            Steve wants to add you to the group <strong>best friends</strong>
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Button basic color={colorPicker()}>
-                                Show Profile
-          </Button>
-                        </div>
-                    </Card.Content>
-                </Card>
-                <Card >
-                    <Card.Content>
-                        <Card.Header>Steve Sanders</Card.Header>
-                        <Card.Meta>Friends of Elliot</Card.Meta>
-                        <Card.Description>
-                            Steve wants to add you to the group <strong>best friends</strong>
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Button basic color={colorPicker()}>
-                                Show Profile
-          </Button>
-                        </div>
-                    </Card.Content>
-                </Card>
-                <Card >
-                    <Card.Content>
-                        <Card.Header>Steve Sanders</Card.Header>
-                        <Card.Meta>Friends of Elliot</Card.Meta>
-                        <Card.Description>
-                            Steve wants to add you to the group <strong>best friends</strong>
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Button basic color={colorPicker()}>
-                                Show Profile
-          </Button>
-                        </div>
-                    </Card.Content>
-                </Card>
-                <Card >
-                    <Card.Content>
-                        <Card.Header>Steve Sanders</Card.Header>
-                        <Card.Meta>Friends of Elliot</Card.Meta>
-                        <Card.Description>
-                            Steve wants to add you to the group <strong>best friends</strong>
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Button basic color={colorPicker()}>
-                                Show Profile
-          </Button>
-                        </div>
-                    </Card.Content>
-                </Card>
-                <Card >
-                    <Card.Content>
-                        <Card.Header>Steve Sanders</Card.Header>
-                        <Card.Meta>Friends of Elliot</Card.Meta>
-                        <Card.Description>
-                            Steve wants to add you to the group <strong>best friends</strong>
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Button basic color={colorPicker()}>
-                                Show Profile
-          </Button>
-                        </div>
-                    </Card.Content>
-                </Card>
-                <Card >
-                    <Card.Content>
-                        <Card.Header>Steve Sanders</Card.Header>
-                        <Card.Meta>Friends of Elliot</Card.Meta>
-                        <Card.Description>
-                            Steve wants to add you to the group <strong>best friends</strong>
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Button basic color={colorPicker()}>
-                                Show Profile
-          </Button>
-                        </div>
-                    </Card.Content>
-                </Card>
-                <Card >
-                    <Card.Content>
-                        <Card.Header>Steve Sanders</Card.Header>
-                        <Card.Meta>Friends of Elliot</Card.Meta>
-                        <Card.Description>
-                            Steve wants to add you to the group <strong>best friends</strong>
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Button basic color={colorPicker()}>
-                                Show Profile
-          </Button>
-                        </div>
-                    </Card.Content>
-                </Card>
-                <Card >
-                    <Card.Content>
-                        <Card.Header>Steve Sanders</Card.Header>
-                        <Card.Meta>Friends of Elliot</Card.Meta>
-                        <Card.Description>
-                            Steve wants to add you to the group <strong>best friends</strong>
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Button basic color={colorPicker()}>
-                                Show Profile
-          </Button>
-                        </div>
-                    </Card.Content>
-                </Card>
-                <Card >
-                    <Card.Content>
-                        <Card.Header>Steve Sanders</Card.Header>
-                        <Card.Meta>Friends of Elliot</Card.Meta>
-                        <Card.Description>
-                            Steve wants to add you to the group <strong>best friends</strong>
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Button basic color={colorPicker()}>
-                                Show Profile
-          </Button>
-                        </div>
-                    </Card.Content>
-                </Card>
-
-
-            </Card.Group>
-        </div>
-
-    )
+  return (
+    <div className="hi">
+      <p className="paragraphs">All Authors</p>
+      <Card.Group itemsPerRow={5}>
+        {filtered.map((author) => (
+          <Card>
+            <Card.Content>
+              <Card.Header>
+                {author.firstName + " " + author.lastName}{" "}
+              </Card.Header>
+              <Card.Meta>Friends of Elliot</Card.Meta>
+              <Card.Description>{author.bio}</Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <div className="ui two buttons">
+                <Button key={author._id} basic color={colorPicker()}>
+                  <Link
+                    to={{
+                      pathname: "/author",
+                      xy: {
+                        authorId: author._id,
+                      },
+                    }}
+                  >
+                    Show Profile
+                  </Link>
+                </Button>
+              </div>
+            </Card.Content>
+          </Card>
+        ))}
+      </Card.Group>
+      <PaginationCompo
+        pageNumberHandler={pageNumberHandler}
+        type={1}
+      ></PaginationCompo>
+    </div>
+  );
 }
 
-
-export default ListingAuthors
+export default ListingAuthors;
