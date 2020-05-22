@@ -8,6 +8,8 @@ function Author (props) {
 
     const [author,setAuthor] = useState([{lastName:"",firstName:"",authorImage:"" }])
     useEffect(()=>{
+        console.log(props.location.xy.authorId);
+        
         axios.get(`http://34.107.102.252:3000/author/${props.location.xy.authorId}`)
         .then(res=>{
             console.log(res.data);
@@ -18,6 +20,17 @@ function Author (props) {
         .catch(err=>{
             console.log(err);
             
+        })
+        axios.get('http://34.107.102.252:3000/book/', {
+            params: {
+              authorID: props.location.xy.authorId
+            }
+        
+        })
+        .then(res=>{
+                        
+            console.log(res.data);
+
         })
 
     },[])

@@ -1,21 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import './test.css'
 import { Card, Image, Button } from 'semantic-ui-react';
 import axios from 'axios'
 import Author from '../Author/Author';
 import { Link } from 'react-router-dom';
+import PaginationCompo from '../Pagentaion/Pagentaion'
 
 
 
-function ListingAuthors() {
+function ListingAuthors(props) {
+
+    const [pageNumber,setPageNumber] = useState(0)
+    const [pageN ,setPageN] = useState([])
+    const test= (number)=>{
+            setPageNumber(number)
+
+    }
 
     const [authors, setAuthors] = useState([])
+    const [filtered,setfiltred]=useState([])
+
     useEffect(() => {
+        console.log(authors);
+        
         axios.get("http://34.107.102.252:3000/author")
-            .then(res => {
-                console.log(res.data);
-                
+            .then(res => {          
                 setAuthors(res.data);
+                let PN = res.data.length /5
+                PN = res.data.length % 5 != 0 ? PN +1 : PN
+                setPageN(PN)
             })
             .catch(err => {
                 console.log(err);
@@ -24,10 +37,22 @@ function ListingAuthors() {
 
     }, [])
 
-    function clickHandler(x) {
-        console.log(x);
 
-    }
+    useEffect(()=>{
+        const start= 5*(pageNumber-1)
+        const end =start+5
+       const filtred = authors.slice(start, end)
+       setfiltred(filtred)
+       
+        
+    },[pageNumber])
+
+    useEffect(()=>{
+        const filtred = authors.slice(0, 5)
+        setfiltred(filtred)
+    },[authors])
+
+
     var i = 0;
     const colorPicker = () => {
 
@@ -44,7 +69,7 @@ function ListingAuthors() {
             <p className="paragraphs">All Authors</p>
             <Card.Group itemsPerRow={5} >
                 {
-                    authors.map(author => (
+                    filtered.map(author => (
 
                         <Card>
                             <Card.Content>
@@ -76,7 +101,7 @@ function ListingAuthors() {
                     ))
                 }
 
-                <Card >
+                {/* <Card >
                     <Card.Content>
                         <Card.Header>Steve Sanders</Card.Header>
                         <Card.Meta>Friends of Elliot</Card.Meta>
@@ -235,10 +260,11 @@ function ListingAuthors() {
           </Button>
                         </div>
                     </Card.Content>
-                </Card>
+                </Card> */}
 
-
+               
             </Card.Group>
+            <PaginationCompo koko={test} pageN={pageN}></PaginationCompo>
         </div>
 
     )
