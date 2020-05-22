@@ -1,6 +1,8 @@
 .mainc {
+  margin-top:100px;
+  padding-top: 150px       ;
   width: 100vw;
-  height: 60vh;
+  height: 45vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,8 +10,8 @@
 }
 .cardd {
   display: grid;
-  grid-template-columns: 300px;
-  grid-template-rows: 210px 210px 80px;
+  grid-template-columns: 200px;
+  grid-template-rows: 170px 170px 60px;
   grid-template-areas: "image" "text" "stats";
   border-radius: 18px;
   background: white;
