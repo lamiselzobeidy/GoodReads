@@ -24,12 +24,12 @@ Good Reads website using MERN stack Intake 40 IoT ITI
 
 # Installtion Guide
 
-- 1)Please take a clone of the repositry
-- 2)Make a database and match the settings in settings.py (we use MySQL settings)
-- 3)Install and download all the needed libraries like: Pillow, mySQL, etc..
-- 4)Make Migrations
-- 5)Migrate
-- 6)Welcome to Soa2 El-Gom3a
+- 1)
+- 2)
+- 3)
+- 4)
+- 5)
+- 6)
 
 # Features
 - Login
