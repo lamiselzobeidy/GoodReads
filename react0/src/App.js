@@ -60,7 +60,7 @@ const App = (props) => {
 
             <Route path="/Registration" exact component={RegistrationPage} />
             <Route path="/categories" component={Categories} />
-            {/* <Route path="/bookprofile" component={BookProfile} /> */}
+             <Route path="/search" component={SearchPage} />
             <Route path="/bookprofile/:bookId" component={BookProfile} />
             <Route path="/categorypage/:categoryId" component={CategoryProfile} />
             <Route path="/userprofile" component={UserProfilePage} />
