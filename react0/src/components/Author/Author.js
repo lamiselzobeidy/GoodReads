@@ -1,16 +1,13 @@
 import React, {useState, useEffect} from 'react'
-import {Table, Card, Button} from 'react-bootstrap'
+import {Table, Card, Row, Col} from 'react-bootstrap'
 import "./Author.css"
 import axios from 'axios'
-import {Icon, Image} from "semantic-ui-react";
-import {MDBCol} from "mdbreact";
-import {CardFooter} from "react-bootstrap/Card";
-
+import BeautyStars from 'beauty-stars';
 
 function Author(props) {
 
-    const [author, setAuthor] = useState([{lastName: "", firstName: "", authorImage: ""}]);
-    const [allBooks, setBooks] = useState([]);
+    const [author, setAuthor] = useState([]);
+    const [authorBooks, setAuthorBooks] = useState([]);
     useEffect(() => {
         console.log(props.location.xy.authorId);
 
@@ -25,6 +22,7 @@ function Author(props) {
                 console.log(err);
 
             })
+
         axios.get('http://34.107.102.252:3000/book/', {
             params: {
                 authorID: props.location.xy.authorId
@@ -32,7 +30,11 @@ function Author(props) {
 
         })
             .then(res => {
-                setBooks(res.data);
+                console.log(res.data);
+                setAuthorBooks(res.data);
+            })
+            .catch(err => {
+                console.log(err);
             })
 
     }, []);
@@ -47,7 +49,7 @@ function Author(props) {
 
                     <Card style={{height: '8rem'}}>
                         <Card.Header>{author.firstName + " " + author.lastName}</Card.Header>
-                        <Card.Img className="img" variant="top"
+                        <Card.Img className="img" variant="center"
                                   src={`http://34.107.102.252:3000/${author.authorImage}`}/>
 
                         <Card.Body>
@@ -61,36 +63,41 @@ function Author(props) {
             </tr>
 
             <tr>
-                <td>
-                    {
-                        allBooks.map(book => {
-                            return (
-                                <Card>
-                                    <Image
-                                        src={book.bookImage}
-                                        wrapped
-                                        ui={false}/>
-                                    <Card.Content>
-                                        <Card.Header>
-                                            {book.bookName}
-                                        </Card.Header>
-                                        <Card.Description>
-                                            {book.avgRatings}
-                                            {book.numberOfRatings}
-                                        </Card.Description>
-                                    </Card.Content>
-                                    <Card.Content extra>
-                                        <a>
-                                            <Icon name='book'/>
-                                            More details
-                                        </a>
-                                    </Card.Content>
-                                </Card>
-                            )
-                        })
-                    }
 
-                </td>
+                {
+                    authorBooks !== undefined ? authorBooks.map(book => {
+                        return (
+                            <Card>
+
+                                <Row>
+                                    <Card.Img className="img" variant="top"
+                                              src={`http://34.107.102.252:3000/${book.bookImage}`}/>
+
+                                    <Card.Body className="text-left">
+                                        <Row>
+                                            <Col className="col-8">
+                                                <Card.Title className="m-2">
+                                                    {book.bookName}
+                                                </Card.Title>
+                                                <BeautyStars size="15px"
+                                                             value={book.avgRatings === null ? 0 : book.avgRatings}/>
+                                                <Card.Text className="m-2">
+                                                    Number of Ratings:
+                                                    {book.numberOfRatings === null ? 0 : book.numberOfRatings}
+                                                </Card.Text>
+                                            </Col>
+
+                                            <Col className="col-4">
+                                                sfjkagngaskagjk
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Row>
+                            </Card>
+                        )
+                    }) : <div><p>This author has no books</p></div>
+
+                }
 
             </tr>
 
