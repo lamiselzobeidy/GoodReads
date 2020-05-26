@@ -2,6 +2,8 @@ const express = require("express")
 const mongoose = require('mongoose');
 const multer = require("multer");
 const chalk = require("chalk");
+const fs = require('fs')
+
 
 let router = express.Router()
 
@@ -170,6 +172,7 @@ router.post('/', upload.single('coverImage'), async function (req, res) {
         // Here we need to check the JWT token before creating a new book
         // const newAuthor = new AuthorModel()
         // const newCat = new CategoryModel()
+        
         const newBook = new BookModel({
             bookName: req.body.bookName,
             catId: req.body.catId,
@@ -203,8 +206,19 @@ router.patch('/:id', upload.single('coverImage'), async (req, res) => {
     try {
         let id = req.params.id;
         console.log(req.body);
+        let editBook  ={
+            bookName: req.body.bookName,
+            catId: req.body.catId,
+            authorId: req.body.authorId,
+            brief: req.body.brief}
+        
+        if(req.file.path){
+            let book = await BookModel.findById(id).exec()
+            fs.unlinkSync(book.coverImageName)
+            editBook["coverImageName"]=req.file.path
+        }
 
-        let results = await BookModel.findByIdAndUpdate(id, req.body, {new: true}).exec()
+        let results = await BookModel.findByIdAndUpdate(id, editBook, {new: true}).exec()
         res.json(results)
     } catch (error) {
         console.log(error);
