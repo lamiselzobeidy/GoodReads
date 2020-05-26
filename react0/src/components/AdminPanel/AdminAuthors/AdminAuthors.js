@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState,} from 'react'
-import { Table, Modal, Button, Form, Col, Row } from 'react-bootstrap'
+import { Table, Modal, Button, Form, Col, Row,Image } from 'react-bootstrap'
 import '../AdminCatogries/AdminCatogries.css'
 import { Icon, Input } from 'semantic-ui-react';
 import axios from 'axios'
@@ -175,7 +175,7 @@ function AdminAuthors() {
                         authors.map(author => (
                             <tr>
                                 <td className="text-danger" style={{ fontSize: 15 }} >{author._id}</td>
-                                <td>{author.authorImage}</td>
+                                <td className="md-col-2"><Image src={`http://34.107.102.252:3000/${author.authorImage}`} thumbnail /> </td>
                                 <td>{author.firstName}</td>
                                 <td>{author.lastName}</td>
                                 <td>{author.DateofBirth}</td>

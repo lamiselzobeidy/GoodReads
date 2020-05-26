@@ -9,15 +9,16 @@ function MyVerticallyCenteredModal(props) {
     const [edit,setEdit]=useState(false)
 
     const [catName, setCatName] = useState('');
+    const [catBackup, setCatBackup] = useState('');
     useEffect(() => {
 
         
-        if(props.cat !== {})
+        if(props.cat !== {}&& catBackup !==props.cat.categoryName)
         {
-
             console.log("gowa el if",props.cat);
             
             setCatName(props.cat.categoryName)
+            setCatBackup(props.cat.categoryName)
             setEdit(true)
         }
 
@@ -33,16 +34,33 @@ function MyVerticallyCenteredModal(props) {
         console.log(frmdetails);
         const config = {
             headers: {
-                'JWT': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybWFpbCI6InJvb3RAbWFpbC5jb20iLCJpYXQiOjE1ODk0ODk5NjV9.b2vOq5SY79KgxDbHUusM5czvuUD9JsAZe-VKIW6_Z5g'
+                'JWT': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybWFpbCI6InJvb3RAbWFpbC5jb20iLCJpYXQiOjE1OTAwMzY2Nzl9.c9cdu1Ph1pEWNyV14PKroCBs7Cf_6gz9p-UOLleXupc'
             }
         };
 
+        if (edit) {
+            if(catName===""){
+                alert("Empty value")
+            }else if (catName===catBackup) {
+                alert("Now change same old name")
+                
+            }else{
+
+                axios.patch(`http://34.107.102.252:3000/category/${props.cat._id}`, frmdetails ,config )
+                .then(res => {
+                  console.log("Patchhhhhhh: ",res.data);
+                })
+            }
+            
+        }else{
 
             axios.post('http://34.107.102.252:3000/category/', frmdetails ,config )
             .then(res => {
               console.log(res);
               console.log(res.data);
             })
+        }
+
 
     }
 
@@ -69,7 +87,9 @@ function MyVerticallyCenteredModal(props) {
                             Category Name
                      </Form.Label>
                         <Col sm="10">
-                            <Form.Control size="lg" type="text" placeholder={catName } onChange={e => setCatName(e.target.value)}/>
+                            <Form.Control size="lg" type="text" placeholder={catName } onChange={e => {
+                            console.log(catName);
+                             setCatName(e.target.value)}}/>
                         </Col>
                     </Form.Group>
                     <Button onClick={props.onHide}>Close</Button>
@@ -89,6 +109,11 @@ function MyVerticallyCenteredModal(props) {
 function AdminCatogries() {
     const [modalShow, setModalShow] = React.useState(false);
     const [cat,setCat]= useState({})
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+        getCategories()
+    }, [])
 
     function getCategories(){
         axios.get("http://34.107.102.252:3000/category/")
@@ -100,11 +125,7 @@ function AdminCatogries() {
             })
         }
 
-    const [categories, setCategories] = useState([])
-    useEffect(() => {
-        getCategories()
-    }, [])
-
+   
     function deleteComponent(x) {
         console.log(x._id);
         axios.delete(`http://34.107.102.252:3000/category/${x._id}`,{

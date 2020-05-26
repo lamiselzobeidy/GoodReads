@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
-import { Table, Modal, Button, Form, Col, Row } from 'react-bootstrap'
+import { Table, Modal, Button, Form, Col, Row,Image } from 'react-bootstrap'
 import '../AdminCatogries/AdminCatogries.css'
 import { Icon } from 'semantic-ui-react';
 import axios from 'axios'
@@ -8,15 +8,32 @@ import {Redirect} from 'react-router'
 
 
 function MyVerticallyCenteredModal(props) {
+    const[book,setBook] = useState({})
+
     const [bookName, setBookName] = useState('');
     const [athName, setAthName] = useState('');
+    const [athFullName, setAthFullName] = useState('');
     const [catName, setCatName] = useState('');
     const [file, setFile] = useState(null)
     const [redirect,setRedirect] = useState(false)
 
+    const [edit,setEdit] = useState(false);
 
     const [listingCategories, setListingCategories] = useState([]);
     const [authors, setAuthors] = useState([]);
+
+    useEffect(() => {
+      if (props.edit===true) {
+          setEdit(true)
+          console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+          setBook(props.book)
+      }else{
+          console.log("fffffffffffffffffffffffffffffffff");
+          setBook({})
+          setEdit(false)
+      }
+    },[props.edit,props.book])
+
 
     useEffect(() => {
         axios.get("http://34.107.102.252:3000/category/")
@@ -26,6 +43,7 @@ function MyVerticallyCenteredModal(props) {
             .catch(err => {
                 console.log(err);
             })
+            
 
     }, [])
 
@@ -61,7 +79,7 @@ function MyVerticallyCenteredModal(props) {
         const config = {
             headers: {
                 'content-type': 'multipart/form-data',
-                'JWT': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybWFpbCI6InJvb3RAbWFpbC5jb20iLCJpYXQiOjE1ODk0ODk5NjV9.b2vOq5SY79KgxDbHUusM5czvuUD9JsAZe-VKIW6_Z5g'
+                'JWT': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybWFpbCI6InJvb3RAbWFpbC5jb20iLCJpYXQiOjE1OTAwMzY2Nzl9.c9cdu1Ph1pEWNyV14PKroCBs7Cf_6gz9p-UOLleXupc'
             }
         };
         axios.post('http://34.107.102.252:3000/book/', frmdetails, config)
@@ -101,7 +119,7 @@ else{
                             Book Name
                      </Form.Label>
                         <Col sm="10">
-                            <Form.Control size="lg" type="text" placeholder="Enter Book Name ..." onChange={e => setBookName(e.target.value)} />
+                            <Form.Control size="lg" type="text" value={edit?book.bookName:""} placeholder="Enter Book Name ..." onChange={e => setBookName(e.target.value)} />
                         </Col>
                     </Form.Group>
 
@@ -110,17 +128,11 @@ else{
                             Category
                      </Form.Label>
                         <Col sm="10">
-                            <Form.Control as="select" value="Choose..." onChange={e => {
-                                const newArray = listingCategories.filter(cat => cat.categoryName === e.target.value ? true : false)
-                                if (newArray.length > 0) {
-                                    setCatName(newArray[0]._id)
-                                }
-                            }} >
+                            <Form.Control as="select"  onChange={setCatName}>
                                 {
-
                                     listingCategories.map(category => (
 
-                                        <option>{category.categoryName}</option>
+                                        <option selected ={edit && book.catId.categoryName === category.categoryName? true:false} >{category.categoryName}</option>
                                     ))
                                 }
                             </Form.Control>
@@ -132,7 +144,7 @@ else{
                             Author
                      </Form.Label>
                         <Col sm="10">
-                            <Form.Control as="select" value="Choose..." onChange={e => {
+                            <Form.Control as="select" onChange={e => {
                                 var index = e.target.selectedIndex;
                                 var optionElement = e.target.childNodes[index]
                                 var option = optionElement.getAttribute('data-id');
@@ -140,7 +152,7 @@ else{
                             }}>
                                 {
                                     authors.map(author => (
-                                        <option data-id={author._id}>{author.firstName + " " + author.lastName}</option>
+                                        <option selected ={edit && book.authorId.authorName === author.authorName? true:false} data-id={author._id} >{author.firstName + " " + author.lastName}</option>
                                     ))
                                 }
                             </Form.Control>
@@ -180,12 +192,15 @@ else{
 
 
 function AdminBooks() {
+    const[book,setBook] = useState({})
+    const[edit,setEdit] = useState(false)
     const [modalShow, setModalShow] = React.useState(false);
-
     function getBooks() {
         axios.get("http://34.107.102.252:3000/book")
             .then(res => {
                 setBooks(res.data);
+                console.log("books:",res.data);
+                
             })
             .catch(err => {
                 console.log(err);
@@ -202,7 +217,7 @@ function AdminBooks() {
         console.log(x._id);
         axios.delete(`http://34.107.102.252:3000/book/${x._id}`, {
             headers: {
-                JWT: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybWFpbCI6InJvb3RAbWFpbC5jb20iLCJpYXQiOjE1ODk0ODk5NjV9.b2vOq5SY79KgxDbHUusM5czvuUD9JsAZe-VKIW6_Z5g"
+                JWT: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybWFpbCI6InJvb3RAbWFpbC5jb20iLCJpYXQiOjE1OTAwMzY2Nzl9.c9cdu1Ph1pEWNyV14PKroCBs7Cf_6gz9p-UOLleXupc"
             }
         }).then(res => {
             getBooks()
@@ -212,16 +227,21 @@ function AdminBooks() {
             })
 
     }
-    function editComponent(x) {
-
+    function editComponent(book) {
+        setEdit(true)
+        setBook(book)
+        setModalShow(true)
     }
 
     return (
-        <div>
-            <a className="iconadjustment" onClick={() => setModalShow(true)}>
+        <div class="md-12" >
+            <a className="iconadjustment" onClick={() => {
+                setEdit(false)
+                setModalShow(true)
+                }}>
                 <Icon name='add circle test' />
             </a>
-            <Table striped bordered hover>
+            <Table responsive="sm" striped bordered hover >
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -238,12 +258,12 @@ function AdminBooks() {
                         books.map(book => (
 
                             <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>{book.bookName}</td>
-                                <td>{book.catId._id}</td>
-                                <td>ttt</td>
-                                <td>
+                                <td  className="text-danger ml-0 p-0" style={{ fontSize: 15 }} >{book._id}</td>
+                                <td className="md-col-2"><Image src={`http://34.107.102.252:3000/${book.coverImageName}`} thumbnail /> </td>
+                                <td className="text-primary" style={{ fontSize: 15 }}>{book.bookName}</td>
+                                <td className="text-danger" style={{ fontSize: 15 }}>{book.catId._id}</td>
+                                <td className="text-danger" style={{ fontSize: 15 }}>{book.authorId._id}</td>
+                                <td  >
                                     <a onClick={
                                         () => { editComponent(book) }
                                     }>
@@ -265,6 +285,8 @@ function AdminBooks() {
             </Table>
             <MyVerticallyCenteredModal
                 show={modalShow}
+                edit={edit}
+                book={book}
                 onHide={() => setModalShow(false)}
             />
 
