@@ -4,6 +4,7 @@ import { Table, Modal, Button, Form, Col, Row, Image } from "react-bootstrap";
 import "../AdminCatogries/AdminCatogries.css";
 import { Icon, Input } from "semantic-ui-react";
 import axios from "axios";
+import MyLoader from "../Loader";
 
 function MyVerticallyCenteredModal(props) {
   const [author, setAuthor] = useState({});
@@ -53,6 +54,7 @@ function MyVerticallyCenteredModal(props) {
           config
         )
         .then((res) => {
+          props.getAuthorsHandler();
           console.log(res);
           console.log(res.data);
         });
@@ -60,6 +62,7 @@ function MyVerticallyCenteredModal(props) {
       axios
         .post("http://34.107.102.252:3000/author/", frmdetails, config)
         .then((res) => {
+          props.getAuthorsHandler();
           console.log(res);
           console.log(res.data);
         });
@@ -172,20 +175,24 @@ function MyVerticallyCenteredModal(props) {
 function AdminAuthors() {
   const [author, setAuthor] = useState({});
   const [edit, setEdit] = useState(false);
-
+  const [authors, setAuthors] = useState([]);
   const [modalShow, setModalShow] = React.useState(false);
+  const [loader, setLoader] = React.useState(false);
   function getAuthors() {
+    setLoader(true);
     axios
       .get("http://34.107.102.252:3000/author")
       .then((res) => {
         setAuthors(res.data);
+        setTimeout(() => {
+          setLoader(false);
+        }, 1000);
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  const [authors, setAuthors] = useState([]);
   useEffect(() => {
     getAuthors();
   }, []);
@@ -221,57 +228,62 @@ function AdminAuthors() {
       >
         <Icon name="add circle test" />
       </a>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Photo</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Date of Birth</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {authors.map((author) => (
+      {loader ? (
+        <MyLoader />
+      ) : (
+        <Table striped bordered hover>
+          <thead>
             <tr>
-              <td className="text-danger" style={{ fontSize: 15 }}>
-                {author._id}
-              </td>
-              <td>
-                <Image
-                  src={`http://34.107.102.252:3000/${author.authorImage}`}
-                  style={{ width: "100px" }}
-                />{" "}
-              </td>
-              <td style={{ fontSize: 15 }}>{author.firstName}</td>
-              <td style={{ fontSize: 15 }}>{author.lastName}</td>
-              <td style={{ fontSize: 15 }}>{author.DateofBirth}</td>
-              <td>
-                {" "}
-                <a
-                  onClick={() => {
-                    editComponent(author);
-                  }}
-                >
-                  <Icon name="edit" />
-                </a>
-                <a
-                  onClick={() => {
-                    deleteComponent(author);
-                  }}
-                >
-                  <Icon name="delete" />
-                </a>
-              </td>
+              <th>ID</th>
+              <th>Photo</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Date of Birth</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {authors.map((author) => (
+              <tr>
+                <td className="text-danger" style={{ fontSize: 15 }}>
+                  {author._id}
+                </td>
+                <td>
+                  <Image
+                    src={`http://34.107.102.252:3000/${author.authorImage}`}
+                    style={{ width: "100px" }}
+                  />{" "}
+                </td>
+                <td style={{ fontSize: 15 }}>{author.firstName}</td>
+                <td style={{ fontSize: 15 }}>{author.lastName}</td>
+                <td style={{ fontSize: 15 }}>{author.DateofBirth}</td>
+                <td>
+                  {" "}
+                  <a
+                    onClick={() => {
+                      editComponent(author);
+                    }}
+                  >
+                    <Icon name="edit" />
+                  </a>
+                  <a
+                    onClick={() => {
+                      deleteComponent(author);
+                    }}
+                  >
+                    <Icon name="delete" />
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      )}
       <MyVerticallyCenteredModal
         show={modalShow}
         author={author}
         edit={edit}
+        getAuthorsHandler={getAuthors}
         onHide={() => setModalShow(false)}
       />
     </div>
