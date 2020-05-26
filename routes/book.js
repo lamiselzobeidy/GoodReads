@@ -98,7 +98,7 @@ router.get('/:id', async (req, res) => {
         let results = await BookModel.findById(id).populate("authorId").populate("catId").exec();
         let bookReviews = await ReviewModel.findReviewsByBookId(id);
         let bookStatus = "";
-        let bookReview = 0;
+        let bookReview = [];
 
         console.log(bookReviews);
         //Book Status and user book rating

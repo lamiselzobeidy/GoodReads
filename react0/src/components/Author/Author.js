@@ -86,10 +86,6 @@ function Author(props) {
                                                     {book.numberOfRatings === null ? 0 : book.numberOfRatings}
                                                 </Card.Text>
                                             </Col>
-
-                                            <Col className="col-4">
-                                                sfjkagngaskagjk
-                                            </Col>
                                         </Row>
                                     </Card.Body>
                                 </Row>
