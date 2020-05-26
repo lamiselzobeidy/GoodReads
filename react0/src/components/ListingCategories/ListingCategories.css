@@ -1,6 +1,7 @@
-.card-img, .card-img-bottom, .card-img-top {
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Raleway:wght@200&display=swap');
 
-    height: 120px;
+.listingCategories{
+    height: 100vh;
 }
 .desk{
     margin-top: 80px;
@@ -10,10 +11,19 @@
 }
 
 .cardBody{
-height: 7%;
+height: 30%;
 }
 
 .rowControlSize{
 
     margin-left: 10%;
+}
+.categoryCrads{
+    height: 100% !important;
+}
+.listingCategories>h1{
+    color: black;
+    text-align: center;
+    font-family: 'Acme', sans-serif;
+    font-size: 70px !important;
 }
