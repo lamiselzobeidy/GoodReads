@@ -71,10 +71,11 @@ function MyVerticallyCenteredModal(props) {
     //     'brief' : "asdasdsa"
     // }
 
-    const newArray = listingCategories.filter(cat => cat.categoryName === catName ? true : false)
+    const newArray = listingCategories.filter((cat) =>
+      cat.categoryName === catName ? true : false
+    );
     if (newArray.length > 0) {
-        frmdetails.append("catId", newArray[0]._id);
-
+      frmdetails.append("catId", newArray[0]._id);
     }
 
     frmdetails.append("bookName", bookName);
@@ -86,25 +87,33 @@ function MyVerticallyCenteredModal(props) {
     const config = {
       headers: {
         "content-type": "multipart/form-data",
-        JWT:JSON.parse(sessionStorage.getItem("user")).token,
+        JWT: JSON.parse(sessionStorage.getItem("user")).token,
       },
     };
 
-    // Display the key/value pairs
-    for (var pair of frmdetails.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-
-    axios.post('http://34.107.102.252:3000/book/', frmdetails, config)
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
-            setRedirect(true)
-
-        }).catch(err=>{
-            console.error(err);
-            
+    if (edit) {
+      axios
+        .patch(`http://34.107.102.252:3000/book/${book._id}`, frmdetails, config)
+        .then((res) => {
+          console.log(res);
+          console.log(res.data);
+          setRedirect(true);
         })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      axios
+        .post("http://34.107.102.252:3000/book/", frmdetails, config)
+        .then((res) => {
+          console.log(res);
+          console.log(res.data);
+          setRedirect(true);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   };
 
   if (redirect) {
@@ -133,7 +142,7 @@ function MyVerticallyCenteredModal(props) {
                   size="lg"
                   type="text"
                   placeholder={edit ? book.bookName : "Enter Book Name ..."}
-                  onChange={(e)=>setBookName(e.target.value)}
+                  onChange={(e) => setBookName(e.target.value)}
                 />
               </Col>
             </Form.Group>
@@ -143,7 +152,10 @@ function MyVerticallyCenteredModal(props) {
                 Category
               </Form.Label>
               <Col sm="10">
-                <Form.Control as="select" onChange={(e)=>setCatName(e.target.value)}>
+                <Form.Control
+                  as="select"
+                  onChange={(e) => setCatName(e.target.value)}
+                >
                   {listingCategories.map((category) => (
                     <option
                       selected={
@@ -198,9 +210,9 @@ function MyVerticallyCenteredModal(props) {
                 <Form.Control
                   size="lg"
                   as="textarea"
-                  rows="3"                  
-                  placeholder={edit ? book.brief :"Enter Book Brief ..."}
-                  onChange={e=>setBrief(e.target.value)}
+                  rows="3"
+                  placeholder={edit ? book.brief : "Enter Book Brief ..."}
+                  onChange={(e) => setBrief(e.target.value)}
                 />
               </Col>
             </Form.Group>
@@ -311,7 +323,7 @@ function AdminBooks() {
                 {book._id}
               </td>
               <td className="md-col-2">
-                <Image 
+                <Image
                   src={`http://34.107.102.252:3000/${book.coverImageName}`}
                   thumbnail
                 />{" "}
