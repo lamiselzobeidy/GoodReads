@@ -175,10 +175,10 @@ function AdminAuthors() {
                         authors.map(author => (
                             <tr>
                                 <td className="text-danger" style={{ fontSize: 15 }} >{author._id}</td>
-                                <td className="md-col-2"><Image src={`http://34.107.102.252:3000/${author.authorImage}`} thumbnail /> </td>
-                                <td>{author.firstName}</td>
-                                <td>{author.lastName}</td>
-                                <td>{author.DateofBirth}</td>
+                                <td ><Image src={`http://34.107.102.252:3000/${author.authorImage}`}  style={{width:"100px"}} /> </td>
+                                <td style={{ fontSize: 15 }}>{author.firstName}</td>
+                                <td style={{ fontSize: 15 }}>{author.lastName}</td>
+                                <td style={{ fontSize: 15 }}>{author.DateofBirth}</td>
                                 <td> <a onClick={
                                     () => { editComponent(author) }
                                 }>
