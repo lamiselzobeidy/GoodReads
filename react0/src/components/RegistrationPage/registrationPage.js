@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {Form} from 'react-bootstrap';
 import axios from "axios";
 import {
   MDBContainer,
@@ -73,14 +74,16 @@ export default function RegistrationPage() {
   return (
       
           <MDBCard
-            className="card-image"
+            className="card-image signupForm w-75"
             style={{
               backgroundImage:
                 "url(https://previews.123rf.com/images/microone/microone1812/microone181200305/112856531-sketch-vintage-books-seamless-pattern-or-background-sketch-education-seamless-book-for-school-litera.jpg)",
               width: "40rem",
+              border: "solid grey 2px",
+
             }}
           >
-            <div className="text-white rgba-stylish-strong py-2 px-2 z-depth-4">
+            <div className="text-white rgba-stylish-strong pb-2 px-2 z-depth-4 h-35 ">
               <div className="text-center">
                 <h3 className="white-text mb-2 mt-2 font-weight-bold">
                   <strong>SIGN</strong>
@@ -96,7 +99,6 @@ export default function RegistrationPage() {
                 type="email"
                 validate
                 labelClass="white-text"
-                className="m-0"
               />
               <MDBInput
                 label="Confirm email"

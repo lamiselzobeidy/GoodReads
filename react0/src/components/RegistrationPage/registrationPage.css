@@ -58,3 +58,13 @@
     -webkit-transform-origin: 100% 100%;
     -ms-transform-origin: 100% 100%;
     transform-origin: 100% 100%; }
+    .signupForm{
+      height: 50% !important;
+    }
+    .md-form, .form-control{
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+    .md-form .validate{
+      margin-bottom: 0px !important;
+    }
