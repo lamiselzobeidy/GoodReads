@@ -61,6 +61,7 @@ const App = (props) => {
             <Route path="/bookprofile/:bookId" component={BookProfile} />
             <Route path="/categorypage/:categoryId" component={CategoryProfile} />
             <Route path="/userprofile" component={UserProfilePage} />
+            <Route path="/admin" component={AdminPanel} />
           </Switch>
           {/* <RegistrationPage/> */}
           {/* <ListingCategories></ListingCategories> */}
