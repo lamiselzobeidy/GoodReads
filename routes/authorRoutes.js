@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const authorModel = require("../models/authorModel");
 const checkIsAdmin = require("../middlewares/admin_check");
-
+const fs = require("fs")
 const multer = require('multer');
 
 const checkJWT = require("../middlewares/jwt_auth")
@@ -72,7 +72,7 @@ router.post("/", upload.single('authorImage'), async (req, res) => {
 router.patch("/:id", async (req, res) => {
     try {
         // Here we need to check the JWT token before updating a author
-        const authorData = {
+        let authorData = {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             fullName: req.body.firstName + " " + req.body.lastName,
@@ -85,7 +85,7 @@ router.patch("/:id", async (req, res) => {
             authorData["authorImage"]=req.file.path
         }
         
-        const editedAuthor = await authorModel.updateOne({_id: req.params.id}, authorData);
+        const editedAuthor = await authorModel.findByIdAndUpdate(req.params.id, authorData).exec();
         //202 means accepted
         res.status(202).json(editedAuthor.nModified);
     } catch (error) {
