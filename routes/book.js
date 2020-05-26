@@ -212,7 +212,7 @@ router.patch('/:id', upload.single('coverImage'), async (req, res) => {
             authorId: req.body.authorId,
             brief: req.body.brief}
         
-        if(req.file.path){
+        if(req.file){
             let book = await BookModel.findById(id).exec()
             fs.unlinkSync(book.coverImageName)
             editBook["coverImageName"]=req.file.path
