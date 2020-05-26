@@ -72,7 +72,19 @@ router.post("/", upload.single('authorImage'), async (req, res) => {
 router.patch("/:id", async (req, res) => {
     try {
         // Here we need to check the JWT token before updating a author
-        const authorData = req.body;
+        const authorData = {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            fullName: req.body.firstName + " " + req.body.lastName,
+            DateofBirth: req.body.DateofBirth,
+            bio: req.body.bio};
+
+        if(req.file){
+            let author = await authorModel.findById(req.params.id).exec()
+            fs.unlinkSync(author.authorImage)
+            authorData["authorImage"]=req.file.path
+        }
+        
         const editedAuthor = await authorModel.updateOne({_id: req.params.id}, authorData);
         //202 means accepted
         res.status(202).json(editedAuthor.nModified);
