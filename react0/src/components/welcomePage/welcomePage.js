@@ -56,36 +56,46 @@ class welcomePage extends Component {
         </Navbar>
         <div className="containerr mx-0 px-0 row w-100 mt-0">
           <div className="col-7 h-100 py-5" id="quote">
-            <h1 className="mt-3">Your next book is our mission.</h1>
+            <h1 className="mt-5">Your next book is our mission.</h1>
           </div>
-          <div className="col-5 h-100 pt-3" style={{ backgroundColor: "rgba(23, 23, 24, 0.24)" }} >
-            <Tabs defaultActiveKey="Login" transition={false} id="noanim-tab-example" style={{ width: "40%", border: "transparent", paddingBottom: "7%", marginLeft: '18%' }} >
-              <Tab eventKey="Login" title="Login">
-                <Form className="form w-75 rgba-stylish-strong z-depth-4" noValidate onSubmit={this.onSubmit}>
-                  <div className="rgba-stylish-strong z-depth-4 py-3 px-4  " >
+          <div className="col-5 h-100 " style={{ backgroundColor: "rgba(23, 23, 24, 0.24)" }} >
+            <Tabs defaultActiveKey="Login" transition={false} id="noanim-tab-example" className="w-75 tabsTitle" style={{ border: "transparent" }} >
+              <Tab eventKey="Login" title="Login" >
+                <Form className="loginForm w-75 h-100" noValidate onSubmit={this.onSubmit}>
+                  <div className="rgba-stylish-strong z-depth-4 py-2 px-2  " >
+                    <div className="text-center">
+                      <h3 className="white-text mb-2 mt-0 font-weight-bold">
+                        <strong>LOG</strong>
+                        <a href="" className="blue-text font-weight-bold">
+                          <strong>IN</strong>
+                        </a>
+                      </h3>
+                    </div>
                     <Form.Group controlId="formBasicEmail">
-                      <Form.Label>Email address</Form.Label>
+                      <Form.Label className="ml-0">Email address</Form.Label>
                       <Form.Control className="FormInput" type="email" placeholder="Enter email" name="mail" value={this.state.mail} onChange={this.onChange} />
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
                       <Form.Label>Password</Form.Label>
                       <Form.Control className="FormInput" type="password" placeholder="Password" name="pass" value={this.state.pass} onChange={this.onChange} />
                     </Form.Group><div id="btn" className="text-center">
-                      <Button type="submit" style={{ backgroundColor: "#247BA0", borderColor: "#247BA0", }}>Login</Button>
+                      <Button type="submit" className="mx-auto" style={{ backgroundColor: "#247BA0", borderColor: "#247BA0", width: "100%" }}>Login</Button>
+                    </div>
+
+                    <div className="signinIcons px-4 py-1 mt-2 w-100">
+                      <span className="signinSpam">or sign in using</span>
+                      <a href=""><img alt="" src={FbSignin} width="27" height="27" className="ml-2" /></a>{"   "}
+                      <a href="">
+                        <img alt="" src={TwSignin} width="30" height="30" className="ml-2" /></a>{"   "}
+                      <a href=""><img alt="" src={GgleSignin} width="27" height="27" className="ml-2" /></a>{"   "}
+                      <br />
                     </div>
                   </div>
                 </Form>
-                <div className="signinIcons px-4 pt-2 mt-2 w-75">
-                  <span className="signinSpam">or sign in using</span>
-                  <a href=""><img alt="" src={FbSignin} width="27" height="27" className="ml-2" /></a>{"   "}
-                  <a href="">
-                    <img alt="" src={TwSignin} width="30" height="30" className="ml-2" /></a>{"   "}
-                  <a href=""><img alt="" src={GgleSignin} width="27" height="27" className="ml-2"/></a>{"   "}
-                  <br />
-                </div>
+
               </Tab>
 
-              <Tab eventKey="SignUp" title="SignUp">
+              <Tab eventKey="SignUp" title="SignUp" className="tabsTitle">
                 <RegistrationPage></RegistrationPage>
               </Tab>
             </Tabs>

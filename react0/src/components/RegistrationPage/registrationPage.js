@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import {Form} from 'react-bootstrap';
 import axios from "axios";
 import {
     MDBContainer,
@@ -74,32 +75,64 @@ export default function RegistrationPage() {
 
     return (
 
-        <MDBCard
-            className="card-image"
+  return (
+      
+          <MDBCard
+            className="card-image signupForm w-75"
             style={{
-                backgroundImage:
-                    "url(https://previews.123rf.com/images/microone/microone1812/microone181200305/112856531-sketch-vintage-books-seamless-pattern-or-background-sketch-education-seamless-book-for-school-litera.jpg)",
-                width: "40rem",
+              backgroundImage:
+                "url(https://previews.123rf.com/images/microone/microone1812/microone181200305/112856531-sketch-vintage-books-seamless-pattern-or-background-sketch-education-seamless-book-for-school-litera.jpg)",
+              width: "40rem",
+              border: "solid grey 2px",
+
             }}
-        >
-            <div className="text-white rgba-stylish-strong py-2 px-2 z-depth-4">
-                <div className="text-center">
-                    <h3 className="white-text mb-2 mt-2 font-weight-bold">
-                        <strong>SIGN</strong>
-                        <a href="" className="green-text font-weight-bold">
-                            <strong> UP</strong>
-                        </a>
-                    </h3>
-                </div>
-                <MDBInput
-                    label="Your email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    group
-                    type="email"
-                    validate
-                    labelClass="white-text"
-                    className="m-0"
-                />
+          >
+            <div className="text-white rgba-stylish-strong pb-2 px-2 z-depth-4 h-35 ">
+              <div className="text-center">
+                <h3 className="white-text mb-2 mt-2 font-weight-bold">
+                  <strong>SIGN</strong>
+                  <a href="" className="green-text font-weight-bold">
+                    <strong> UP</strong>
+                  </a>
+                </h3>
+              </div>
+              <MDBInput
+                label="Your email"
+                onChange={(e) => setEmail(e.target.value)}
+                group
+                type="email"
+                validate
+                labelClass="white-text"
+              />
+              <MDBInput
+                label="Confirm email"
+                onChange={(e) => {
+                  setConfirmEmail(e.target.value);
+                }}
+                group
+                type="email"
+                validate
+                pattern={/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/}
+                labelClass="white-text"
+                className="m-0"
+              />
+              <MDBRow>
+                  <MDBCol>
+                  <MDBInput
+                label="Your password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                group
+                type="password"
+                validate
+                labelClass="white-text"
+                className="md-col-4 m-0"
+                
+              />
+                  </MDBCol>
+                <MDBCol>
+
                 <MDBInput
                     label="Confirm email"
                     onChange={(e) => {
