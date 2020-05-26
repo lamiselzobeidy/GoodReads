@@ -110,9 +110,7 @@ router.get('/:id', async (req, res) => {
         const userBook = currentUser[0].all.includes(id);
 
 
-        if (userBook === false) {
-            res.json("You do not have this book");
-        } else {
+        if (userBook === true) {
             if (currentUser[0].want_to_read.includes(id)) {
                 bookStatus = "want"
             }
@@ -122,16 +120,16 @@ router.get('/:id', async (req, res) => {
             if (currentUser[0].current.includes(id)) {
                 bookStatus = "current"
             }
-
-            bookReview = await reviewModel
-                .find({userId: currentUser[0]._id, bookId: id}, {_id:0,rating: 1})
         }
 
+        bookReview = await reviewModel
+            .find({userId: currentUser[0]._id, bookId: id}, {_id: 0, rating: 1})
+
         console.log(bookStatus, bookReview);
-        
+
         const userData = {
             userBookStatus: bookStatus,
-            userBookReview: bookReview,
+            userBookReview: bookReview.length === 0 ? 0 : bookReview[0].rating,
         };
 
 
