@@ -73,7 +73,7 @@ router.post("/", upload.single('authorImage'), async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
     try {
-        console.log(chalk.blue(req.body));
+        console.log(chalk.blue(JSON.stringify(req.body)));
         // Here we need to check the JWT token before updating a author
         let authorData = {
             firstName: req.body.firstName,
