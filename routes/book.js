@@ -124,9 +124,11 @@ router.get('/:id', async (req, res) => {
             }
 
             bookReview = await reviewModel
-                .find({userId: currentUser[0]._id, bookId: id}, {rating: 1})
+                .find({userId: currentUser[0]._id, bookId: id}, {_id:0,rating: 1})
         }
 
+        console.log(bookStatus, bookReview);
+        
         const userData = {
             userBookStatus: bookStatus,
             userBookReview: bookReview,
