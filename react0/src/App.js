@@ -25,7 +25,7 @@ import NewNavBar from './components/NewNavBar/NewNavBar'
 import NewCategories from './components/NewCategories/NewCategories'
 import LoadingPage from './components/LoadingPage/LoadingPage'
 import SearchPage from "./components/SearchPage/SearchPage";
-
+import AdminLoginPage from "./components/AdminPanel/AdminLogin/AdminLogin"
 const App = (props) => {
   console.log(window.location.pathname);
   if (window.location.pathname == "/") {
@@ -49,15 +49,13 @@ const App = (props) => {
           <Switch>
             {/* <Route path="/" exact component={HomePage} /> */}
             <Route path="/HomePage" component={HomePage} />
-
             <Route path="/ListingAuthors" component={ListingAuthors} />
             <Route path="/ListingBooks" component={ListingBooks} />
             <Route path="/ListingCategories" component={ListingCategories} />
-
-
             <Route path="/author" component={Author} />
             <Route path="/categorypage" component={CategoryProfile} />
-
+            <Route path="/adminlogin" component={AdminLoginPage}/>
+            <Route path="/adminpanel" component={AdminPanel}/>
             <Route path="/Registration" exact component={RegistrationPage} />
             <Route path="/categories" component={Categories} />
              <Route path="/search" component={SearchPage} />

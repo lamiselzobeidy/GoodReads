@@ -5,6 +5,7 @@ import {MDBCol, MDBFormInline, MDBBtn, MDBInput, MDBContainer, MDBRow, MDBInputG
 
 import "./SearchPage.css";
 import {Card, Icon, Image} from "semantic-ui-react";
+import {Link} from "react-router-dom";
 
 export default function SearchPage() {
 
@@ -147,10 +148,12 @@ export default function SearchPage() {
                                         </Card.Description>
                                     </Card.Content>
                                     <Card.Content extra>
-                                        <a>
+                                        <Link
+                                            to={`/bookprofile/${items.bookId}`}
+                                        >
                                             <Icon name='book'/>
-                                            More details
-                                        </a>
+                                            Show Book Details
+                                        </Link>
                                     </Card.Content>
                                 </Card>
                             </MDBCol>

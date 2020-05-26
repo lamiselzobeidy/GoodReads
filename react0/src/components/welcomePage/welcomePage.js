@@ -34,8 +34,8 @@ class welcomePage extends Component {
           console.log("error");
         } else {
           this.setState({ user: result.data });
-          sessionStorage.setItem("user", JSON.stringify(this.state.user))
-          console.log(sessionStorage.getItem('user'))
+          sessionStorage.setItem("user", JSON.stringify(this.state.user));
+          console.log(sessionStorage.getItem('user'));
           return (window.location = `/homepage`);
         }
       });

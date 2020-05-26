@@ -1,12 +1,12 @@
-const express = require('express')
+const express = require('express');
 var jwt = require('jsonwebtoken');
 
 
 
-const userModel = require('../models/user')
+const userModel = require('../models/user');
 
 
-const router = express.Router()
+const router = express.Router();
 
 router.post('/', async (req, res) => {
     const usermail = req.body.mail
@@ -55,9 +55,7 @@ router.post('/', async (req, res) => {
     } catch (error) {
         res.send(error)
     }
-    
-    
-})
+});
 
 
 
