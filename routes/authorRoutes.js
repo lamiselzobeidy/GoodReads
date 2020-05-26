@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const authorModel = require("../models/authorModel");
 const checkIsAdmin = require("../middlewares/admin_check");
 const fs = require("fs")
+const chalk = require("chalk")
 const multer = require('multer');
 
 const checkJWT = require("../middlewares/jwt_auth")
@@ -51,6 +52,7 @@ router.use(checkIsAdmin)
 router.post("/", upload.single('authorImage'), async (req, res) => {
 
     try {
+        
         // Here we need to check the JWT token before creating a new author
         const newAuthor = new authorModel({
             _id: new mongoose.Types.ObjectId(),
@@ -71,6 +73,7 @@ router.post("/", upload.single('authorImage'), async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
     try {
+        console.log(chalk.blue(req.body));
         // Here we need to check the JWT token before updating a author
         let authorData = {
             firstName: req.body.firstName,
