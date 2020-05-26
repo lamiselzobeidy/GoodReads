@@ -11,13 +11,14 @@ const AdminPanel = () => {
     return (
         <div className="mainDiv">
 
-            <Tabs defaultActiveKey="home" transition={false} id="noanim-tab-example">
-                <Tab eventKey="Catogries" title="Catogries">
-                    <AdminCatogries></AdminCatogries>
-                </Tab>
+            <Tabs defaultActiveKey="Books" transition={false} id="noanim-tab-example">
                 <Tab eventKey="Books" title="Books">
                     <AdminBooks></AdminBooks>
                 </Tab>
+                <Tab eventKey="Catogries" title="Catogries">
+                    <AdminCatogries></AdminCatogries>
+                </Tab>
+                
                 <Tab eventKey="Authors" title="Authors" >
                     <AdminAuthors></AdminAuthors>
                 </Tab>
