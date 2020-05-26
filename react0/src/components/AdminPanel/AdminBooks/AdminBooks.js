@@ -8,31 +8,30 @@ import { Redirect } from "react-router";
 
 function MyVerticallyCenteredModal(props) {
   const [book, setBook] = useState({});
+  const [edit, setEdit] = useState(false);
 
   const [bookName, setBookName] = useState("");
-  const [athName, setAthName] = useState("");
+  const [athID, setAthID] = useState("");
   // const [athFullName, setAthFullName] = useState('');
   const [catName, setCatName] = useState("");
   const [brief, setBrief] = useState("");
-
   const [file, setFile] = useState(null);
   const [redirect, setRedirect] = useState(false);
+  const [authors, setAuthors] = useState([]);
 
-  const [edit, setEdit] = useState(false);
 
   const [listingCategories, setListingCategories] = useState([]);
-  const [authors, setAuthors] = useState([]);
 
   useEffect(() => {
     if (props.edit === true) {
       setEdit(true);
       setBook(props.book);
       setBookName(props.book.bookName);
-      setAthName(props.book.authorId.authorName);
+      setAthID(props.book.authorId._id);
       setCatName(props.book.catId.categoryName);
       setBrief(props.book.brief);
     } else {
-      console.log("fffffffffffffffffffffffffffffffff");
+      // console.log("fffffffffffffffffffffffffffffffff");
       setBook({});
       setEdit(false);
     }
@@ -63,13 +62,6 @@ function MyVerticallyCenteredModal(props) {
   const submitValue = (evt) => {
     evt.preventDefault();
     const frmdetails = new FormData();
-    //  frmdetails = {
-    //     'bookName': bookName,
-    //     'authorId': athName,
-    //     'catId': catName,
-    //     'coverImage': file,
-    //     'brief' : "asdasdsa"
-    // }
 
     const newArray = listingCategories.filter((cat) =>
       cat.categoryName === catName ? true : false
@@ -79,11 +71,11 @@ function MyVerticallyCenteredModal(props) {
     }
 
     frmdetails.append("bookName", bookName);
-    frmdetails.append("authorId", athName);
+    frmdetails.append("authorId", athID);
     frmdetails.append("coverImage", file);
     frmdetails.append("brief", brief);
 
-    console.log(catName);
+    // console.log(catName);
     const config = {
       headers: {
         "content-type": "multipart/form-data",
@@ -183,7 +175,7 @@ function MyVerticallyCenteredModal(props) {
                     var index = e.target.selectedIndex;
                     var optionElement = e.target.childNodes[index];
                     var option = optionElement.getAttribute("data-id");
-                    setAthName(option);
+                    setAthID(option);
                   }}
                 >
                   {authors.map((author) => (
@@ -229,7 +221,7 @@ function MyVerticallyCenteredModal(props) {
                   }}
                 />
                 <Form.File.Label data-browse="Select Image">
-                  Upload Your Image
+                {file?file.name:"Upload Your Image"}
                 </Form.File.Label>
               </Form.File>
             </div>
@@ -277,9 +269,7 @@ function AdminBooks() {
     axios
       .delete(`http://34.107.102.252:3000/book/${x._id}`, {
         headers: {
-          JWT:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybWFpbCI6InJvb3RAbWFpbC5jb20iLCJpYXQiOjE1OTAwMzY2Nzl9.c9cdu1Ph1pEWNyV14PKroCBs7Cf_6gz9p-UOLleXupc",
-        },
+          JWT:JSON.parse(sessionStorage.getItem("user")).token},
       })
       .then((res) => {
         getBooks();
