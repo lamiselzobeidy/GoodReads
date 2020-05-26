@@ -93,20 +93,55 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
+
         let id = req.params.id;
-        let results = await BookModel.findById(id).populate("authorId").populate("catId").exec()
-        let bookReviews = await ReviewModel.findReviewsByBookId(id)
+        let results = await BookModel.findById(id).populate("authorId").populate("catId").exec();
+        let bookReviews = await ReviewModel.findReviewsByBookId(id);
+        let bookStatus = "";
+        let bookReview = 0;
+
         console.log(bookReviews);
+        //Book Status and user book rating
+        //JWT
+        const currentUser = await userModel
+            .find({token: req.header("JWT")})
+            .exec();
+
+        const userBook = currentUser[0].all.includes(id);
+
+
+        if (userBook === false) {
+            res.json("You do not have this book");
+        } else {
+            if (currentUser[0].want_to_read.includes(id)) {
+                bookStatus = "want"
+            }
+            if (currentUser[0].read.includes(id)) {
+                bookStatus = "read"
+            }
+            if (currentUser[0].current.includes(id)) {
+                bookStatus = "current"
+            }
+
+            bookReview = await reviewModel
+                .find({userId: currentUser[0]._id, bookId: id}, {rating: 1})
+        }
+
+        const userData = {
+            userBookStatus: bookStatus,
+            userBookReview: bookReview,
+        };
+
 
         let bookAvgRate = 0;
-        let reviews = []
+        let reviews = [];
 
         if (bookReviews !== null) {
-            reviews = bookReviews.length > 0 ? bookReviews[0] : []
+            reviews = bookReviews.length > 0 ? bookReviews[0] : [];
 
             let avgRate = 0;
             if (bookReviews.length > 0) {
-                const bookTotalRate = bookReviews.reduce((total, review) => total + review.rating, 0)
+                const bookTotalRate = bookReviews.reduce((total, review) => total + review.rating, 0);
 
                 avgRate = bookTotalRate / bookReviews.length
             }
@@ -115,7 +150,7 @@ router.get('/:id', async (req, res) => {
 
         }
 
-        res.json({book: results, bookAvgRate, reviews})
+        res.json({book: results, bookAvgRate, reviews, userData})
     } catch (error) {
         console.log(error);
         res.send(404, {
