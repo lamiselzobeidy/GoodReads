@@ -50,7 +50,7 @@ router.get('/', async (req, res) => {
             results = await BookModel.getAllBooks();
             res.json(results);
         } else {
-            const allBooks =await Promise.all( results.map(async book => {
+            const allBooks = await Promise.all(results.map(async book => {
                 let newBook = {
                     bookName: book.bookName,
                     bookImage: book.coverImageName,
@@ -60,27 +60,27 @@ router.get('/', async (req, res) => {
                     .find({bookId: {$in: book._id}}, {rating: 1, _id: 0});
 
                 if (ratings.length === 0) {
-                  newBook["avgRatings"]= 0;
-                  newBook["numberOfRatings"]= 0;
-                   
-               } else {
+                    newBook["avgRatings"] = 0;
+                    newBook["numberOfRatings"] = 0;
+
+                } else {
                     const totalRatings = ratings.reduce((total, currentRating) => {
                         total += currentRating;
                         return total
                     }, 0);
                     const avgRatings = totalRatings / ratings.length;
-                    newBook["avgRatings"]= avgRatings;
-                    newBook["numberOfRatings"]= ratings.length;
+                    newBook["avgRatings"] = avgRatings;
+                    newBook["numberOfRatings"] = ratings.length;
                 }
 
-                console.log(chalk.green(JSON.stringify(newBook)) );
-                
+                console.log(chalk.green(JSON.stringify(newBook)));
+
 
                 return newBook;
             }));
 
-            console.log(chalk.red( allBooks));
-            
+            console.log(chalk.red(allBooks));
+
             res.json(allBooks);
         }
     } catch (error) {
@@ -93,20 +93,55 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
+
         let id = req.params.id;
-        let results = await BookModel.findById(id).populate("authorId").populate("catId").exec()
-        let bookReviews = await ReviewModel.findReviewsByBookId(id)
+        let results = await BookModel.findById(id).populate("authorId").populate("catId").exec();
+        let bookReviews = await ReviewModel.findReviewsByBookId(id);
+        let bookStatus = "";
+        let bookReview = [];
+
         console.log(bookReviews);
+        //Book Status and user book rating
+        //JWT
+        const currentUser = await userModel
+            .find({token: req.header("JWT")})
+            .exec();
+
+        const userBook = currentUser[0].all.includes(id);
+
+
+        if (userBook === true) {
+            if (currentUser[0].want_to_read.includes(id)) {
+                bookStatus = "want"
+            }
+            if (currentUser[0].read.includes(id)) {
+                bookStatus = "read"
+            }
+            if (currentUser[0].current.includes(id)) {
+                bookStatus = "current"
+            }
+        }
+
+        bookReview = await reviewModel
+            .find({userId: currentUser[0]._id, bookId: id}, {_id: 0, rating: 1})
+
+        console.log(bookStatus, bookReview);
+
+        const userData = {
+            userBookStatus: bookStatus,
+            userBookReview: bookReview.length === 0 ? 0 : bookReview[0].rating,
+        };
+
 
         let bookAvgRate = 0;
-        let reviews = []
+        let reviews = [];
 
         if (bookReviews !== null) {
-            reviews = bookReviews.length > 0 ? bookReviews[0] : []
+            reviews = bookReviews.length > 0 ? bookReviews[0] : [];
 
             let avgRate = 0;
             if (bookReviews.length > 0) {
-                const bookTotalRate = bookReviews.reduce((total, review) => total + review.rating, 0)
+                const bookTotalRate = bookReviews.reduce((total, review) => total + review.rating, 0);
 
                 avgRate = bookTotalRate / bookReviews.length
             }
@@ -115,7 +150,7 @@ router.get('/:id', async (req, res) => {
 
         }
 
-        res.json({book: results, bookAvgRate, reviews})
+        res.json({book: results, bookAvgRate, reviews, userData})
     } catch (error) {
         console.log(error);
         res.send(404, {

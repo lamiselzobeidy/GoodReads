@@ -23,8 +23,6 @@ const AdminPanel = () => {
                 </Tab>
             </Tabs>
         </div>
-
-
     );
 }
 

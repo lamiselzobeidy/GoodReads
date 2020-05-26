@@ -4,7 +4,8 @@ import axios from "axios";
 import {MDBCol, MDBFormInline, MDBBtn, MDBInput, MDBContainer, MDBRow, MDBInputGroup} from "mdbreact";
 
 import "./SearchPage.css";
-import {Card, Icon, Image} from "semantic-ui-react";
+import {Button, Card, Icon, Image} from "semantic-ui-react";
+import {Link} from "react-router-dom";
 
 export default function SearchPage() {
 
@@ -88,7 +89,7 @@ export default function SearchPage() {
                         <MDBInput
                             onClick={() => setRadioButton(2)}
                             checked={Radiobutton === 2 ? true : false}
-                    
+
                             type='radio'
                             id='radio2'
                             containerClass='mr-5'
@@ -100,7 +101,7 @@ export default function SearchPage() {
                         <MDBInput
                             onClick={() => setRadioButton(3)}
                             checked={Radiobutton === 3 ? true : false}
-                            
+
                             type='radio'
                             id='radio3'
                             containerClass='mr-5'
@@ -116,20 +117,28 @@ export default function SearchPage() {
                         let img = "";
                         let header = "";
                         let info = "";
+                        let linkType = 0;
+                        let currId = 0;
                         if (cardType === 1) {
                             img = items.coverImageName;
                             header = items.bookName;
                             info = items.brief
+                            linkType = 1;
+                            currId = items._id;
                         }
                         if (cardType === 2) {
                             img = items.authorImage;
                             header = items.fullName;
                             info = items.bio;
+                            linkType = 2;
+                            currId = items._id;
                         }
                         if (cardType === 3) {
                             img = null;
                             header = items.categoryName;
                             info = items.summary;
+                            linkType = 3;
+                            currId = items._id;
                         }
                         return (
                             <MDBCol md="4">
@@ -147,10 +156,42 @@ export default function SearchPage() {
                                         </Card.Description>
                                     </Card.Content>
                                     <Card.Content extra>
-                                        <a>
-                                            <Icon name='book'/>
-                                            More details
-                                        </a>
+                                            {(() => {
+                                                if (linkType === 1) {
+                                                    return (
+                                                        <Link
+                                                            to={`/bookprofile/${currId}`}
+                                                        >
+                                                            <Icon name='book'/>
+                                                            Show Book Details
+                                                        </Link>)
+                                                }
+                                                if (linkType === 2) {
+                                                    return (<Link
+                                                        to={{
+                                                            pathname: "/author",
+                                                            xy: {
+                                                                authorId: currId,
+                                                            },
+                                                        }}
+                                                    >
+                                                        <Icon name='pencil'/>
+                                                        Show Author Details
+                                                    </Link>)
+                                                }
+                                                if (linkType === 3) {
+                                                    return (
+                                                        <Link
+                                                            to={`/categorypage/${currId}`}
+                                                        >
+                                                            <Icon name='magic'/>
+                                                            Show Category Details
+                                                        </Link>
+                                                    )
+                                                }
+                                            })()}
+
+
                                     </Card.Content>
                                 </Card>
                             </MDBCol>
