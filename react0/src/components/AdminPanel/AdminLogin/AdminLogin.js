@@ -34,6 +34,14 @@ export default function AdminLoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    useEffect(()=>{
+        if (JSON.parse(sessionStorage.getItem("user"))) {
+            if (JSON.parse(sessionStorage.getItem("user")).isAdmin) {
+                window.location = '/adminpanel'
+            }
+        }
+    },[])
+
     return (
 
         <MDBCard

@@ -53,7 +53,7 @@ const App = (props) => {
             <Route path="/ListingBooks" component={ListingBooks} />
             <Route path="/ListingCategories" component={ListingCategories} />
             <Route path="/author" component={Author} />
-            <Route path="/adminlogin" component={AdminLoginPage}/>
+            <Route path="/admin" component={AdminLoginPage}/>
             <Route path="/adminpanel" component={AdminPanel}/>
             <Route path="/Registration" exact component={RegistrationPage} />
             <Route path="/categories" component={Categories} />
@@ -61,7 +61,7 @@ const App = (props) => {
             <Route path="/bookprofile/:bookId" component={BookProfile} />
             <Route path="/categorypage/:categoryId" component={CategoryProfile} />
             <Route path="/userprofile" component={UserProfilePage} />
-            <Route path="/admin" component={AdminPanel} />
+            {/* <Route path="/admin" component={AdminPanel} /> */}
           </Switch>
           {/* <RegistrationPage/> */}
           {/* <ListingCategories></ListingCategories> */}

@@ -31,7 +31,7 @@ router.get("/", async function (req, res) {
     let authors = [];
     let cats = [];
     
-    if (top10BooksRating.length>0) {
+    if (top10BooksRating.length===0) {
       top10BooksRating = await BookModel.find({}).limit(10).exec();
     }
 

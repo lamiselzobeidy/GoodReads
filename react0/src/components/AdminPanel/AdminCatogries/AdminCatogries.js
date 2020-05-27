@@ -32,9 +32,7 @@ function MyVerticallyCenteredModal(props) {
     console.log(frmdetails);
     const config = {
       headers: {
-        JWT:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybWFpbCI6InJvb3RAbWFpbC5jb20iLCJpYXQiOjE1OTAwMzY2Nzl9.c9cdu1Ph1pEWNyV14PKroCBs7Cf_6gz9p-UOLleXupc",
-      },
+        JWT:JSON.parse(sessionStorage.getItem("user")).token      },
     };
 
     if (edit) {
@@ -156,9 +154,7 @@ function AdminCatogries() {
     axios
       .delete(`http://34.107.102.252:3000/category/${x._id}`, {
         headers: {
-          JWT:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybWFpbCI6InJvb3RAbWFpbC5jb20iLCJpYXQiOjE1ODk0ODk5NjV9.b2vOq5SY79KgxDbHUusM5czvuUD9JsAZe-VKIW6_Z5g",
-        },
+          JWT:JSON.parse(sessionStorage.getItem("user")).token},
       })
       .then((res) => {
         getCategories();

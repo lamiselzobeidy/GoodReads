@@ -1,6 +1,9 @@
 import React from 'react'
 import { Nav, NavDropdown } from 'react-bootstrap'
 import './NewNavBar.css'
+import {
+    Link,
+  } from 'react-router-dom';
 
 
 const NewNavBar = () => {
@@ -13,15 +16,15 @@ const NewNavBar = () => {
             <div class="overlay"></div>
             <div class="container">
                 <nav>
-                    <h1 class="brand"><a href="index.html">B<span>oo</span>k</a></h1>
+                    <h1 class="brand"><Link to="/HomePage">go<span>od</span>reads</Link></h1>
                     <ul>
-                        <li><a className="aa"href="/HomePage">Home</a></li>
-                        <li><a className="aa" href="/ListingAuthors">Authors</a></li>
-                        <li><a className="aa" href="/ListingCategories">Categories</a></li>
-                        <li><a className="aa" href="/ListingBooks">Books</a></li>
-                        <li><a className="aa" href="/search">Search</a></li>
-                        <li>
-                            <NavDropdown title="Profile" id="nav-dropdown" class="DropD">
+                        <li><Link className="aa" to="/HomePage">Home</Link></li>
+                        <li><Link className="aa" to="/ListingAuthors">Authors</Link></li>
+                        <li><Link className="aa" to="/ListingCategories">Categories</Link></li>
+                        <li><Link className="aa" to="/ListingBooks">Books</Link></li>
+                        <li><Link className="aa" to="/search">Search</Link></li>
+                        <li className="aa">
+                            <NavDropdown title="Profile" id="nav-dropdown" class="dropD">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
