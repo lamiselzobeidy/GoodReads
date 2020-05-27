@@ -3,6 +3,7 @@ import { Nav, NavDropdown } from 'react-bootstrap'
 import './NewNavBar.css'
 import {
     Link,
+    NavLink
   } from 'react-router-dom';
 
 
@@ -14,15 +15,15 @@ const NewNavBar = () => {
                 <i class="fas fa-bars"></i>
             </div>
             <div class="overlay"></div>
-            <div class="container">
+            {/* <div class="container"> */}
                 <nav>
-                    <h1 class="brand"><Link to="/HomePage">go<span>od</span>reads</Link></h1>
+                    <h1 class="brand"><Link to="/HomePage"><span>g</span>ood<span>r</span>eads</Link></h1>
                     <ul>
-                        <li><Link className="aa" to="/HomePage">Home</Link></li>
-                        <li><Link className="aa" to="/ListingAuthors">Authors</Link></li>
-                        <li><Link className="aa" to="/ListingCategories">Categories</Link></li>
-                        <li><Link className="aa" to="/ListingBooks">Books</Link></li>
-                        <li><Link className="aa" to="/search">Search</Link></li>
+                        <li><NavLink className="aa" to="/HomePage">Home</NavLink></li>
+                        <li><NavLink className="aa" to="/ListingAuthors">Authors</NavLink></li>
+                        <li><NavLink className="aa" to="/ListingCategories">Categories</NavLink></li>
+                        <li><NavLink className="aa" to="/ListingBooks">Books</NavLink></li>
+                        <li><NavLink className="aa" to="/search">Search</NavLink></li>
                         <li className="aa">
                             <NavDropdown title="Profile" id="nav-dropdown" class="dropD">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -35,7 +36,7 @@ const NewNavBar = () => {
                     </ul>
                 </nav>
             </div>
-        </div>
+        // </div>
 
 
 

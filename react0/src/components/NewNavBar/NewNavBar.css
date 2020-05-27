@@ -4,10 +4,16 @@
 }
 
 .aa{
+	font-size:1vw;
 	text-decoration: none;
-	color: #eee;
+	color: rgb(112, 112, 112);
 }
 
+.active{
+	font-size:1vw;
+	text-decoration: none;
+	color: rgb(0, 123, 255);
+}
 .nav-link {
 	padding-top: 0%;
 }
