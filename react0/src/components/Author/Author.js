@@ -37,7 +37,7 @@ function Author(props) {
                 console.log(err);
             })
 
-    }, []);
+    }, [props.location.xy]);
 
 
     return (

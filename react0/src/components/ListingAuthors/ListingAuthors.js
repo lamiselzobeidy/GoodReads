@@ -61,15 +61,20 @@ function ListingAuthors(props) {
 
     return (
         <div className="hi">
-            <p className="paragraphs">All Authors</p>
-            <Card.Group itemsPerRow={5}>
+            <p className="paragraphs text-center">All Authors</p>
+            <Card.Group itemsPerRow={3}>
                 {filtered.map((author) => (
                     <Card>
+                        <Image
+                            src={`http://34.107.102.252:3000/${author.authorImage}`}
+                            wrapped
+                            ui={false}
+                        />
                         <Card.Content>
                             <Card.Header>
                                 {author.firstName + " " + author.lastName}{" "}
                             </Card.Header>
-                            <Card.Meta>Friends of Elliot</Card.Meta>
+                            <Card.Meta>{author.DateofBirth.slice(0,10)}</Card.Meta>
                             <Card.Description>{author.bio}</Card.Description>
                         </Card.Content>
                         <Card.Content extra>

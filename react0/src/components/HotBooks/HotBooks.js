@@ -1,7 +1,9 @@
 import React from "react"
 import './hotBooks.css';
 import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBContainer, MDBView } from "mdbreact";
-
+import {
+  Link
+} from 'react-router-dom';
 
 const HotBooks = (props) => {
         return (
@@ -21,11 +23,13 @@ const HotBooks = (props) => {
                   
                   <MDBCarouselItem itemId={idx + 1}>
                   <MDBView>
+                    <Link to={`/bookprofile/${book._id}`}>
                     <img
                       className="d-block w-100"
                       src={`http://34.107.102.252:3000/${book.coverImageName}`}
                       alt="First slide"
                     />
+                    </Link>
                   </MDBView>
                 </MDBCarouselItem>
                 
@@ -75,11 +79,13 @@ const HotBooks = (props) => {
                   
                 <MDBCarouselItem itemId={ (idx + 1)}>
                 <MDBView>
-                  <img
-                    className="d-block w-100"
-                    src={`http://34.107.102.252:3000/${book.coverImageName}`}
-                    alt="First slide"
-                  />
+                    <Link to={`/bookprofile/${book._id}`}>
+                    <img
+                      className="d-block w-100"
+                      src={`http://34.107.102.252:3000/${book.coverImageName}`}
+                      alt="First slide"
+                    />
+                    </Link>
                 </MDBView>
               </MDBCarouselItem>
               
@@ -128,11 +134,13 @@ const HotBooks = (props) => {
                   
                 <MDBCarouselItem itemId={ (idx + 1)}>
                 <MDBView>
-                  <img
-                    className="d-block w-100"
-                    src={`http://34.107.102.252:3000/${book.coverImageName}`}
-                    alt="First slide"
-                  />
+                    <Link to={`/bookprofile/${book._id}`}>
+                    <img
+                      className="d-block w-100"
+                      src={`http://34.107.102.252:3000/${book.coverImageName}`}
+                      alt="First slide"
+                    />
+                    </Link>
                 </MDBView>
               </MDBCarouselItem>
               
@@ -180,11 +188,13 @@ const HotBooks = (props) => {
                   
                 <MDBCarouselItem itemId={ (idx + 1)}>
                 <MDBView>
-                  <img
-                    className="d-block w-100"
-                    src={`http://34.107.102.252:3000/${book.coverImageName}`}
-                    alt="First slide"
-                  />
+                    <Link to={`/bookprofile/${book._id}`}>
+                    <img
+                      className="d-block w-100"
+                      src={`http://34.107.102.252:3000/${book.coverImageName}`}
+                      alt="First slide"
+                    />
+                    </Link>
                 </MDBView>
               </MDBCarouselItem>
               

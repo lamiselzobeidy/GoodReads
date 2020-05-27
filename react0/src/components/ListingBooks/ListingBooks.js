@@ -39,12 +39,14 @@ const ListingBooks = () => {
     }, []);
 
     return (
-        <>
-            <Card.Group itemsPerRow={4} className="container mt-5">
+        <div className="hi">
+
+        <p className="paragraphs text-center">All Books</p>
+        <Card.Group itemsPerRow={3} className="container mt-5">
                 {filtered.map((book) => (
                     <Card>
                         <Image
-                            src="https://www.booktopia.com.au/blog/wp-content/uploads/2018/12/the-arsonist.jpg"
+                            src={`http://34.107.102.252:3000/${book.coverImageName}`}
                             wrapped
                             ui={false}
                         />
@@ -67,7 +69,7 @@ const ListingBooks = () => {
                 ))}
             </Card.Group>
             <Pagenation pageNumberHandler={pageNumberHandler} type={2}></Pagenation>
-        </>
+        </div>
     );
 };
 
