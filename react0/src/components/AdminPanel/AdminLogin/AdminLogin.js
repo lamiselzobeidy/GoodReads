@@ -34,13 +34,13 @@ export default function AdminLoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    useEffect(()=>{
+    useEffect(() => {
         if (JSON.parse(sessionStorage.getItem("user"))) {
             if (JSON.parse(sessionStorage.getItem("user")).isAdmin) {
                 window.location = '/adminpanel'
             }
         }
-    },[])
+    }, [])
 
     return (
 
@@ -55,7 +55,7 @@ export default function AdminLoginPage() {
             <div className="text-white rgba-stylish-strong py-2 px-2 z-depth-4">
                 <div className="text-center">
                     <h3 className="white-text mb-2 mt-2 font-weight-bold">
-                        <strong>Admin</strong>
+                        <strong>xAdmin</strong>
                         <a href="" className="green-text font-weight-bold">
                             <strong>Sign In</strong>
                         </a>
