@@ -45,18 +45,26 @@ function Author(props) {
         <Table striped bordered hover variant="white" className="table">
             <tbody>
             <tr>
-                <td style={{height: '60vh'}} colSpan="2">
+                <td style={{height: '60vh'}} colSpan="3">
 
-                    <Card style={{height: '8rem'}}>
-                        <Card.Header>{author.firstName + " " + author.lastName}</Card.Header>
-                        <Card.Img className="img" variant="top"
-                                  src={`http://34.107.102.252:3000/${author.authorImage}`}/>
-                        <Card.Body>
-                            <Card.Title>Info</Card.Title>
-                            <Card.Text>
+                    <Card style={{height: '25rem'}}>
+                        <Row>
+                            <Card.Body>
+                                <Card.Header className="text-center">{author.firstName + " " + author.lastName}</Card.Header>
+                                <Row>
+                                    <Col className="text-center">
+                                        <Card.Img className="mx-auto mb-3 mt-3"
+                                                  src={`http://34.107.102.252:3000/${author.authorImage}`}/>
+                                        <Card.Title>Date of
+                                            Birth: {String(author.DateofBirth).substring(0, 10)}</Card.Title>
+                                        <Card.Text>
+                                            {author.bio}
+                                        </Card.Text>
+                                    </Col>
+                                </Row>
 
-                            </Card.Text>
-                        </Card.Body>
+                            </Card.Body>
+                        </Row>
                     </Card>
                 </td>
             </tr>
