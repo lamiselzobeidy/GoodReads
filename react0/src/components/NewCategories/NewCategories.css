@@ -1,12 +1,12 @@
 .mainc {
-  margin-top:100px;
-  padding-top: 150px       ;
+  margin-top: 10px;
+  margin-bottom: 50px;
   width: 100vw;
-  height: 45vh;
+  /* height: 45vh; */
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: auto;
 }
 .cardd {
   display: grid;
@@ -135,4 +135,12 @@
 }
 .cardd-stats.cardd4{
   background: rgb(76, 126, 243);
+}
+
+.cardd-p{
+  overflow: hidden;
+  text-overflow: ellipsis;
+   display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
 }

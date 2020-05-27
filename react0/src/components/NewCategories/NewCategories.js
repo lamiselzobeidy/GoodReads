@@ -1,17 +1,19 @@
 import React, { useEffect, useState, } from 'react'
 import './NewCategories.css'
 import axios from 'axios'
+import { Label } from 'semantic-ui-react'
 
 
-const NewCategories = (props) => {
+const Newarray = (props) => {
     
     
-    const [categories, setCategories] = useState([])
-
+    const [array, setArray] = useState([])
+    const [type,setType] =useState ("cat")
     useEffect(() => {
         console.log("cats page",props.HomePage);
 
-        setCategories(props.HomePage)
+        setArray(props.HomePage)
+        setType(props.type)
         
         // if(props.cats.length >0)
         // {
@@ -20,7 +22,7 @@ const NewCategories = (props) => {
         // axios.get("http://34.107.102.252:3000/category/")
         //     .then(res => {
                 
-        //         setCategories(res.data);
+        //         setArray(res.data);
         //     })
         //     .catch(err => {
         //         console.log(err);
@@ -36,16 +38,22 @@ const NewCategories = (props) => {
         <div class="mainc">
 
         {
-            categories.map(category=>(
+            array.map(item=>(
 
                 <a href="gg">
 
                 <div class="cardd">
-                    <div class="cardd-image"></div>
+                    <div class="cardd-image">
+                        {
+                            type==="cats"?"":
+                            <img class="cardd-image w-100 h-100" src={`http://34.107.102.252:3000/${item.authorImage }`}>
+                            </img>
+                        }
+                    </div>
                     <div class="cardd-text">
                         <span class="date">4 days ago</span>
-                         <h2>{ category.categoryName  }</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod deserunt eligendi dolor</p>
+                         <h3>{ type==="cats"? item.categoryName :item.fullName }</h3>
+                        <p className="cardd-p">{ type==="cats"? item.summary :item.bio }</p>
                     </div>
                     <div class="cardd-stats">
                         <div class="stat">
@@ -68,7 +76,7 @@ const NewCategories = (props) => {
         }
           
 
-            <a>
+            {/* <a>
                 <div class="cardd">
                     <div class="cardd-image cardd2"></div>
                     <div class="cardd-text cardd2">
@@ -143,7 +151,7 @@ const NewCategories = (props) => {
                         </div>
                     </div>
                 </div>
-            </a>
+            </a> */}
 
         </div>
 
@@ -151,4 +159,4 @@ const NewCategories = (props) => {
 
 }
 
-export default NewCategories
+export default Newarray

@@ -5,6 +5,7 @@ import { Button} from 'react-bootstrap';
 import NewCategories from '../NewCategories/NewCategories'
 import axios from 'axios'
 import LoadingPage from '../LoadingPage/LoadingPage'
+import { Label } from 'semantic-ui-react';
 
 
 const HomePage =()=>{
@@ -16,7 +17,7 @@ const HomePage =()=>{
     useEffect(() => {
         axios.get("http://34.107.102.252:3000/home")
             .then(res => {  
-                console.log("this is home page",res.data.cats);
+                console.log("this is home page",res.data);
                       
                 setHomePage(res.data);
                 setTimeout(()=>{
@@ -37,11 +38,20 @@ const HomePage =()=>{
     {
         return(
 
-            <div>
+            <div  className="text-center">
                 
-            <Button variant="light" className="btn" style={{fontSize:30 }}>Popular books</Button> 
-            <HotBooks ></HotBooks>
-            <NewCategories  HomePage={HomePage.cats} ></NewCategories>
+            <Label variant="light"  style={{fontSize:30,"margin-bottom":"10px" }}>Popular books</Label> 
+            <HotBooks books={HomePage.books} ></HotBooks>
+            
+            <div  style={{"margin-top":"450px"}}>
+                <Label style={{fontSize:30 }}>Top Categories</Label>
+            <NewCategories  HomePage={HomePage.cats} type="cats" ></NewCategories>
+
+            </div>
+            <div>
+            <Label style={{fontSize:30 }}>Top Authors</Label>
+            <NewCategories  HomePage={HomePage.authors} type="ath" ></NewCategories>
+            </div>
             {/* <ListingCatogries></ListingCatogries> */}
             </div>
     

@@ -3,19 +3,35 @@ import './hotBooks.css';
 import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBContainer, MDBView } from "mdbreact";
 
 
-const HotBooks = () => {
+const HotBooks = (props) => {
         return (
         <MDBContainer className="container">
 
             <MDBCarousel
-              activeItem={1}
-              length={3}
+              activeItem={Math.floor(Math.random() * Math.floor(props.books.length) ) + 1}
+              length={props.books.length}
               showControls={true}
               showIndicators={true}
               className="z-depth-1 w-25 carousel"
             >
               <MDBCarouselInner>
-                <MDBCarouselItem itemId="1">
+                {
+                props.books.map((book,idx)=>(
+                
+                  
+                  <MDBCarouselItem itemId={idx + 1}>
+                  <MDBView>
+                    <img
+                      className="d-block w-100"
+                      src={`http://34.107.102.252:3000/${book.coverImageName}`}
+                      alt="First slide"
+                    />
+                  </MDBView>
+                </MDBCarouselItem>
+                
+                ))}
+                
+                {/* <MDBCarouselItem itemId="1">
                   <MDBView>
                     <img
                       className="d-block w-100"
@@ -41,20 +57,35 @@ const HotBooks = () => {
                       alt="Third slide"
                     />
                   </MDBView>
-                </MDBCarouselItem>
+                </MDBCarouselItem> */}
               </MDBCarouselInner>
               
             </MDBCarousel>
             
             <MDBCarousel
-              activeItem={1}
-              length={3}
+              activeItem={Math.floor(Math.random() * Math.floor(props.books.length) ) + 1}
+              length={props.books.length}
               showControls={true}
               showIndicators={true}
               className="z-depth-1 w-25"
             >
               <MDBCarouselInner>
-                <MDBCarouselItem itemId="1">
+              {props.books.map((book,idx)=>(
+                
+                  
+                <MDBCarouselItem itemId={ (idx + 1)}>
+                <MDBView>
+                  <img
+                    className="d-block w-100"
+                    src={`http://34.107.102.252:3000/${book.coverImageName}`}
+                    alt="First slide"
+                  />
+                </MDBView>
+              </MDBCarouselItem>
+              
+              ))}
+              
+                {/* <MDBCarouselItem itemId="1">
                   <MDBView>
                     <img
                       className="d-block w-100"
@@ -80,19 +111,33 @@ const HotBooks = () => {
                       alt="Third slide"
                     />
                   </MDBView>
-                </MDBCarouselItem>
+                </MDBCarouselItem> */}
               </MDBCarouselInner>
               
             </MDBCarousel>
             <MDBCarousel
-              activeItem={1}
-              length={3}
+              activeItem={Math.floor(Math.random() * Math.floor(props.books.length) ) + 1}
+              length={props.books.length}
               showControls={true}
               showIndicators={true}
               className="z-depth-1 w-25"
             >
               <MDBCarouselInner>
-                <MDBCarouselItem itemId="1">
+              {props.books.map((book,idx)=>(
+                
+                  
+                <MDBCarouselItem itemId={ (idx + 1)}>
+                <MDBView>
+                  <img
+                    className="d-block w-100"
+                    src={`http://34.107.102.252:3000/${book.coverImageName}`}
+                    alt="First slide"
+                  />
+                </MDBView>
+              </MDBCarouselItem>
+              
+              ))}
+                {/* <MDBCarouselItem itemId="1">
                   <MDBView>
                     <img
                       className="d-block w-100"
@@ -118,19 +163,33 @@ const HotBooks = () => {
                       alt="Third slide"
                     />
                   </MDBView>
-                </MDBCarouselItem>
+                </MDBCarouselItem> */}
               </MDBCarouselInner>
               
             </MDBCarousel>
             <MDBCarousel
-              activeItem={1}
-              length={3}
+              activeItem={Math.floor(Math.random() * Math.floor(props.books.length) ) + 1}
+              length={props.books.length}
               showControls={true}
               showIndicators={true}
               className="z-depth-1 w-25"
             >
               <MDBCarouselInner>
-                <MDBCarouselItem itemId="1">
+              {props.books.map((book,idx)=>(
+                
+                  
+                <MDBCarouselItem itemId={ (idx + 1)}>
+                <MDBView>
+                  <img
+                    className="d-block w-100"
+                    src={`http://34.107.102.252:3000/${book.coverImageName}`}
+                    alt="First slide"
+                  />
+                </MDBView>
+              </MDBCarouselItem>
+              
+              ))}
+                {/* <MDBCarouselItem itemId="1">
                   <MDBView>
                     <img
                       className="d-block w-100"
@@ -156,7 +215,7 @@ const HotBooks = () => {
                       alt="Third slide"
                     />
                   </MDBView>
-                </MDBCarouselItem>
+                </MDBCarouselItem> */}
               </MDBCarouselInner>
               
             </MDBCarousel>
