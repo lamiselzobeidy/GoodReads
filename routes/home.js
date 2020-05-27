@@ -8,6 +8,51 @@ let ReviewModel = require("../models/review");
 
 
 let router = express.Router();
+
+function uniqueAuthors(array) {
+    let newArray = [];
+
+    // Declare an empty object
+    let uniqueObject = {};
+
+    // Loop for the array elements
+    for (let i in array) {
+
+        // Extract the title
+        objTitle = array[i]['authorId'];
+
+        // Use the title as the index
+        uniqueObject[objTitle] = array[i];
+    }
+
+    // Loop to push unique object into array
+    for (i in uniqueObject) {
+        newArray.push(uniqueObject[i]);
+    }
+    return newArray;
+}
+
+function uniqueCategories(array) {
+    let newArray = [];
+
+    // Declare an empty object
+    let uniqueObject = {};
+
+    // Loop for the array elements
+    for (let i in array) {
+
+        objTitle = array[i]['catId'];
+
+        uniqueObject[objTitle] = array[i];
+    }
+
+    // Loop to push unique object into array
+    for (i in uniqueObject) {
+        newArray.push(uniqueObject[i]);
+    }
+    return newArray;
+}
+
 router.get("/", async function (req, res) {
     try {
         const aggregatorOpts = [
@@ -45,19 +90,21 @@ router.get("/", async function (req, res) {
                 console.log(chalk.green(author));
                 console.log(chalk.magenta(cat));
 
-
                 if (authors.filter((e) => e._id === author._id).length === 0) {
                     if (!authors.includes(author)) {
                         authors.push(author);
                     }
                 }
 
+                authors = uniqueAuthors(authors);
 
                 if (cats.filter((e) => e._id === cat._id).length === 0) {
                     if (!cats.includes(cat)) {
                         cats.push(cat);
                     }
                 }
+
+                cats = uniqueCategories(cats);
 
                 books.push(book);
 

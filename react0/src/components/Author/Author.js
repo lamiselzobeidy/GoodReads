@@ -49,9 +49,8 @@ function Author(props) {
 
                     <Card style={{height: '8rem'}}>
                         <Card.Header>{author.firstName + " " + author.lastName}</Card.Header>
-                        <Card.Img className="img" variant="center"
+                        <Card.Img className="img" variant="top"
                                   src={`http://34.107.102.252:3000/${author.authorImage}`}/>
-
                         <Card.Body>
                             <Card.Title>Info</Card.Title>
                             <Card.Text>
