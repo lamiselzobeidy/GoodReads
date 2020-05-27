@@ -11,7 +11,7 @@ let BookModel = require("../models/book")
 let AuthorModel = require("../models/authorModel")
 let CategoryModel = require("../models/categoryModel")
 const ReviewModel = require("../models/review");
-
+const userModel = require("../models/user");
 const checkIsAdmin = require("../middlewares/admin_check");
 
 const checkJWT = require("../middlewares/jwt_auth")
@@ -124,7 +124,7 @@ router.get('/:id', async (req, res) => {
             }
         }
 
-        bookReview = await reviewModel
+        bookReview = await ReviewModel
             .find({userId: currentUser[0]._id, bookId: id}, {_id: 0, rating: 1})
 
         console.log(bookStatus, bookReview);
