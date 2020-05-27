@@ -10,11 +10,14 @@ function MyVerticallyCenteredModal(props) {
   const [edit, setEdit] = useState(false);
 
   const [catName, setCatName] = useState("");
+  const [catSummary, setCatSummary] = useState("");
+
   const [catBackup, setCatBackup] = useState("");
   useEffect(() => {
     if (props.cat !== {} && catBackup !== props.cat.categoryName) {
       setCatName(props.cat.categoryName);
       setCatBackup(props.cat.categoryName);
+      setCatSummary(props.cat.summary);
       setEdit(true);
     }
   }, [props.cat]);
@@ -24,6 +27,7 @@ function MyVerticallyCenteredModal(props) {
 
     const frmdetails = {
       categoryName: catName,
+      summary:catSummary
     };
     console.log(frmdetails);
     const config = {
@@ -87,6 +91,22 @@ function MyVerticallyCenteredModal(props) {
                 onChange={(e) => {
                   console.log(catName);
                   setCatName(e.target.value);
+                }}
+              />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} controlId="formPlaintextPassword">
+            <Form.Label column sm="2">
+              Category Summary
+            </Form.Label>
+            <Col sm="10">
+              <Form.Control
+                size="lg"
+                type="text"
+                placeholder={catSummary}
+                onChange={(e) => {
+                  console.log(catName);
+                  setCatSummary(e.target.value);
                 }}
               />
             </Col>
@@ -162,7 +182,7 @@ function AdminCatogries() {
       {loader ? (
         <MyLoader />
       ) : (
-        <Table striped bordered hover>
+        <Table responsive="lg" striped bordered hover>
           <thead>
             <tr>
               <th>ID</th>

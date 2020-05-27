@@ -231,7 +231,7 @@ function AdminAuthors() {
       {loader ? (
         <MyLoader />
       ) : (
-        <Table striped bordered hover>
+        <Table responsive="lg" striped bordered hover>
           <thead>
             <tr>
               <th>ID</th>

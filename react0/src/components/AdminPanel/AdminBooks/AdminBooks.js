@@ -301,7 +301,7 @@ function AdminBooks() {
       {loader ? (
         <MyLoader />
       ) : (
-        <Table responsive="sm" striped bordered hover>
+        <Table responsive="lg" striped bordered hover>
           <thead>
             <tr>
               <th>ID</th>
