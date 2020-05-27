@@ -7,7 +7,8 @@ import {
 
 const HotBooks = (props) => {
         return (
-        <MDBContainer className="container">
+        
+        <MDBContainer style={{"margin-bottom": "37vw"}} >
 
             <MDBCarousel
               activeItem={Math.floor(Math.random() * Math.floor(props.books.length) ) + 1}

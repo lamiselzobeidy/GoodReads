@@ -43,7 +43,7 @@ const HomePage =()=>{
             <Label variant="light"  style={{fontSize:30,"margin-bottom":"10px" }}>Popular books</Label> 
             <HotBooks books={HomePage.books} ></HotBooks>
             
-            <div  style={{"margin-top":"450px"}}>
+            <div >
                 <Label style={{fontSize:30 }}>Top Categories</Label>
             <NewCategories  HomePage={HomePage.cats} type="cats" ></NewCategories>
 
