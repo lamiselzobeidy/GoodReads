@@ -333,23 +333,26 @@ export default function RegistrationPage() {
                 type="email"
                 validate
                 labelClass="white-text"
-              />
+                className="text-success"
+                              />
               <MDBInput
                 label="Confirm email"
                 onChange={(e) => {
                   setConfirmEmail(e.target.value);
                 }}
+
                 group
                 type="email"
                 validate
                 pattern={/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/}
                 labelClass="white-text"
-                className="m-0"
+                className="m-0 text-success"
               />
               <MDBRow>
                   <MDBCol>
                   <MDBInput
                 label="Your password"
+
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
@@ -357,13 +360,14 @@ export default function RegistrationPage() {
                 type="password"
                 validate
                 labelClass="white-text"
-                className="md-col-4 m-0"
+                className="md-col-4 m-0 text-success"
                 
               />
                   </MDBCol>
                 <MDBCol>
                 <MDBInput
                 label="Confirm password"
+
                 onChange={(e) => {
                   setConfirmPassword(e.target.value);
                 }}
@@ -371,7 +375,7 @@ export default function RegistrationPage() {
                 type="password"
                 validate
                 labelClass="white-text"
-                className="md-col-4 m-0"
+                className="md-col-4 m-0 text-success" 
               />
                 </MDBCol>
             
@@ -381,6 +385,8 @@ export default function RegistrationPage() {
                   <MDBCol>
                   <MDBInput
                 label="Your First Name"
+                className="text-success"
+
                 onChange={(e) => {
                   setFirstName(e.target.value);
                 }}
@@ -393,6 +399,8 @@ export default function RegistrationPage() {
               <MDBCol>
               <MDBInput
                 label="Your Last Name"
+                className="text-success"
+
                 onChange={(e) => {
                   setLastName(e.target.value);
                 }}

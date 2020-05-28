@@ -45,20 +45,19 @@ export default function AdminLoginPage() {
     return (
 
         <MDBCard
-            className="card-image"
+            className="card-image mx-auto m-5"
             style={{
                 backgroundImage:
                     "url(https://previews.123rf.com/images/microone/microone1812/microone181200305/112856531-sketch-vintage-books-seamless-pattern-or-background-sketch-education-seamless-book-for-school-litera.jpg)",
                 width: "40rem",
             }}
         >
-            <div className="text-white rgba-stylish-strong py-2 px-2 z-depth-4">
+            <div className="text-white rgba-stylish-strong py-4 px-4 z-depth-4">
                 <div className="text-center">
                     <h3 className="white-text mb-2 mt-2 font-weight-bold">
-                        <strong>xAdmin</strong>
-                        <a href="" className="green-text font-weight-bold">
-                            <strong>Sign In</strong>
-                        </a>
+                    <strong className="green-text font-weight-bold">Sign In</strong>
+
+                        <strong> Admin</strong>
                     </h3>
                 </div>
                 <MDBInput
@@ -68,7 +67,7 @@ export default function AdminLoginPage() {
                     type="email"
                     validate
                     labelClass="white-text"
-                    className="m-0"
+                    className="m-0 text-success"
                 />
                 <MDBRow>
                     <MDBCol>
@@ -81,19 +80,19 @@ export default function AdminLoginPage() {
                             type="password"
                             validate
                             labelClass="white-text"
-                            className="md-col-4 m-0"
+                            className="md-col-4 m-0 text-success"
 
                         />
                     </MDBCol>
 
                 </MDBRow>
-                <MDBRow className="d-flex align-items-center mb-0">
-                    <div className="text-center mb-0 col-md-12">
+                <MDBRow className="d-flex align-items-center justify-content-center">
+                    <div className="text-center mb-0 col-md-4">
                         <MDBBtn
                             color="success"
                             rounded
                             type="button"
-                            className="btn-block z-depth-1"
+                            className="btn-block z-depth-1 text-dark font-weight-bold"
                             onClick={() => {
                                 sendAdminLoginRequest(email, password);
                             }}
