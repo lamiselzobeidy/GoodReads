@@ -79,7 +79,13 @@ router.get('/', async (req, res) => {
                     newBook["numberOfRatings"] = ratings.length;
                 }
 
-                console.log(chalk.green(JSON.stringify(newBook)));
+        if(req.query.catID){
+		newBook["authorId"]=book.authorId
+		newBook["catId"]=book.catId
+		newBook["brief"]=book.brief
+	}        
+
+        console.log(chalk.green(JSON.stringify(newBook)));
 
 
                 return newBook;
