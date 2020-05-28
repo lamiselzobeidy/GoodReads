@@ -26,6 +26,8 @@ import NewCategories from './components/NewCategories/NewCategories'
 import LoadingPage from './components/LoadingPage/LoadingPage'
 import SearchPage from "./components/SearchPage/SearchPage";
 import AdminLoginPage from "./components/AdminPanel/AdminLogin/AdminLogin"
+import NotFound from './components/NotFound';
+
 const App = (props) => {
   console.log(window.location.pathname);
   if (window.location.pathname == "/") {
@@ -52,7 +54,7 @@ const App = (props) => {
             <Route path="/ListingAuthors" component={ListingAuthors} />
             <Route path="/ListingBooks" component={ListingBooks} />
             <Route path="/ListingCategories" component={ListingCategories} />
-            <Route path="/author" component={Author} />
+            <Route path="/author/:authorId" component={Author} />
             <Route path="/admin" component={AdminLoginPage}/>
             <Route path="/adminpanel" component={AdminPanel}/>
             <Route path="/Registration" exact component={RegistrationPage} />
@@ -61,21 +63,9 @@ const App = (props) => {
             <Route path="/bookprofile/:bookId" component={BookProfile} />
             <Route path="/categorypage/:categoryId" component={CategoryProfile} />
             <Route path="/userprofile" component={UserProfilePage} />
-            {/* <Route path="/admin" component={AdminPanel} /> */}
+            <Route path="*" component={NotFound} />
           </Switch>
-          {/* <RegistrationPage/> */}
-          {/* <ListingCategories></ListingCategories> */}
-          {/* <ListingBooks></ListingBooks> */}
-          {/* <Categories></Categories> */}
-          {/* <LoadingPage></LoadingPage> */}
-          {/* <AdminPanel></AdminPanel> */}
-          {/* <UserProfilePage></UserProfilePage> */}
-          {/* <ListingBooks></ListingBooks> */}
-          {/* <NewCategories></NewCategories> */}
-          {/* <HomePage></HomePage> */}
-          {/* <ListingAuthors></ListingAuthors>  */}
-          {/* <Author></Author> */}
-          {/* <PaginationCompo></PaginationCompo> */}
+         
 
           <Footer></Footer>
         </div>

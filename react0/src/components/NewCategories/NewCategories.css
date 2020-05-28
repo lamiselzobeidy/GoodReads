@@ -2,9 +2,9 @@
   margin-top: 10px;
   margin-bottom: 50px;
   width: 100vw;
-  /* height: 45vh; */
   display: flex;
-  overflow: auto;
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 .cardd {
   display: grid;

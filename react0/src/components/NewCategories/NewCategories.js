@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./NewCategories.css";
 import axios from "axios";
 import { Label } from "semantic-ui-react";
-import {
-    Link
-  } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Newarray = (props) => {
   const [array, setArray] = useState([]);
@@ -37,12 +35,7 @@ const Newarray = (props) => {
           to={
             type === "cats"
               ? `/categorypage/${item._id}`
-              : {
-                  pathname: "/author",
-                  xy: {
-                    authorId: item._id,
-                  },
-                }
+              : `/author/${item._id}`
           }
         >
           <div class="cardd">
@@ -82,83 +75,7 @@ const Newarray = (props) => {
           </div>
         </Link>
       ))}
-
-      {/* <a>
-                <div class="cardd">
-                    <div class="cardd-image cardd2"></div>
-                    <div class="cardd-text cardd2">
-                        <span class="date">1 week ago</span>
-                        <h2>Post Two</h2>
-                        <p>Adipisicing elit. Ducimus, repudiandae corrupti amet temporibus omnis provident illum maxime quod. Lorem ipsum dolor</p>
-                    </div>
-                    <div class="cardd-stats cardd2">
-                        <div class="stat">
-                            <div class="value">7<sup>m</sup></div>
-                            <div class="type">read</div>
-                        </div>
-                        <div class="stat border">
-                            <div class="value">7152</div>
-                            <div class="type">views</div>
-                        </div>
-                        <div class="stat">
-                            <div class="value">21</div>
-                            <div class="type">comments</div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-
-            <a>
-                <div class="cardd">
-                    <div class="cardd-image cardd3"></div>
-                    <div class="cardd-text cardd3">
-                        <span class="date">3 week ago</span>
-                        <h2>Post Three</h2>
-                        <p>Repudiandae corrupti amet temporibus omnis provident illum maxime. Ducimus, lorem ipsum dolor adipisicing elit</p>
-                    </div>
-                    <div class="cardd-stats cardd3">
-                        <div class="stat">
-                            <div class="value">5<sup>m</sup></div>
-                            <div class="type">read</div>
-                        </div>
-                        <div class="stat border">
-                            <div class="value">3021</div>
-                            <div class="type">views</div>
-                        </div>
-                        <div class="stat">
-                            <div class="value">15</div>
-                            <div class="type">comments</div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <a>
-
-                <div class="cardd">
-                    <div class="cardd-image cardd4"></div>
-                    <div class="cardd-text cardd4">
-                        <span class="date">3 week ago</span>
-                        <h2>Post Three</h2>
-                        <p>Repudiandae corrupti amet temporibus omnis provident illum maxime. Ducimus, lorem ipsum dolor adipisicing elit</p>
-                    </div>
-                    <div class="cardd-stats cardd4">
-                        <div class="stat">
-                            <div class="value">5<sup>m</sup></div>
-                            <div class="type">read</div>
-                        </div>
-                        <div class="stat border">
-                            <div class="value">3021</div>
-                            <div class="type">views</div>
-                        </div>
-                        <div class="stat">
-                            <div class="value">15</div>
-                            <div class="type">comments</div>
-                        </div>
-                    </div>
-                </div>
-            </a> */}
+      }
     </div>
   );
 };

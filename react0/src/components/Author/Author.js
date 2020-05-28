@@ -8,12 +8,14 @@ import {Link} from "react-router-dom";
 
 function Author(props) {
 
+    const { match: { params } } = props;
+
     const [author, setAuthor] = useState([]);
     const [authorBooks, setAuthorBooks] = useState([]);
     useEffect(() => {
-        console.log(props.location.xy.authorId);
+        console.log(params.authorId);
 
-        axios.get(`http://34.107.102.252:3000/author/${props.location.xy.authorId}`)
+        axios.get(`http://34.107.102.252:3000/author/${params.authorId}`)
             .then(res => {
                 console.log(res.data);
 
@@ -27,7 +29,7 @@ function Author(props) {
 
         axios.get('http://34.107.102.252:3000/book/', {
             params: {
-                authorID: props.location.xy.authorId
+                authorID: params.authorId
             }
 
         })
@@ -39,7 +41,7 @@ function Author(props) {
                 console.log(err);
             })
 
-    }, [props.location.xy]);
+    }, [params]);
 
 
     return (
@@ -49,15 +51,15 @@ function Author(props) {
             <tr>
                 <td style={{}} colSpan="3">
 
-                    <Card style={{height: '25rem'}}>
+                    <Card >
                         <Card.Header
                             className="text-center">{author.firstName + " " + author.lastName}</Card.Header>
                         <Card.Body>
                             <Row>
                                 <Col className="text-center">
-                                    <Card.Img className="mx-auto mb-3 mt-3"
+                                    <Card.Img className="mx-auto mb-3 mt-3 w-25 h-50"
                                               src={`http://34.107.102.252:3000/${author.authorImage}`}
-                                              style={{width: 300}}/>
+                                              />
                                     <Card.Title>Date of
                                         Birth: {String(author.DateofBirth).substring(0, 10)}</Card.Title>
                                     <Card.Text>
@@ -70,48 +72,49 @@ function Author(props) {
                 </td>
             </tr>
 
-            <tr>
-                <Row className=" ">
+            <tr  > 
+            <Row className="mx-auto p-2" >
                     {
                         authorBooks !== undefined ? authorBooks.map(book => {
                             return (
-                                <Col className="md-4">
+                                <Col md="4"  >
                                     <Link
                                         to={`/bookprofile/${book._id}`}
                                     >
                                         <Card>
                                             <Row>
-                                                <Col className="md-2">
-                                                    <Card.Img className="w-100 h-100"
+                                                <Col className="p-0" style={{maxWidth:"200px" ,display:"flex",  "align-items":"center"}}>
+                                                    <Card.Img className="w-100 mx-auto h-100"
                                                               src={`http://34.107.102.252:3000/${book.bookImage}`}/>
                                                 </Col>
 
-                                                <Col>
-                                                    <Card.Body className="text-left">
-                                                        <Card.Title className="m-2" style={{color: 'blue'}}>
+                                                    <Card.Body >
+                                                        <Card.Title className="mb-2" style={{color: 'blue'}}>
                                                             {book.bookName}
                                                         </Card.Title>
-                                                        <BeautyStars size="15px"
-                                                                     value={book.avgRatings === null ? 0 : book.avgRatings}/>
-                                                        <Card.Text className="m-2">
+                                                        <Card.Text className="mb-2">
                                                             Average Rating:
                                                             {book.avgRatings === null ? 0 : book.avgRatings}
                                                         </Card.Text>
-                                                        <Card.Text className="m-2">
+                                                        <Card.Text className="mb-2">
                                                             Number of Ratings:
                                                             {book.numberOfRatings === null ? 0 : book.numberOfRatings}
                                                         </Card.Text>
+                                                        <BeautyStars size="15px"
+                                                                    gap="20px"
+                                                                     value={book.avgRatings === null ? 0 : book.avgRatings}/>
+                                                        
                                                     </Card.Body>
-                                                </Col>
                                             </Row>
                                         </Card>
                                     </Link>
                                 </Col>
                             )
+                            
                         }) : <div><p>This author has no books</p></div>
 
                     }
-                </Row>
+                    </Row>
             </tr>
 
             </tbody>

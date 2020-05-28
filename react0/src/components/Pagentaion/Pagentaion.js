@@ -66,8 +66,9 @@ const PaginationCompo = (props) => {
     <Pagination className="page">
       <Pagination.First />
 
-      {items.map((item) => (
+      {items.map((item,idx) => (
         <Pagination.Item
+        active={currentPage === idx+1}
           onClick={() => {
             setCurrentPage(item);
             props.pageNumberHandler(item);

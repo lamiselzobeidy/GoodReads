@@ -115,7 +115,7 @@ const BookProfile = (props) => {
                                         >Done reading</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
-                                <BeautyStars size="20px" value={stars} onChange={
+                                <BeautyStars size="20px" activeColor="#444388" value={stars} onChange={
                                     value => {
                                         if (!book.userData.userRating && book.userData.userReview == "") {
                                             axios({
@@ -147,9 +147,9 @@ const BookProfile = (props) => {
                     </Col>
                     <Col xs="5" className="pt-4 bookInfo" >
                         <h2 className="bookname">{book.book.bookName}</h2>
-                        <Link>by {book.book.authorId.firstName} {book.book.authorId.lastName}</Link><br />
-                        <Link>{book.book.catId.categoryName}</Link>
-                        <BeautyStars size="15px" value={book.bookAvgRate} />
+                        <Link to={`/author/${book.book.authorId._id}`}>by {book.book.authorId.firstName} {book.book.authorId.lastName}</Link><br />
+                        <Link to={`/categorypage/${book.book.catId._id}`}>{book.book.catId.categoryName} </Link>
+                        <BeautyStars activeColor="#444388" size="15px" value={book.bookAvgRate} editable={false}/>
                         <p className="mt-3">{book.book.brief}</p>
                     </Col>
 
@@ -160,8 +160,10 @@ const BookProfile = (props) => {
                             <h2 className="bookname">Reviews</h2>
                             <ListGroup variant="flush">
                                 {book.reviews.map(review => (
+                                    review.review?
                                     <ListGroup.Item key={review._id}><span style={{ color: "#b462cb", fontWeight: "bold" }}>{review.userId.firstName} {review.userId.lastName}</span> : {review.review}</ListGroup.Item>
-                                ))}
+                                    :""
+                                    ))}
                             </ListGroup>
                             <InputGroup className="mb-3">
                                 <FormControl
