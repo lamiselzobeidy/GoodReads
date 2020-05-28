@@ -98,11 +98,11 @@ router.get('/:id', async (req, res) => {
 
         let id = req.params.id;
         let results = await BookModel.findById(id).populate("authorId").populate("catId").exec();
-        let bookReviews = await ReviewModel.findReviewsByBookId(id);
+        let bookReviews = await ReviewModel.findReviewsByBookId(id).populate("userId").exec();
         let bookStatus = "";
         let bookReview = [];
 
-        console.log(bookReviews);
+//        console.log(bookReviews);
         //Book Status and user book rating
         //JWT
         const currentUser = await userModel
@@ -125,13 +125,14 @@ router.get('/:id', async (req, res) => {
         }
 
         bookReview = await ReviewModel
-            .find({userId: currentUser[0]._id, bookId: id}, {_id: 0, rating: 1})
+            .find({userId: currentUser[0]._id, bookId: id})
 
-        console.log(bookStatus, bookReview);
+        console.log(bookReview);
 
         const userData = {
             userBookStatus: bookStatus,
             userRating: bookReview.length === 0 ? 0 : bookReview[0].rating,
+            userReview: bookReview.length === 0 ? "" : bookReview[0].review
         };
 
 
@@ -139,7 +140,7 @@ router.get('/:id', async (req, res) => {
         let reviews = [];
 
         if (bookReviews !== null) {
-            reviews = bookReviews.length > 0 ? bookReviews[0] : [];
+            reviews = bookReviews.length > 0 ? bookReviews : [];
 
             let avgRate = 0;
             if (bookReviews.length > 0) {
