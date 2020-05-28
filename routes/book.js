@@ -45,7 +45,8 @@ router.get('/', async (req, res) => {
 
             // results = BookModel.getBooksByAuthorID(req.query.autherID)
         } else if (req.query.catID) {
-            results = BookModel.findBooksByCatId(req.query.catID)
+		results = await  BookModel.find({catId:req.query.catID}).populate("authorId").populate("catId")
+		console.log(results);
         }
 
         if (!req.query.authorID && !req.query.catID) {
@@ -61,7 +62,10 @@ router.get('/', async (req, res) => {
                 const ratings = await ReviewModel
                     .find({bookId: {$in: book._id}}, {rating: 1, _id: 0});
 
-                if (ratings.length === 0) {
+                
+		newBook["_id"]=book._id;
+		
+		if (ratings.length === 0) {
                     newBook["avgRatings"] = 0;
                     newBook["numberOfRatings"] = 0;
 
@@ -86,7 +90,7 @@ router.get('/', async (req, res) => {
             res.json(allBooks);
         }
     } catch (error) {
-        console.log(error);
+//        console.log(error);
         res.status(404).send(error)
     }
 
