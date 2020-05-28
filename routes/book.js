@@ -11,7 +11,7 @@ let BookModel = require("../models/book")
 let AuthorModel = require("../models/authorModel")
 let CategoryModel = require("../models/categoryModel")
 const ReviewModel = require("../models/review");
-
+const userModel = require("../models/user");
 const checkIsAdmin = require("../middlewares/admin_check");
 
 const checkJWT = require("../middlewares/jwt_auth")
@@ -124,14 +124,14 @@ router.get('/:id', async (req, res) => {
             }
         }
 
-        bookReview = await reviewModel
+        bookReview = await ReviewModel
             .find({userId: currentUser[0]._id, bookId: id}, {_id: 0, rating: 1})
 
         console.log(bookStatus, bookReview);
 
         const userData = {
             userBookStatus: bookStatus,
-            userBookReview: bookReview.length === 0 ? 0 : bookReview[0].rating,
+            userRating: bookReview.length === 0 ? 0 : bookReview[0].rating,
         };
 
 
@@ -172,7 +172,7 @@ router.post('/', upload.single('coverImage'), async function (req, res) {
         // Here we need to check the JWT token before creating a new book
         // const newAuthor = new AuthorModel()
         // const newCat = new CategoryModel()
-        
+
         const newBook = new BookModel({
             bookName: req.body.bookName,
             catId: req.body.catId,
@@ -206,16 +206,17 @@ router.patch('/:id', upload.single('coverImage'), async (req, res) => {
     try {
         let id = req.params.id;
         console.log(req.body);
-        let editBook  ={
+        let editBook = {
             bookName: req.body.bookName,
             catId: req.body.catId,
             authorId: req.body.authorId,
-            brief: req.body.brief}
-        
-        if(req.file){
+            brief: req.body.brief
+        }
+
+        if (req.file) {
             let book = await BookModel.findById(id).exec()
             fs.unlinkSync(book.coverImageName)
-            editBook["coverImageName"]=req.file.path
+            editBook["coverImageName"] = req.file.path
         }
 
         let results = await BookModel.findByIdAndUpdate(id, editBook, {new: true}).exec()
