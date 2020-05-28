@@ -25,8 +25,8 @@ const upload = multer({
 });
 
 
-router.post('/', async function (req, res) {
-   console.log(req.body);
+router.post('/',upload.single('coverImage') ,async  (req, res)=> {
+   console.log("ssssssssssssss",req.body);
     
 
     try {
