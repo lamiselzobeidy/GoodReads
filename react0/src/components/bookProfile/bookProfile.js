@@ -46,7 +46,7 @@ const BookProfile = (props) => {
                 <Row className="mx-auto">
                     <Col xs="4">
                         <Card className="bookCard mx-auto" >
-                            <Card.Img variant="top" src={`http://34.107.102.252:3000/` + book.book.coverImageName} height="120px" className="w-75 mx-auto mt-3" />
+                            <Card.Img variant="top" src={`http://34.107.102.252:3000/` + book.book.coverImageName}  className="w-75 mx-auto mt-3 h-100" />
                             <Card.Body className="mx-auto">
                                 <Dropdown>
                                     <Dropdown.Toggle variant="info" id="dropdown-basic" style={{ fontSize: '12px' }}>Want to Read</Dropdown.Toggle>

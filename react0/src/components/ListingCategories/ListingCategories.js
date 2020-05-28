@@ -3,6 +3,7 @@ import { Card, Image, Button, Icon } from 'semantic-ui-react';
 import './ListingCategories.css';
 import axios from 'axios';
 import Pagenation from "../Pagentaion/Pagentaion";
+import { Link } from "react-router-dom";
 
 
 const ListingCategories = () => {
@@ -47,10 +48,10 @@ const ListingCategories = () => {
                                 <Card.Description>{category.summary}</Card.Description>
                             </Card.Content>
                             <Card.Content extra>
-                                <a href={`/categorypage/${category._id}`}>
+                                <Link to={`/categorypage/${category._id}`}>
                                     <Icon name='info' />
                         More details
-                     </a>
+                     </Link>
                             </Card.Content>
                         </Card>
                     ))}

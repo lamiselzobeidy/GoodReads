@@ -11,7 +11,7 @@
     font-family: 'Roboto Slab', serif;
 }
 .bookCard{
-    min-width: 16rem !important;
+    min-width: 20rem !important;
     max-width: 16rem !important;
 }
 .bookInfo{
