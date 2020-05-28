@@ -9,13 +9,25 @@ const PaginationCompo = (props) => {
   const [items, setItems] = useState([1, 2, 3, 4, 5]); // for the equation that calculates the number of pages
 
   useEffect(() => {
-    if (props.type == 1) {
+    if (props.type === 1) {
       setAuthorPagenation();
-    } else if (props.type == 2) {
+    } else if (props.type === 2) {
       setBookPagenation();
+    }else if(props.type===3){
+      setCatPagnation();
     }
   }, []);
 
+  function setCatPagnation() {
+    axios
+      .get("http://34.107.102.252:3000/category")
+      .then((res) => {
+        setPageNumber(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   function setAuthorPagenation() {
     axios
       .get("http://34.107.102.252:3000/author")
